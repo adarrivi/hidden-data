@@ -11,6 +11,7 @@ import com.hidden.data.producer.book.Line;
 
 public class TextBookTest {
 
+	private static final int MAX_LINES_IN_CONENT = TestObjectCreator.BOOK_CONTENT.length;
 	private TextBook victim;
 
 	@Before
@@ -31,9 +32,31 @@ public class TextBookTest {
 	}
 
 	@Test
+	public void readOnlyOneLine() {
+		int linesToRead = 1;
+		List<Line<String>> lines = victim.readNextLines(linesToRead);
+		Assert.assertEquals(linesToRead, lines.size());
+	}
+
+	@Test
 	public void readLessLinesThanTheFullContent() {
-		List<Line<String>> lines = victim.readNextLines(5);
-		Assert.assertEquals(5, lines.size());
+		int linesToRead = MAX_LINES_IN_CONENT - 3;
+		List<Line<String>> lines = victim.readNextLines(linesToRead);
+		Assert.assertEquals(linesToRead, lines.size());
+	}
+
+	@Test
+	public void readFullContent() {
+		int linesToRead = MAX_LINES_IN_CONENT;
+		List<Line<String>> lines = victim.readNextLines(linesToRead);
+		Assert.assertEquals(MAX_LINES_IN_CONENT, lines.size());
+	}
+
+	@Test
+	public void readMoreLinesReturnsMaximunContent() {
+		int linesToRead = MAX_LINES_IN_CONENT * 2;
+		List<Line<String>> lines = victim.readNextLines(linesToRead);
+		Assert.assertEquals(MAX_LINES_IN_CONENT, lines.size());
 	}
 
 }

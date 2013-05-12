@@ -11,16 +11,15 @@ import com.hidden.data.producer.book.text.TextFile;
 public class TestObjectCreator {
 	private static final TestObjectCreator INSTANCE = new TestObjectCreator();
 	public static final String[] BOOK_CONTENT = {
-			"Lubber...",
+			"Lorem ipsum dolor sit amet, consectetur adipisicing elit,",
+			"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 			"",
-			"Stephen followed a lubber...",
+			"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ",
+			"nisi ut aliquip ex ea commodo consequat.",
 			"",
-			"One day in the national library we had a discussion. Shakes. After. His",
-			"lub back: I followed. I gall his kibe.",
+			"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
 			"",
-			"Stephen, greeting, then all amort, followed a lubber jester, a wellkempt",
-			"head, newbarbered, out of the vaulted cell into a shattering daylight of",
-			"no thought." };
+			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
 	public static final String BOOK_FOLDER = "/book/";
 	private static final String EXISTING_BOOK = BOOK_FOLDER + "sampleBook.txt";
 	private static final String EMPTY_BOOK = BOOK_FOLDER + "emptyBook.txt";

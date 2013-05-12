@@ -29,11 +29,14 @@ public class TextBook extends ConcreteBook<String> implements
 		}
 		List<Line<String>> lines = new ArrayList<Line<String>>();
 		int rowIndex = 0;
-		String lineConent = bookContent.readLine();
-		lines.add(new ConcreteLine<String>(rowIndex++, getId(), lineConent));
-		while (rowIndex < numberOfLines && lineConent != null) {
-			lineConent = bookContent.readLine();
-			lines.add(new ConcreteLine<String>(rowIndex++, getId(), lineConent));
+		String lineContent = bookContent.readLine();
+		lines.add(new ConcreteLine<String>(rowIndex++, getId(), lineContent));
+		while (rowIndex < numberOfLines && lineContent != null) {
+			lineContent = bookContent.readLine();
+			if (lineContent == null) {
+				break;
+			}
+			lines.add(new ConcreteLine<String>(rowIndex++, getId(), lineContent));
 		}
 		return lines;
 	}
