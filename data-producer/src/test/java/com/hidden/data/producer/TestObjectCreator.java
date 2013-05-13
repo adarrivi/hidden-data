@@ -7,6 +7,7 @@ import com.common.TestUtils;
 import com.hidden.data.producer.book.ConcreteLine;
 import com.hidden.data.producer.book.text.TextBook;
 import com.hidden.data.producer.book.text.TextFile;
+import com.hidden.data.producer.file.BufferFileReader;
 
 public class TestObjectCreator {
 	private static final TestObjectCreator INSTANCE = new TestObjectCreator();
@@ -22,7 +23,6 @@ public class TestObjectCreator {
 			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." };
 	public static final String BOOK_FOLDER = "/book/";
 	private static final String EXISTING_BOOK = BOOK_FOLDER + "sampleBook.txt";
-	private static final String EMPTY_BOOK = BOOK_FOLDER + "emptyBook.txt";
 	public static final int BOOK_ID = 1;
 	public static final String BOOK_TITLE = "I, Robot";
 
@@ -39,15 +39,15 @@ public class TestObjectCreator {
 	}
 
 	public TextFile createTextFile() {
-		return new TextFile(getFile(EXISTING_BOOK));
+		return new TextFile(new BufferFileReader(getExistingFile()));
 	}
 
-	public TextFile createEmptyTextFile() {
-		return new TextFile(getFile(EMPTY_BOOK));
+	public File getFolderFile() {
+		return getFile(BOOK_FOLDER);
 	}
 
-	public TextFile createInvalidFolderTextFile() {
-		return new TextFile(getFile(BOOK_FOLDER));
+	public File getExistingFile() {
+		return getFile(EXISTING_BOOK);
 	}
 
 	private File getFile(String path) {
