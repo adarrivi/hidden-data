@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.hidden.data.producer.TestObjectCreator;
+import com.hidden.data.producer.TestObjectFactory;
 import com.hidden.data.producer.exception.ProducerException;
 
 public class BufferFileReaderTest {
@@ -18,13 +18,13 @@ public class BufferFileReaderTest {
 	@Test
 	public void getReaderWithFolderThrowsEx() {
 		expectedException.expect(ProducerException.class);
-		victim = new BufferFileReader(TestObjectCreator.getInstance()
+		victim = new BufferFileReader(TestObjectFactory.getInstance()
 				.getFolderFile());
 	}
 
 	@Test
 	public void readLine() {
-		victim = new BufferFileReader(TestObjectCreator.getInstance()
+		victim = new BufferFileReader(TestObjectFactory.getInstance()
 				.getExistingFile());
 		Assert.assertFalse(StringUtils.isEmpty(victim.readLine()));
 		victim.close();

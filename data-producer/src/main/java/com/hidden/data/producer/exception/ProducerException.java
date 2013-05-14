@@ -7,9 +7,4 @@ public class ProducerException extends RuntimeException {
 	public ProducerException(Throwable throwable) {
 		super(throwable);
 	}
-
-	public ProducerException(String message) {
-		super(message);
-	}
-
 }

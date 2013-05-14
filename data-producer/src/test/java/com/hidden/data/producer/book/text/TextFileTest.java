@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.hidden.data.producer.TestObjectCreator;
+import com.hidden.data.producer.TestObjectFactory;
 import com.hidden.data.producer.file.FileBufferReader;
 
 public class TextFileTest {
@@ -43,13 +43,13 @@ public class TextFileTest {
 
 	@Test
 	public void readLineReturnsContent() {
-		testReadLine(TestObjectCreator.BOOK_CONTENT[0]);
+		testReadLine(TestObjectFactory.BOOK_CONTENT[0]);
 	}
 
 	@Test
 	public void readWholeBookContent() {
-		victim = TestObjectCreator.getInstance().createTextFile();
-		assertBookContent(TestObjectCreator.BOOK_CONTENT);
+		victim = TestObjectFactory.getInstance().createTextFile();
+		assertBookContent(TestObjectFactory.BOOK_CONTENT);
 		victim.closeFile();
 	}
 

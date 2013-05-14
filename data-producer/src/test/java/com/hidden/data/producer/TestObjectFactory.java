@@ -9,8 +9,8 @@ import com.hidden.data.producer.book.text.TextBook;
 import com.hidden.data.producer.book.text.TextFile;
 import com.hidden.data.producer.file.BufferFileReader;
 
-public class TestObjectCreator {
-	private static final TestObjectCreator INSTANCE = new TestObjectCreator();
+public class TestObjectFactory {
+	private static final TestObjectFactory INSTANCE = new TestObjectFactory();
 	public static final String[] BOOK_CONTENT = {
 			"Lorem ipsum dolor sit amet, consectetur adipisicing elit,",
 			"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -26,11 +26,11 @@ public class TestObjectCreator {
 	public static final int BOOK_ID = 1;
 	public static final String BOOK_TITLE = "I, Robot";
 
-	public static TestObjectCreator getInstance() {
+	public static TestObjectFactory getInstance() {
 		return INSTANCE;
 	}
 
-	private TestObjectCreator() {
+	private TestObjectFactory() {
 		// Limit scope
 	}
 
