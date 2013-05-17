@@ -1,13 +1,13 @@
-package com.common;
+package com.common.reflexion;
 
-final class ConcreteBookSample extends BookSample {
+final class StubBookSubClass extends StubBookClass {
 
 	private static final Integer IDENTIFIER = new Integer(1);
 	private static final String BOOK_NAME = "Stranger in a Strange Land";
 	private static final long NUMBER_OF_PAGES = 256;
 	private long numberOfPages;
 
-	ConcreteBookSample() {
+	StubBookSubClass() {
 		super(IDENTIFIER, BOOK_NAME);
 		this.numberOfPages = NUMBER_OF_PAGES;
 	}
@@ -34,10 +34,10 @@ final class ConcreteBookSample extends BookSample {
 		if (!super.equals(obj)) {
 			return false;
 		}
-		if (!(obj instanceof ConcreteBookSample)) {
+		if (!(obj instanceof StubBookSubClass)) {
 			return false;
 		}
-		ConcreteBookSample other = (ConcreteBookSample) obj;
+		StubBookSubClass other = (StubBookSubClass) obj;
 		return getNumberOfPages() == other.getNumberOfPages();
 	}
 

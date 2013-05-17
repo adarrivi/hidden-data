@@ -1,13 +1,14 @@
-package com.common;
+package com.common.reflexion;
 
+import java.security.Permission;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import com.common.reflexion.Reflexion;
-import com.common.reflexion.ReflexionException;
+import org.mockito.MockitoAnnotations;
 
 public class ReflexionTest {
 
@@ -15,14 +16,24 @@ public class ReflexionTest {
 	private static final String MEMBER_FILED = "numberOfPages";
 	private static final String PARENT_MEMBER_FIELD = "identifier";
 	private Reflexion victim;
-	private ConcreteBookSample book = new ConcreteBookSample();
+	private StubBookSubClass book = new StubBookSubClass();
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
 	@Before
 	public void setUp() {
+		MockitoAnnotations.initMocks(this);
 		victim = Reflexion.getInstance();
+	}
+
+	@After
+	public void tearDown() {
+		tearDownSecurityManagerToThrowEx();
+	}
+
+	private void tearDownSecurityManagerToThrowEx() {
+		System.setSecurityManager(null);
 	}
 
 	@Test
@@ -46,7 +57,7 @@ public class ReflexionTest {
 	}
 
 	private void verifyBookHasBeenModified() {
-		ConcreteBookSample equalsBook = new ConcreteBookSample();
+		StubBookSubClass equalsBook = new StubBookSubClass();
 		Assert.assertFalse(equalsBook.equals(book));
 	}
 
@@ -57,4 +68,36 @@ public class ReflexionTest {
 		verifyBookHasBeenModified();
 		Assert.assertEquals(newMeberValue, book.getIdentifier());
 	}
+
+	@Test
+	public void securityExThrowsReflexionEx() throws SecurityException {
+		expectedException.expect(ReflexionException.class);
+		expectedException.expectMessage(SecurityException.class
+				.getCanonicalName());
+		setUpSecurityManagerToThrowEx();
+		victim.setMember(book, MEMBER_FILED, 0);
+	}
+
+	private void setUpSecurityManagerToThrowEx() {
+		System.setSecurityManager(new SecurityManager() {
+			@Override
+			public void checkMemberAccess(Class<?> clazz, int which) {
+				throw new SecurityException("Not allowed");
+			}
+
+			@Override
+			public void checkPermission(Permission perm) {
+				// nothing to do
+			}
+		});
+	}
+
+	@Test
+	public void illegalAccessExThrowsReflexionEx() throws SecurityException {
+		expectedException.expect(ReflexionException.class);
+		expectedException.expectMessage(IllegalAccessException.class
+				.getCanonicalName());
+		victim.setMember(book, "NUMBER_OF_PAGES", true);
+	}
+
 }

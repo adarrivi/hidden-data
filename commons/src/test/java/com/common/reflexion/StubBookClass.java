@@ -1,11 +1,11 @@
-package com.common;
+package com.common.reflexion;
 
-abstract class BookSample {
+abstract class StubBookClass {
 
 	private Integer identifier;
 	private String name;
 
-	BookSample(Integer identifier, String name) {
+	StubBookClass(Integer identifier, String name) {
 		this.identifier = identifier;
 		this.name = name;
 	}
@@ -37,10 +37,10 @@ abstract class BookSample {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof BookSample)) {
+		if (!(obj instanceof StubBookClass)) {
 			return false;
 		}
-		BookSample other = (BookSample) obj;
+		StubBookClass other = (StubBookClass) obj;
 		return getIdentifier().equals(other.getIdentifier())
 				&& getName().equals(other.getName());
 	}
