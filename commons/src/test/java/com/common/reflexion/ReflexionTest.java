@@ -15,8 +15,13 @@ public class ReflexionTest {
 	private static final String NOT_EXISTING_MEMBER = "bsnNumber";
 	private static final String MEMBER_FILED = "numberOfPages";
 	private static final String PARENT_MEMBER_FIELD = "identifier";
+	private static final String STATIC_FINAL_MEMBER = "NUMBER_OF_PAGES";
 	private Reflexion victim;
 	private StubBookSubClass book = new StubBookSubClass();
+	private String memberName;
+	private Object value;
+	private static final Integer NEW_VALUE = new Integer(3);
+	private static final String INCORRECT_VALUE = "33234";
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -37,48 +42,100 @@ public class ReflexionTest {
 	}
 
 	@Test
-	public void setNotExistingMembeThrowsException() {
+	public void setMember_NotExistingMember_ThrowsReflxEx() {
+		expectReflexionEx();
+		givenNoExistingMember();
+		givenCorrectValue();
+		whenSetMember();
+	}
+
+	private void expectReflexionEx() {
 		expectedException.expect(ReflexionException.class);
-		victim.setMember(book, NOT_EXISTING_MEMBER, new Integer(3));
+	}
+
+	private void givenNoExistingMember() {
+		memberName = NOT_EXISTING_MEMBER;
+	}
+
+	private void givenCorrectValue() {
+		value = NEW_VALUE;
+	}
+
+	private void whenSetMember() {
+		victim.setMember(book, memberName, value);
 	}
 
 	@Test
-	public void setInvalidValueThrowsException() {
-		expectedException.expect(ReflexionException.class);
-		victim.setMember(book, MEMBER_FILED, "3345");
+	public void setMember_InvalidValue_ThrowsReflexEx() {
+		expectReflexionEx();
+		givenCorrectMember();
+		givenIncorrectValue();
+		whenSetMember();
+	}
+
+	private void givenCorrectMember() {
+		memberName = MEMBER_FILED;
+	}
+
+	private void givenIncorrectValue() {
+		value = INCORRECT_VALUE;
 	}
 
 	@Test
-	public void setMemberModifiesValue() {
-		long newMeberValue = 5;
-		victim.setMember(book, MEMBER_FILED, newMeberValue);
-		verifyBookHasBeenModified();
-		Assert.assertEquals(newMeberValue, book.getNumberOfPages());
+	public void setMember_NullValue_ThrowsReflexEx() {
+		expectReflexionEx();
+		givenCorrectMember();
+		givenNullValue();
+		whenSetMember();
 	}
 
-	private void verifyBookHasBeenModified() {
-		StubBookSubClass equalsBook = new StubBookSubClass();
-		Assert.assertFalse(equalsBook.equals(book));
-	}
-
-	@Test
-	public void setParentMemberModifiesValue() {
-		Integer newMeberValue = 5;
-		victim.setMember(book, PARENT_MEMBER_FIELD, newMeberValue);
-		verifyBookHasBeenModified();
-		Assert.assertEquals(newMeberValue, book.getIdentifier());
+	private void givenNullValue() {
+		value = null;
 	}
 
 	@Test
-	public void securityExThrowsReflexionEx() throws SecurityException {
-		expectedException.expect(ReflexionException.class);
-		expectedException.expectMessage(SecurityException.class
-				.getCanonicalName());
-		setUpSecurityManagerToThrowEx();
-		victim.setMember(book, MEMBER_FILED, 0);
+	public void setMember_CorrectMemValue_ModifiesValue() {
+		givenCorrectMember();
+		givenCorrectValue();
+		whenSetMember();
+		thenNewValueShouldHasBeenSet();
 	}
 
-	private void setUpSecurityManagerToThrowEx() {
+	private void thenNewValueShouldHasBeenSet() {
+		Assert.assertEquals(NEW_VALUE.intValue(), book.getNumberOfPages());
+	}
+
+	@Test
+	public void setMember_FromParentClass_ModifiesValue() {
+		givenParentMember();
+		whenSetMember();
+		thenNewParentValueShouldHasBeenSet();
+	}
+
+	private void givenParentMember() {
+		memberName = PARENT_MEMBER_FIELD;
+		value = NEW_VALUE;
+	}
+
+	private void thenNewParentValueShouldHasBeenSet() {
+		Assert.assertTrue(NEW_VALUE.equals(book.getIdentifier()));
+	}
+
+	@Test
+	public void setMember_SecurityEx_ThrowReflexEx() throws SecurityException {
+		expectReflexionExContaining(SecurityException.class.getCanonicalName());
+		givenSecurityExAccessingMember();
+		givenCorrectMember();
+		givenCorrectValue();
+		whenSetMember();
+	}
+
+	private void expectReflexionExContaining(String message) {
+		expectReflexionEx();
+		expectedException.expectMessage(message);
+	}
+
+	private void givenSecurityExAccessingMember() {
 		System.setSecurityManager(new SecurityManager() {
 			@Override
 			public void checkMemberAccess(Class<?> clazz, int which) {
@@ -93,11 +150,16 @@ public class ReflexionTest {
 	}
 
 	@Test
-	public void illegalAccessExThrowsReflexionEx() throws SecurityException {
-		expectedException.expect(ReflexionException.class);
-		expectedException.expectMessage(IllegalAccessException.class
+	public void setMember_StaticFinalMember_ThrowsReflexEx()
+			throws SecurityException {
+		expectReflexionExContaining(IllegalAccessException.class
 				.getCanonicalName());
-		victim.setMember(book, "NUMBER_OF_PAGES", true);
+		givenStaticFinalMember();
+		whenSetMember();
+	}
+
+	private void givenStaticFinalMember() {
+		memberName = STATIC_FINAL_MEMBER;
 	}
 
 }
