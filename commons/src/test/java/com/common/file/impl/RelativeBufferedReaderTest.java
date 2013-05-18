@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.TestObjectFactory;
+import com.common.util.TestObjectFactory;
 
 public class RelativeBufferedReaderTest {
 

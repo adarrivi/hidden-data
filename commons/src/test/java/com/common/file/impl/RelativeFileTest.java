@@ -7,8 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.common.TestObjectFactory;
 import com.common.file.FileException;
+import com.common.util.TestObjectFactory;
 
 public class RelativeFileTest {
 

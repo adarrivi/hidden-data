@@ -5,8 +5,8 @@ import java.io.File;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.TestObjectFactory;
 import com.common.file.FileLineIterator;
+import com.common.util.TestObjectFactory;
 
 public class FileLineIteratorFactoryTest {
 
