@@ -12,7 +12,7 @@ public class FileLineIteratorFactoryTest {
 
 	private FileLineIteratorFactory victim = FileLineIteratorFactory
 			.getInstance();
-	private FileLineIterator fileLineIterator;
+	private FileLineIterator<String> fileLineIterator;
 	private File file;
 	private String relativeFilePath;
 
