@@ -1,9 +1,6 @@
 package com.hidden.data.producer.book;
 
-import java.util.List;
-
-public interface Book<K> {
-	List<Line<K>> readNextLines(int numberOfLines);
+public interface Book<K> extends Iterable<Line<K>> {
 
 	int getId();
 

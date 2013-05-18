@@ -6,7 +6,7 @@ import java.io.IOException;
 import com.common.file.FileException;
 import com.common.file.FileLineIterator;
 
-class BufferedReaderIterator implements FileLineIterator {
+class BufferedReaderIterator implements FileLineIterator<String> {
 
 	private BufferedReader reader;
 	private String line;

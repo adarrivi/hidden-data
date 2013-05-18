@@ -15,7 +15,7 @@ public final class FileLineIteratorFactory {
 		return INSTANCE;
 	}
 
-	public FileLineIterator createBufferedFileLineIterator(
+	public FileLineIterator<String> createBufferedFileLineIterator(
 			String relativeFilePath) {
 		RelativeFile file = new RelativeFile(relativeFilePath);
 		RelativeFileReader reader = new RelativeFileReader(file);

@@ -2,6 +2,6 @@ package com.common.file;
 
 import java.util.Iterator;
 
-public interface FileLineIterator extends Iterator<String> {
+public interface FileLineIterator<K> extends Iterator<K> {
 	void close();
 }

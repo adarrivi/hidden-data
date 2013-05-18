@@ -1,13 +1,17 @@
 package com.hidden.data.producer.book;
 
-public abstract class ConcreteBook<K> implements Book<K> {
+import java.util.Iterator;
+
+class ConcreteBook<K> implements Book<K> {
 
 	private int id;
 	private String title;
+	private Iterator<Line<K>> iterator;
 
-	protected ConcreteBook(int id, String title) {
+	ConcreteBook(int id, String title, Iterator<Line<K>> iterator) {
 		this.id = id;
 		this.title = title;
+		this.iterator = iterator;
 	}
 
 	@Override
@@ -18,6 +22,11 @@ public abstract class ConcreteBook<K> implements Book<K> {
 	@Override
 	public String getTitle() {
 		return title;
+	}
+
+	@Override
+	public final Iterator<Line<K>> iterator() {
+		return iterator;
 	}
 
 }

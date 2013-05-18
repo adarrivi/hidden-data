@@ -20,7 +20,7 @@ public class BufferedReaderIteratorTest {
 	private static final String FIRST_LINE = "first line";
 	private static final String SECOND_LINE = "";
 	private static final String THRID_LINE = "third line";
-	private FileLineIterator victim;
+	private FileLineIterator<String> victim;
 	private boolean hasNext;
 	private String currentLineReaded;
 	@Mock
