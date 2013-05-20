@@ -1,4 +1,4 @@
-package com.hidden.data.loader;
+package com.hidden.data.db;
 
 import org.springframework.stereotype.Service;
 
