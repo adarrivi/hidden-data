@@ -11,13 +11,25 @@
 		<version>${project.version}</version>
 		<relativePath>../hidden-data-parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>data-producer</artifactId>
+	<artifactId>data-loader</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>hidden.data</groupId>
 			<artifactId>commons</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+		</dependency>
+		<!-- Required for Spring Annotations -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
 		</dependency>
 	</dependencies>
 </project>
