@@ -20,6 +20,7 @@
 		<module>../commons</module>
 		<module>../data-producer</module>
 		<module>../data-loader</module>
+		<module>../hidden-data-db</module>
 	</modules>
 
 	<artifactId>parent</artifactId>

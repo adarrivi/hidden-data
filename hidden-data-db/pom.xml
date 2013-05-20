@@ -4,14 +4,14 @@
 
 	<packaging>jar</packaging>
 
-	<name>data-loader</name>
+	<name>hidden-data-db</name>
 	<parent>
 		<groupId>hidden.data</groupId>
 		<artifactId>parent</artifactId>
 		<version>${project.version}</version>
 		<relativePath>../hidden-data-parent/pom.xml</relativePath>
 	</parent>
-	<artifactId>data-loader</artifactId>
+	<artifactId>hidden-data-db</artifactId>
 
 	<dependencies>
 		<dependency>
