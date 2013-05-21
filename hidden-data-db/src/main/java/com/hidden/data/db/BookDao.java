@@ -1,18 +1,28 @@
 package com.hidden.data.db;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
-public class BookDao {
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
-	private String property;
+import com.hidden.data.db.model.Book;
 
-	public void doSomething() {
-		System.out.println("Something done: " + property);
+@Repository
+public class BookDao extends HibernateDaoSupport {
+
+	@Autowired
+	protected BookDao(SessionFactory sessionFactory) {
+		setSessionFactory(sessionFactory);
 	}
 
-	public void setProperty(String property) {
-		this.property = property;
+	@SuppressWarnings("unchecked")
+	public void doSomething() {
+		List<Book> books = getHibernateTemplate().loadAll(Book.class);
+		for (Book book : books) {
+			System.out.println("Something done: " + book.getTitle());
+		}
 	}
 
 }

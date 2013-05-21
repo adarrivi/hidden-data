@@ -1,12 +1,19 @@
 package com.hidden.data.db.model;
 
+import java.sql.Blob;
+
 public class Book {
 
 	private Integer id;
 	private String title;
+	private Blob content;
 
 	public static Book createEmptyBook() {
 		return new Book(null, null);
+	}
+
+	protected Book() {
+		// Used by Hibernate
 	}
 
 	protected Book(Integer id, String title) {
@@ -26,4 +33,7 @@ public class Book {
 		return title;
 	}
 
+	public Blob getContent() {
+		return content;
+	}
 }
