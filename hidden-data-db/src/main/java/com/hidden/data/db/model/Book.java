@@ -36,4 +36,12 @@ public class Book {
 	public Blob getContent() {
 		return content;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[").append(getId()).append(", ").append(getTitle())
+				.append(", ").append("]");
+		return sb.toString();
+	}
 }
