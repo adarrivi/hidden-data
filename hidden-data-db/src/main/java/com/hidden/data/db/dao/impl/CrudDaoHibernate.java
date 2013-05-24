@@ -20,7 +20,6 @@ class CrudDaoHibernate<T> extends HibernateDaoSupport implements CrudDao<T> {
 		return item;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> loadAll() {
 		return getHibernateTemplate().loadAll(modelClass);

@@ -9,6 +9,6 @@
 
 	<!-- Database Configuration -->
 	<import resource="/database/testDataSource.xml" />
-	<import resource="/hibernate/hibernateContext.xml" />
+	<import resource="classpath:/hibernate/hibernateContext.xml" />
 
 </beans>
