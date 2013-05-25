@@ -5,10 +5,11 @@
      http://www.springframework.org/schema/context
      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<context:annotation-config />
-	<context:component-scan base-package="com.hidden.data" />
+	<context:component-scan base-package="
+	com.hidden.data " />
 
-	<!-- Database Configuration -->
-	<import resource="/database/testDataSource.xml" />
-	<import resource="classpath:/hibernate/hibernateContext.xml" />
+<!-- Database Configuration -->
+<import resource="/database/testDataSource.xml" />
+<import resource="classpath:/hibernate/hibernateContext.xml" />
 
 </beans>

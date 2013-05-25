@@ -8,8 +8,8 @@
 			<column name="id" />
 			<generator class="identity" />
 		</id>
-		<property name="title" type="string">
-			<column name="title" length="250" not-null="true" />
+		<property name="name" type="string">
+			<column name="name" length="250" not-null="true" />
 		</property>
 	</class>
 </hibernate-mapping>

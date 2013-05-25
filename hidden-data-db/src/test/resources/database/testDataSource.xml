@@ -1,14 +1,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+http://www.springframework.org/schema/jdbc 
+http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/testSample" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
-	</bean>
-
+	<!-- HSQL by default -->
+	<jdbc:embedded-database id="dataSource" type="DERBY">
+		<jdbc:script location="classpath:/database/dbCreation.sql" />
+	</jdbc:embedded-database>
 </beans>
