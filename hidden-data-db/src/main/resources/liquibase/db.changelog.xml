@@ -15,5 +15,13 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
         <constraints nullable="false" />
       </column>
     </createTable>
+    <createTable tableName="book">
+      <column name="id" autoIncrement="true" type="int">
+        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_book" />
+      </column>
+      <column name="title" type="varchar(250)">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
   </changeSet>
 </databaseChangeLog>

@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-access="field">
-	<class name="com.hidden.data.db.model.Book" table="book" catalog="dataSample" >
+	<class name="com.hidden.data.db.model.Author" table="author"  >
 		<id name="id" type="java.lang.Integer">
 			<column name="id" />
 			<generator class="identity" />
