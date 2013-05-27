@@ -1,4 +1,4 @@
-package com.hidden.data.db;
+package com.hidden.data.loader;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.db.model.Book;
 
-@Component("dataBaseApp")
-public class DataBaseApp {
+@Component("loadBooksMain")
+public class LoadBooksMain {
 
 	@Autowired
 	private BookDao bookDao;
@@ -23,10 +23,11 @@ public class DataBaseApp {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"applicationDbContext.xml");
+				"applicationLoaderContext.xml");
 		// context will get closed at JVM runtime
 		ctx.registerShutdownHook();
-		DataBaseApp dataBaseApp = (DataBaseApp) ctx.getBean("dataBaseApp");
+		LoadBooksMain dataBaseApp = (LoadBooksMain) ctx
+				.getBean("loadBooksMain");
 		dataBaseApp.start();
 	}
 

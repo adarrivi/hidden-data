@@ -5,18 +5,16 @@
      http://www.springframework.org/schema/context
      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   <context:annotation-config />
-  <context:component-scan base-package="
-	com.hidden.data " />
+  <context:component-scan base-package="com.hidden.data.db" />
 
-    <bean
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>/database/database-test.properties</value>
-        </property>
-    </bean>
-    
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location">
+      <value>/database/database.properties</value>
+    </property>
+  </bean>
+
   <!-- Database Configuration -->
-  <import resource="classpath:/hibernate/hibernateContext.xml" />
-  <import resource="classpath:/database/dataSource.xml" />
+  <import resource="/database/dataSource.xml" />
+  <import resource="/hibernate/hibernateContext.xml" />
 
 </beans>
