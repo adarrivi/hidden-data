@@ -3,6 +3,7 @@ package com.common.file.impl;
 import java.io.File;
 
 import com.common.file.FileLineIterator;
+import com.common.file.RelativeFile;
 
 public final class FileLineIteratorFactory {
 	private static final FileLineIteratorFactory INSTANCE = new FileLineIteratorFactory();

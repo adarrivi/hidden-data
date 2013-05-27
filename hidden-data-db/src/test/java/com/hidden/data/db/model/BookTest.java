@@ -3,14 +3,15 @@ package com.hidden.data.db.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.hidden.data.db.util.TestObjectFactory;
+
 public class BookTest {
 
-	private static final Integer BOOK_ID = Integer.valueOf(1);
-	private static final String BOOK_TITLE = "Dune";
 	private Book victim;
 	private boolean isEmpty;
 	private Integer id;
 	private String title;
+	private String content;
 
 	@Test
 	public void isEmpty_EmptyBook_ReturnsTrue() {
@@ -39,7 +40,7 @@ public class BookTest {
 	}
 
 	private void givenABook() {
-		victim = new Book(BOOK_ID, BOOK_TITLE);
+		victim = TestObjectFactory.getInstance().createBook();
 	}
 
 	@Test
@@ -54,7 +55,7 @@ public class BookTest {
 	}
 
 	private void thenBookIdShouldBeGiven() {
-		Assert.assertEquals(BOOK_ID, id);
+		Assert.assertEquals(TestObjectFactory.BOOK_ID, id);
 	}
 
 	@Test
@@ -91,7 +92,22 @@ public class BookTest {
 	}
 
 	private void thenBookTitleShouldBeGiven() {
-		Assert.assertEquals(BOOK_TITLE, title);
+		Assert.assertEquals(TestObjectFactory.BOOK_TITLE, title);
+	}
+
+	@Test
+	public void getContent_Book_ReturnsContent() {
+		givenABook();
+		whenGetContent();
+		thenContentShouldBeEquals();
+	}
+
+	private void whenGetContent() {
+		content = victim.getContent();
+	}
+
+	private void thenContentShouldBeEquals() {
+		Assert.assertEquals(TestObjectFactory.BOOK_CONTENT, content);
 	}
 
 }

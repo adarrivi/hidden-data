@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.common.file.FileException;
+import com.common.file.RelativeFile;
 import com.common.util.TestObjectFactory;
 
 public class RelativeFileReaderTest {

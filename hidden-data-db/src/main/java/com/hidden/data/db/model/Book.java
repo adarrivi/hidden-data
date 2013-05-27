@@ -1,24 +1,27 @@
 package com.hidden.data.db.model;
 
-import java.sql.Blob;
 
 public class Book {
 
 	private Integer id;
 	private String title;
-	private Blob content;
+	private String content;
 
 	public static Book createEmptyBook() {
 		return new Book(null, null);
+	}
+
+	public static Book createBook(String title, String content) {
+		return new Book(title, content);
 	}
 
 	protected Book() {
 		// Used by Hibernate
 	}
 
-	protected Book(Integer id, String title) {
-		this.id = id;
+	protected Book(String title, String content) {
 		this.title = title;
+		this.content = content;
 	}
 
 	public boolean isEmpty() {
@@ -33,8 +36,12 @@ public class Book {
 		return title;
 	}
 
-	public Blob getContent() {
+	public String getContent() {
 		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	@Override
@@ -44,4 +51,5 @@ public class Book {
 				.append(", ").append("]");
 		return sb.toString();
 	}
+
 }

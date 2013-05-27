@@ -1,19 +1,17 @@
-package com.common.file.impl;
+package com.common.file;
 
 import java.io.File;
 import java.net.URL;
 
-import com.common.file.FileException;
-
-class RelativeFile {
+public class RelativeFile {
 
 	private String relativeFilePath;
 
-	RelativeFile(String relativeFilePath) {
+	public RelativeFile(String relativeFilePath) {
 		this.relativeFilePath = relativeFilePath;
 	}
 
-	File getFile() {
+	public File getFile() {
 		URL resource = getClass().getResource(relativeFilePath);
 		assertFileExists(resource);
 		return new File(resource.getPath());

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import com.common.file.FileException;
+import com.common.file.RelativeFile;
 
 class RelativeFileReader {
 

@@ -22,6 +22,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
       <column name="title" type="varchar(250)">
         <constraints nullable="false" />
       </column>
+      <column name="content" type="text">
+        <constraints nullable="false" />
+      </column>
     </createTable>
   </changeSet>
 </databaseChangeLog>
