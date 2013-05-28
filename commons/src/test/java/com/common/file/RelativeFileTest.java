@@ -1,4 +1,4 @@
-package com.common.file.impl;
+package com.common.file;
 
 import java.io.File;
 

@@ -1,40 +1,26 @@
 package com.hidden.data.producer.book;
 
-import java.util.Iterator;
-
 import com.common.file.FileLineIterator;
+import com.common.iterator.IteratorDecorator;
 
-class TextBookIterator implements Iterator<Line<String>> {
-	private FileLineIterator<String> fileContentIterator;
+class TextBookIterator extends IteratorDecorator<Line<String>, String> {
 	private int rowIndex;
 	private int bookId;
 
 	TextBookIterator(int bookId, FileLineIterator<String> fileContentIterator) {
-		this.fileContentIterator = fileContentIterator;
+		super(fileContentIterator);
 		this.bookId = bookId;
 		rowIndex = 0;
 	}
 
 	@Override
-	public boolean hasNext() {
-		return fileContentIterator.hasNext();
-	}
-
-	@Override
 	public Line<String> next() {
 		Line<String> nextLine = Line.createEmptyLine();
-		if (fileContentIterator.hasNext()) {
+		if (iterator.hasNext()) {
 			nextLine.setBookId(bookId);
 			nextLine.setRow(rowIndex++);
-			nextLine.setRowContent(fileContentIterator.next());
+			nextLine.setRowContent(iterator.next());
 		}
 		return nextLine;
 	}
-
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException();
-
-	}
-
 }
