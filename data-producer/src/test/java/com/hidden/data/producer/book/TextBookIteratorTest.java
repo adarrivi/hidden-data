@@ -1,8 +1,5 @@
 package com.hidden.data.producer.book;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 
 import com.common.file.FileLineIterator;
@@ -52,20 +49,6 @@ public class TextBookIteratorTest extends IteratorTestTemplate<Line<String>> {
 		fileContentIterator = TestObjectFactory.getInstance()
 				.createStringArrayIterator();
 		createVictim();
-	}
-
-	@Override
-	protected List<Line<String>> getMultipleItemsContent() throws Exception {
-		List<Line<String>> lines = new ArrayList<Line<String>>();
-		String[] content = TestObjectFactory.BOOK_CONTENT;
-		for (int i = 0; i < content.length; i++) {
-			Line<String> line = Line.createEmptyLine();
-			line.setBookId(TestObjectFactory.BOOK_ID);
-			line.setRowContent(content[i]);
-			line.setRow(i);
-			lines.add(line);
-		}
-		return lines;
 	}
 
 	@Override

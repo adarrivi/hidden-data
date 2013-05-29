@@ -50,16 +50,11 @@ public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
 
 	@Override
 	protected void givenMultipleItemsContent() throws IOException {
-		List<String> multipleItemsContent = getMultipleItemsContent();
+		List<String> multipleItemsContent = Arrays.asList(FIRST_LINE,
+				SECOND_LINE, THRID_LINE);
 		Mockito.when(reader.readLine()).thenReturn(multipleItemsContent.get(0),
 				multipleItemsContent.get(1), multipleItemsContent.get(2), null);
 		victim = new BufferedReaderIterator(reader);
-
-	}
-
-	@Override
-	protected List<String> getMultipleItemsContent() {
-		return Arrays.asList(FIRST_LINE, SECOND_LINE, THRID_LINE);
 	}
 
 	@Test

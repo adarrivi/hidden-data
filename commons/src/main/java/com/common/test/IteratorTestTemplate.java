@@ -1,5 +1,6 @@
 package com.common.test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -119,7 +120,12 @@ public abstract class IteratorTestTemplate<T> {
 
 	protected abstract void givenMultipleItemsContent() throws Exception;
 
-	protected abstract List<T> getMultipleItemsContent() throws Exception;
+	private List<T> getMultipleItemsContent() throws Exception {
+		List<T> multipleItems = new ArrayList<T>();
+		multipleItems.add(getSingleContentItem());
+		multipleItems.add(getSingleContentItem());
+		return multipleItems;
+	}
 
 	@Test
 	public void hasNext_ReadAllItems_ReturnFalse() throws Exception {

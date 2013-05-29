@@ -1,8 +1,6 @@
 package com.hidden.data.loader;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.junit.Before;
 
@@ -56,14 +54,6 @@ public class AuthorFolderIteratorDecoratorTest extends
 		array[1] = relativeFile;
 		iterator = new ArrayIteratorStub(array);
 		createVictim();
-	}
-
-	@Override
-	protected List<AuthorFolder> getMultipleItemsContent() throws Exception {
-		List<AuthorFolder> multipleItems = new ArrayList<AuthorFolder>();
-		multipleItems.add(getSingleContentItem());
-		multipleItems.add(getSingleContentItem());
-		return multipleItems;
 	}
 
 	@Override
