@@ -16,6 +16,10 @@ class AuthorFolder extends RelativeFileIterable<File> {
 	private static final String FOLDER_NAME_SEPARATOR = ".";
 	private String authorName;
 
+	static AuthorFolder createEmpty() {
+		return new AuthorFolder(RelativeFile.createEmpty());
+	}
+
 	AuthorFolder(RelativeFile folder) {
 		super(folder);
 		setAuthorNameFromFolder();
@@ -48,6 +52,29 @@ class AuthorFolder extends RelativeFileIterable<File> {
 	private void parseAuthorNameFromFolder() {
 		authorName = authorName.replace(FOLDER_NAME_SEPARATOR,
 				AUTHOR_NAME_SEPARATOR);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + authorName.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof AuthorFolder)) {
+			return false;
+		}
+		AuthorFolder other = (AuthorFolder) obj;
+		return authorName.equals(other.authorName);
 	}
 
 }

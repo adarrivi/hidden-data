@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.file.FileLineIterator;
-import com.common.util.TestObjectFactory;
+import com.common.util.TestCommonsObjectFactory;
 
 public class FileLineIteratorFactoryTest {
 
@@ -42,8 +42,8 @@ public class FileLineIteratorFactoryTest {
 	}
 
 	private void givenExistingRelativeFilePath() {
-		relativeFilePath = TestObjectFactory.FILES_FOLDER
-				+ TestObjectFactory.FILE_NAME;
+		relativeFilePath = TestCommonsObjectFactory.FILES_FOLDER
+				+ TestCommonsObjectFactory.FILE_NAME;
 	}
 
 	private void whenGetFile() {

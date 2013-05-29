@@ -4,19 +4,19 @@ import java.io.File;
 
 import com.common.file.impl.FileLineIteratorFactory;
 
-public class TestObjectFactory {
+public class TestCommonsObjectFactory {
 
 	public static final String FILES_FOLDER = "/file/";
 	public static final String FILE_NAME = "Lorem_ipsum_dolor.txt";
 	public static final String NOT_EXISTING_FILE_NAME = "doesNotExist.txt";
 
-	private static final TestObjectFactory INSTANCE = new TestObjectFactory();
+	private static final TestCommonsObjectFactory INSTANCE = new TestCommonsObjectFactory();
 
-	private TestObjectFactory() {
+	private TestCommonsObjectFactory() {
 		// limit scope
 	}
 
-	public static TestObjectFactory getInstance() {
+	public static TestCommonsObjectFactory getInstance() {
 		return INSTANCE;
 	}
 
@@ -24,5 +24,4 @@ public class TestObjectFactory {
 		return FileLineIteratorFactory.getInstance().getFile(
 				FILES_FOLDER + FILE_NAME);
 	}
-
 }

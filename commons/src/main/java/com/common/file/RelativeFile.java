@@ -3,12 +3,14 @@ package com.common.file;
 import java.io.File;
 import java.net.URL;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class RelativeFile {
 
 	private String relativeFilePath;
 
 	public static RelativeFile createEmpty() {
-		return new RelativeFile(null);
+		return new RelativeFile(StringUtils.EMPTY);
 	}
 
 	public RelativeFile(String relativeFilePath) {
@@ -28,16 +30,14 @@ public class RelativeFile {
 	}
 
 	public boolean isEmpty() {
-		return relativeFilePath == null;
+		return StringUtils.isEmpty(relativeFilePath);
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((relativeFilePath == null) ? 0 : relativeFilePath.hashCode());
+		result = prime * result + relativeFilePath.hashCode();
 		return result;
 	}
 
@@ -53,11 +53,6 @@ public class RelativeFile {
 			return false;
 		}
 		RelativeFile other = (RelativeFile) obj;
-		if (relativeFilePath == null) {
-			if (other.relativeFilePath != null) {
-				return false;
-			}
-		}
 		return relativeFilePath.equals(other.relativeFilePath);
 	}
 

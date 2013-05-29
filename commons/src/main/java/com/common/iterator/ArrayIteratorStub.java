@@ -1,4 +1,4 @@
-package com.common.util;
+package com.common.iterator;
 
 import org.apache.commons.collections.iterators.ArrayIterator;
 

@@ -18,7 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.common.file.FileException;
 import com.common.file.RelativeFile;
-import com.common.util.TestObjectFactory;
+import com.common.util.TestCommonsObjectFactory;
 
 public class RelativeFileReaderTest {
 
@@ -72,7 +72,7 @@ public class RelativeFileReaderTest {
 	}
 
 	private void givenExistingFile() {
-		File existingFile = TestObjectFactory.getInstance().getExistingFile();
+		File existingFile = TestCommonsObjectFactory.getInstance().getExistingFile();
 		Mockito.when(relativeFile.getFile()).thenReturn(existingFile);
 		victim = new RelativeFileReader(relativeFile);
 	}

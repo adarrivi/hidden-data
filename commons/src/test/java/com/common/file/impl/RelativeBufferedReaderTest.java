@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.util.TestObjectFactory;
+import com.common.util.TestCommonsObjectFactory;
 
 public class RelativeBufferedReaderTest {
 
@@ -45,7 +45,7 @@ public class RelativeBufferedReaderTest {
 	}
 
 	private void givenRelativeFileReader() throws FileNotFoundException {
-		fileReader = new FileReader(TestObjectFactory.getInstance()
+		fileReader = new FileReader(TestCommonsObjectFactory.getInstance()
 				.getExistingFile());
 		Mockito.when(relativeFileReader.getFileReader()).thenReturn(fileReader);
 		victim = new RelativeBufferedReader(relativeFileReader);

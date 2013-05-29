@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationDbContext-test.xml" })
-public class InMemoryDaoTest {
+public abstract class InMemoryDaoTest {
 
 	@Value("${driver}")
 	private String driver;

@@ -1,62 +1,60 @@
 package com.hidden.data.loader;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import com.common.file.RelativeFile;
+import com.common.iterator.ArrayIteratorStub;
 import com.common.test.IteratorTestTemplate;
+import com.hidden.data.loader.util.TestObjectFactory;
 
 public class AuthorFolderIteratorDecoratorTest extends
 		IteratorTestTemplate<AuthorFolder> {
 
-	private static final String AUTHOR_NAME = "Anonymous";
-	@Mock
-	private Iterator<File> iterator;
-	@Mock
-	private File file;
-	@Mock
-	private RelativeFile relativeFile;
+	@SuppressWarnings("unchecked")
+	private Iterator<RelativeFile> iterator = ArrayIteratorStub
+			.createEmptyIterator();
+	private RelativeFile relativeFile = TestObjectFactory.getInstance()
+			.getAuthorFolder();
 
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		Mockito.when(file.getName()).thenReturn(AUTHOR_NAME);
-		Mockito.when(relativeFile.getFile()).thenReturn(file);
-	}
-
-	@Override
-	protected void givenEmptyContent() throws Exception {
-		Mockito.when(iterator.hasNext()).thenReturn(false);
 		createVictim();
 	}
 
 	private void createVictim() {
-		// victim = new AuthorFolderIteratorDecorator(iterator);
+		victim = new AuthorFolderIteratorDecorator(iterator);
 	}
 
 	@Override
+	protected void givenEmptyContent() throws Exception {
+		createVictim();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	protected void givenSingleItemContent() throws Exception {
-		Mockito.when(iterator.hasNext()).thenReturn(true, false);
-		Mockito.when(iterator.next()).thenReturn(file, (File) null);
+		RelativeFile[] array = new RelativeFile[1];
+		array[0] = relativeFile;
+		iterator = new ArrayIteratorStub(array);
 		createVictim();
 	}
 
 	@Override
-	protected AuthorFolder getSingleContentItem() throws Exception {
+	protected AuthorFolder getSingleContentItem() {
 		return new AuthorFolder(relativeFile);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected void givenMultipleItemsContent() throws Exception {
-		Mockito.when(iterator.hasNext()).thenReturn(true, true, false);
-		Mockito.when(iterator.next()).thenReturn(file, file, (File) null);
+	protected void givenMultipleItemsContent() {
+		RelativeFile[] array = new RelativeFile[2];
+		array[0] = relativeFile;
+		array[1] = relativeFile;
+		iterator = new ArrayIteratorStub(array);
 		createVictim();
 	}
 
@@ -66,6 +64,11 @@ public class AuthorFolderIteratorDecoratorTest extends
 		multipleItems.add(getSingleContentItem());
 		multipleItems.add(getSingleContentItem());
 		return multipleItems;
+	}
+
+	@Override
+	protected AuthorFolder getNullItem() {
+		return AuthorFolder.createEmpty();
 	}
 
 }

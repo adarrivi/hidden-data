@@ -7,15 +7,16 @@ import java.util.List;
 
 import org.junit.Before;
 
+import com.common.iterator.ArrayIteratorStub;
 import com.common.test.IteratorTestTemplate;
-import com.common.util.ArrayIteratorStub;
-import com.common.util.TestObjectFactory;
+import com.common.util.TestCommonsObjectFactory;
 
 public class RelativeFileIteratorTest extends
 		IteratorTestTemplate<RelativeFile> {
 
 	private Iterator<File> iterator;
-	private File file = TestObjectFactory.getInstance().getExistingFile();
+	private File file = TestCommonsObjectFactory.getInstance()
+			.getExistingFile();
 
 	@Before
 	public void setUp() {
@@ -61,6 +62,11 @@ public class RelativeFileIteratorTest extends
 		multipleItems.add(getSingleContentItem());
 		multipleItems.add(getSingleContentItem());
 		return multipleItems;
+	}
+
+	@Override
+	protected RelativeFile getNullItem() {
+		return RelativeFile.createEmpty();
 	}
 
 }
