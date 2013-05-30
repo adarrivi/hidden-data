@@ -110,17 +110,17 @@ public abstract class IteratorTestTemplate<T> {
 
 	@Test
 	public void next_ReadAllItems_ReturnWholeContent() throws Exception {
-		givenMultipleItemsContent();
-		List<T> multipleItemsContent = getMultipleItemsContent();
+		givenTwoItemsContent();
+		List<T> multipleItemsContent = setTwoItemsContent();
 		for (T item : multipleItemsContent) {
 			whenNext();
 			thenItemGivenShouldBe(item);
 		}
 	}
 
-	protected abstract void givenMultipleItemsContent() throws Exception;
+	protected abstract void givenTwoItemsContent() throws Exception;
 
-	private List<T> getMultipleItemsContent() throws Exception {
+	private List<T> setTwoItemsContent() throws Exception {
 		List<T> multipleItems = new ArrayList<T>();
 		multipleItems.add(getSingleContentItem());
 		multipleItems.add(getSingleContentItem());
@@ -129,8 +129,8 @@ public abstract class IteratorTestTemplate<T> {
 
 	@Test
 	public void hasNext_ReadAllItems_ReturnFalse() throws Exception {
-		givenMultipleItemsContent();
-		List<T> multipleItemsContent = getMultipleItemsContent();
+		givenTwoItemsContent();
+		List<T> multipleItemsContent = setTwoItemsContent();
 		for (int i = 0; i < multipleItemsContent.size(); i++) {
 			whenNext();
 		}

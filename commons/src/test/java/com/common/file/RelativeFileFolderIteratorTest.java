@@ -1,15 +1,17 @@
 package com.common.file;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Before;
 
-import com.common.iterator.ArrayIteratorStub;
 import com.common.test.IteratorTestTemplate;
 import com.common.util.TestCommonsObjectFactory;
 
-public class RelativeFileIteratorTest extends
+public class RelativeFileFolderIteratorTest extends
 		IteratorTestTemplate<RelativeFile> {
 
 	private Iterator<File> iterator;
@@ -22,21 +24,18 @@ public class RelativeFileIteratorTest extends
 	}
 
 	private void createVictim() {
-		victim = new RelativeFileIterator(iterator);
+		victim = new RelativeFileFolderIterator(iterator);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void givenEmptyContent() throws Exception {
-		iterator = ArrayIteratorStub.createEmptyIterator();
+		iterator = Collections.<File> emptyList().iterator();
 		createVictim();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void givenSingleItemContent() throws Exception {
-		File[] files = new File[] { file };
-		iterator = new ArrayIteratorStub(files);
+		iterator = Collections.singletonList(file).iterator();
 		createVictim();
 	}
 
@@ -45,11 +44,12 @@ public class RelativeFileIteratorTest extends
 		return new RelativeFile(file.getPath());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void givenMultipleItemsContent() throws Exception {
-		File[] files = new File[] { file, file, file };
-		iterator = new ArrayIteratorStub(files);
+	protected void givenTwoItemsContent() throws Exception {
+		List<File> fileList = new ArrayList<File>();
+		fileList.add(getSingleContentItem().getFile());
+		fileList.add(getSingleContentItem().getFile());
+		iterator = fileList.iterator();
 		createVictim();
 	}
 

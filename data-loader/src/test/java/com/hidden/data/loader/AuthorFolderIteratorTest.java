@@ -1,20 +1,21 @@
 package com.hidden.data.loader;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.junit.Before;
 
 import com.common.file.RelativeFile;
-import com.common.iterator.ArrayIteratorStub;
 import com.common.test.IteratorTestTemplate;
 import com.hidden.data.loader.util.TestObjectFactory;
 
-public class AuthorFolderIteratorDecoratorTest extends
+public class AuthorFolderIteratorTest extends
 		IteratorTestTemplate<AuthorFolder> {
 
-	@SuppressWarnings("unchecked")
-	private Iterator<RelativeFile> iterator = ArrayIteratorStub
-			.createEmptyIterator();
+	private Iterator<RelativeFile> iterator = Collections
+			.<RelativeFile> emptyList().iterator();
 	private RelativeFile relativeFile = TestObjectFactory.getInstance()
 			.getAuthorFolder();
 
@@ -24,7 +25,7 @@ public class AuthorFolderIteratorDecoratorTest extends
 	}
 
 	private void createVictim() {
-		victim = new AuthorFolderIteratorDecorator(iterator);
+		victim = new AuthorFolderIterator(iterator);
 	}
 
 	@Override
@@ -32,12 +33,9 @@ public class AuthorFolderIteratorDecoratorTest extends
 		createVictim();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void givenSingleItemContent() throws Exception {
-		RelativeFile[] array = new RelativeFile[1];
-		array[0] = relativeFile;
-		iterator = new ArrayIteratorStub(array);
+		iterator = Collections.singleton(relativeFile).iterator();
 		createVictim();
 	}
 
@@ -46,13 +44,12 @@ public class AuthorFolderIteratorDecoratorTest extends
 		return new AuthorFolder(relativeFile);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void givenMultipleItemsContent() {
-		RelativeFile[] array = new RelativeFile[2];
-		array[0] = relativeFile;
-		array[1] = relativeFile;
-		iterator = new ArrayIteratorStub(array);
+	protected void givenTwoItemsContent() {
+		List<RelativeFile> files = new ArrayList<RelativeFile>();
+		files.add(relativeFile);
+		files.add(relativeFile);
+		iterator = files.iterator();
 		createVictim();
 	}
 

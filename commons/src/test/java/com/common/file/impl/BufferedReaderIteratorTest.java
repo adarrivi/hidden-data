@@ -2,8 +2,6 @@ package com.common.file.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +15,6 @@ import com.common.test.IteratorTestTemplate;
 public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
 
 	private static final String FIRST_LINE = "first line";
-	private static final String SECOND_LINE = "";
-	private static final String THRID_LINE = "third line";
 	@Mock
 	private BufferedReader reader;
 	@Mock
@@ -49,11 +45,9 @@ public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
 	}
 
 	@Override
-	protected void givenMultipleItemsContent() throws IOException {
-		List<String> multipleItemsContent = Arrays.asList(FIRST_LINE,
-				SECOND_LINE, THRID_LINE);
-		Mockito.when(reader.readLine()).thenReturn(multipleItemsContent.get(0),
-				multipleItemsContent.get(1), multipleItemsContent.get(2), null);
+	protected void givenTwoItemsContent() throws IOException {
+		Mockito.when(reader.readLine()).thenReturn(getSingleContentItem(),
+				getSingleContentItem(), null);
 		victim = new BufferedReaderIterator(reader);
 	}
 

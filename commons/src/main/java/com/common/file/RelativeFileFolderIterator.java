@@ -5,18 +5,19 @@ import java.util.Iterator;
 
 import com.common.iterator.IteratorDecorator;
 
-public class RelativeFileIterator extends IteratorDecorator<RelativeFile, File> {
+public class RelativeFileFolderIterator extends
+		IteratorDecorator<RelativeFile, File> {
 
-	public RelativeFileIterator(Iterator<File> iterator) {
+	public RelativeFileFolderIterator(Iterator<File> iterator) {
 		super(iterator);
 	}
 
 	@Override
 	public RelativeFile next() {
-		if (!iterator.hasNext()) {
+		if (!getIterator().hasNext()) {
 			return RelativeFile.createEmpty();
 		}
-		return new RelativeFile(iterator.next().getPath());
+		return new RelativeFile(getIterator().next().getPath());
 	}
 
 }

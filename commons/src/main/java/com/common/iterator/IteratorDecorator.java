@@ -4,10 +4,14 @@ import java.util.Iterator;
 
 public abstract class IteratorDecorator<K, T> implements Iterator<K> {
 
-	protected Iterator<T> iterator;
+	private Iterator<T> iterator;
 
 	public IteratorDecorator(Iterator<T> iterator) {
 		this.iterator = iterator;
+	}
+
+	protected Iterator<T> getIterator() {
+		return iterator;
 	}
 
 	@Override

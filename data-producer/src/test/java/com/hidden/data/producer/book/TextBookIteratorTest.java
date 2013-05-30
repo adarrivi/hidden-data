@@ -45,10 +45,13 @@ public class TextBookIteratorTest extends IteratorTestTemplate<Line<String>> {
 	}
 
 	@Override
-	protected void givenMultipleItemsContent() throws Exception {
+	protected void givenTwoItemsContent() throws Exception {
+		String content[] = { TestObjectFactory.BOOK_CONTENT[0],
+				TestObjectFactory.BOOK_CONTENT[0] };
 		fileContentIterator = TestObjectFactory.getInstance()
-				.createStringArrayIterator();
+				.createCustomArrayIterator(content);
 		createVictim();
+
 	}
 
 	@Override

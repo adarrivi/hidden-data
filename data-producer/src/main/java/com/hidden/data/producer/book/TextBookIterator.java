@@ -16,10 +16,10 @@ class TextBookIterator extends IteratorDecorator<Line<String>, String> {
 	@Override
 	public Line<String> next() {
 		Line<String> nextLine = Line.createEmptyLine();
-		if (iterator.hasNext()) {
+		if (getIterator().hasNext()) {
 			nextLine.setBookId(bookId);
 			nextLine.setRow(rowIndex++);
-			nextLine.setRowContent(iterator.next());
+			nextLine.setRowContent(getIterator().next());
 		}
 		return nextLine;
 	}
