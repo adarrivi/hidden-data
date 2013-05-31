@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Before;
 
 import com.common.file.RelativeFile;
+import com.common.file.RelativeFileFactory;
+import com.common.file.impl.RelativeFileFactoryImpl;
 import com.common.test.IteratorTestTemplate;
 import com.hidden.data.loader.util.TestObjectFactory;
 
@@ -18,6 +20,8 @@ public class AuthorFolderIteratorTest extends
 			.<RelativeFile> emptyList().iterator();
 	private RelativeFile relativeFile = TestObjectFactory.getInstance()
 			.getAuthorFolder();
+	private RelativeFileFactory relativeFileFactory = RelativeFileFactoryImpl
+			.getInstance();
 
 	@Before
 	public void setUp() {
@@ -25,7 +29,7 @@ public class AuthorFolderIteratorTest extends
 	}
 
 	private void createVictim() {
-		victim = new AuthorFolderIterator(iterator);
+		victim = new AuthorFolderIterator(iterator, relativeFileFactory);
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class AuthorFolderIteratorTest extends
 
 	@Override
 	protected AuthorFolder getSingleContentItem() {
-		return new AuthorFolder(relativeFile);
+		return new AuthorFolder(relativeFile, relativeFileFactory);
 	}
 
 	@Override
@@ -55,7 +59,8 @@ public class AuthorFolderIteratorTest extends
 
 	@Override
 	protected AuthorFolder getNullItem() {
-		return AuthorFolder.createEmpty();
+		return new AuthorFolder(relativeFileFactory.createEmptyRelativeFile(),
+				relativeFileFactory);
 	}
 
 }

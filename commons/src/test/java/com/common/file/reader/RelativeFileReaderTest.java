@@ -1,4 +1,4 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.file.FileException;
 import com.common.file.RelativeFile;
+import com.common.file.exception.FileException;
 import com.common.util.TestCommonsObjectFactory;
 
 public class RelativeFileReaderTest {
@@ -72,7 +72,8 @@ public class RelativeFileReaderTest {
 	}
 
 	private void givenExistingFile() {
-		File existingFile = TestCommonsObjectFactory.getInstance().getExistingFile();
+		File existingFile = TestCommonsObjectFactory.getInstance()
+				.getExistingFile();
 		Mockito.when(relativeFile.getFile()).thenReturn(existingFile);
 		victim = new RelativeFileReader(relativeFile);
 	}

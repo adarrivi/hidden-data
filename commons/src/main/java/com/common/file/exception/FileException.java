@@ -1,4 +1,4 @@
-package com.common.file;
+package com.common.file.exception;
 
 public class FileException extends RuntimeException {
 

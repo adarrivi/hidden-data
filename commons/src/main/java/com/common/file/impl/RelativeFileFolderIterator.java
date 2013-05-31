@@ -1,29 +1,29 @@
-package com.hidden.data.loader;
+package com.common.file.impl;
 
+import java.io.File;
 import java.util.Iterator;
 
 import com.common.file.RelativeFile;
 import com.common.file.RelativeFileFactory;
 import com.common.iterator.IteratorDecorator;
 
-public class AuthorFolderIterator extends
-		IteratorDecorator<AuthorFolder, RelativeFile> {
+class RelativeFileFolderIterator extends IteratorDecorator<RelativeFile, File> {
 
 	private RelativeFileFactory relativeFileFactory;
 
-	public AuthorFolderIterator(Iterator<RelativeFile> iterator,
+	RelativeFileFolderIterator(Iterator<File> iterator,
 			RelativeFileFactory relativeFileFactory) {
 		super(iterator);
 		this.relativeFileFactory = relativeFileFactory;
 	}
 
 	@Override
-	public AuthorFolder next() {
+	public RelativeFile next() {
 		if (!getIterator().hasNext()) {
-			return new AuthorFolder(
-					relativeFileFactory.createEmptyRelativeFile(),
-					relativeFileFactory);
+			return relativeFileFactory.createEmptyRelativeFile();
 		}
-		return new AuthorFolder(getIterator().next(), relativeFileFactory);
+		return relativeFileFactory.createRelativeFile(getIterator().next()
+				.getPath());
 	}
+
 }

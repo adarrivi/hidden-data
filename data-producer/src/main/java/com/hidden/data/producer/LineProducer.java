@@ -3,7 +3,7 @@ package com.hidden.data.producer;
 import java.util.Iterator;
 
 import com.common.file.FileLineIterator;
-import com.common.file.impl.FileLineIteratorFactory;
+import com.common.file.reader.FileLineIteratorFactory;
 import com.hidden.data.producer.book.Book;
 import com.hidden.data.producer.book.BookFactory;
 import com.hidden.data.producer.book.Line;

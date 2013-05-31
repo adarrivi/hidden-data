@@ -2,7 +2,7 @@ package com.common.util;
 
 import java.io.File;
 
-import com.common.file.impl.FileLineIteratorFactory;
+import com.common.file.reader.FileLineIteratorFactory;
 
 public class TestCommonsObjectFactory {
 

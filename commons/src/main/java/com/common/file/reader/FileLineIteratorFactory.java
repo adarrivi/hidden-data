@@ -1,12 +1,16 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.File;
 
 import com.common.file.FileLineIterator;
 import com.common.file.RelativeFile;
+import com.common.file.RelativeFileFactory;
+import com.common.file.impl.RelativeFileFactoryImpl;
 
 public final class FileLineIteratorFactory {
 	private static final FileLineIteratorFactory INSTANCE = new FileLineIteratorFactory();
+	private static final RelativeFileFactory FILE_FACTORY = RelativeFileFactoryImpl
+			.getInstance();
 
 	private FileLineIteratorFactory() {
 		// limit scope
@@ -18,7 +22,7 @@ public final class FileLineIteratorFactory {
 
 	public FileLineIterator<String> createBufferedFileLineIterator(
 			String relativeFilePath) {
-		RelativeFile file = new RelativeFile(relativeFilePath);
+		RelativeFile file = FILE_FACTORY.createRelativeFile(relativeFilePath);
 		RelativeFileReader reader = new RelativeFileReader(file);
 		RelativeBufferedReader bufferedReader = new RelativeBufferedReader(
 				reader);
@@ -26,7 +30,8 @@ public final class FileLineIteratorFactory {
 	}
 
 	public File getFile(String relativePath) {
-		RelativeFile relativeFile = new RelativeFile(relativePath);
+		RelativeFile relativeFile = FILE_FACTORY
+				.createRelativeFile(relativePath);
 		return relativeFile.getFile();
 	}
 }

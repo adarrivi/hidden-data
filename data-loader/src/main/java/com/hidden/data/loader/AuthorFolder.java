@@ -1,35 +1,34 @@
 package com.hidden.data.loader;
 
-import java.io.File;
 import java.util.Iterator;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.lang3.StringUtils;
 
 import com.common.file.RelativeFile;
+import com.common.file.RelativeFileFactory;
 import com.hidden.data.loader.exception.LoaderException;
 
-class AuthorFolder extends RelativeFileIterable<File> {
+class AuthorFolder extends RelativeFileIterable<RelativeFile> {
 
 	private static final String AUTHOR_NAME_SEPARATOR = " ";
 	private static final String FOLDER_NAME_SEPARATOR = ".";
 	private String authorName;
+	private RelativeFileFactory relativeFileFactory;
 
-	static AuthorFolder createEmpty() {
-		return new AuthorFolder(RelativeFile.createEmpty());
+	AuthorFolder createEmpty() {
+		return new AuthorFolder(relativeFileFactory.createEmptyRelativeFile(),
+				relativeFileFactory);
 	}
 
-	AuthorFolder(RelativeFile folder) {
+	AuthorFolder(RelativeFile folder, RelativeFileFactory relativeFileFactory) {
 		super(folder);
+		this.relativeFileFactory = relativeFileFactory;
 		setAuthorNameFromFolder();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Iterator<File> iterator() {
-		return FileUtils.iterateFiles(folder.getFile(),
-				TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE);
+	public Iterator<RelativeFile> iterator() {
+		return relativeFileFactory.createFolderFileIterator(folder);
 	}
 
 	public String getAuthorName() {

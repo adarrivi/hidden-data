@@ -1,6 +1,7 @@
 package com.hidden.data.loader.util;
 
 import com.common.file.RelativeFile;
+import com.common.file.impl.RelativeFileFactoryImpl;
 
 public class TestObjectFactory {
 	private static final String AUTHOR_FOLDER = "/books/James.Joyce";
@@ -16,11 +17,12 @@ public class TestObjectFactory {
 	}
 
 	public RelativeFile getEmptyFolder() {
-		return new RelativeFile(EMPTY_FOLDER);
+		return RelativeFileFactoryImpl.getInstance().createRelativeFile(
+				EMPTY_FOLDER);
 	}
 
 	public RelativeFile getAuthorFolder() {
-		return new RelativeFile(AUTHOR_FOLDER);
+		return RelativeFileFactoryImpl.getInstance().createRelativeFile(
+				AUTHOR_FOLDER);
 	}
-
 }

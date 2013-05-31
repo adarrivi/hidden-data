@@ -1,4 +1,4 @@
-package com.common.file;
+package com.common.file.impl;
 
 import java.io.File;
 
@@ -7,11 +7,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.common.file.FileException;
 import com.common.file.RelativeFile;
+import com.common.file.exception.FileException;
 import com.common.util.TestCommonsObjectFactory;
 
-public class RelativeFileTest {
+public class RelativeFileImplTest {
 
 	private RelativeFile victim;
 	private File file;
@@ -27,7 +27,7 @@ public class RelativeFileTest {
 	}
 
 	private void givenExistingFilePath() {
-		victim = new RelativeFile(TestCommonsObjectFactory.FILES_FOLDER
+		victim = new RelativeFileImpl(TestCommonsObjectFactory.FILES_FOLDER
 				+ TestCommonsObjectFactory.FILE_NAME);
 	}
 
@@ -37,7 +37,8 @@ public class RelativeFileTest {
 
 	private void thenReturnsExistingFile() {
 		Assert.assertNotNull(file);
-		Assert.assertTrue(file.getPath().contains(TestCommonsObjectFactory.FILE_NAME));
+		Assert.assertTrue(file.getPath().contains(
+				TestCommonsObjectFactory.FILE_NAME));
 	}
 
 	@Test
@@ -52,7 +53,7 @@ public class RelativeFileTest {
 	}
 
 	private void givenNoExistingFilePath() {
-		victim = new RelativeFile(TestCommonsObjectFactory.FILES_FOLDER
+		victim = new RelativeFileImpl(TestCommonsObjectFactory.FILES_FOLDER
 				+ TestCommonsObjectFactory.NOT_EXISTING_FILE_NAME);
 	}
 

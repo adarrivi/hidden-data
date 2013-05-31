@@ -1,4 +1,4 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -14,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.common.file.reader.RelativeBufferedReader;
+import com.common.file.reader.RelativeFileReader;
 import com.common.util.TestCommonsObjectFactory;
 
 public class RelativeBufferedReaderTest {

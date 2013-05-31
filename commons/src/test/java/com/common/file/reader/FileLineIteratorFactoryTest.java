@@ -1,4 +1,4 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.File;
 
@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.file.FileLineIterator;
+import com.common.file.reader.BufferedReaderIterator;
+import com.common.file.reader.FileLineIteratorFactory;
 import com.common.util.TestCommonsObjectFactory;
 
 public class FileLineIteratorFactoryTest {

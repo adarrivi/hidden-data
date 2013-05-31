@@ -13,9 +13,12 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.common.file.RelativeFile;
+import com.common.file.RelativeFileFactory;
+import com.common.file.impl.RelativeFileFactoryImpl;
 import com.hidden.data.loader.exception.LoaderException;
 
-public class AuthorFolderTest extends RelativeFileIterableTestTemplate<File> {
+public class AuthorFolderTest extends
+		RelativeFileIterableTestTemplate<RelativeFile> {
 
 	private AuthorFolder victim;
 	@Mock
@@ -23,6 +26,8 @@ public class AuthorFolderTest extends RelativeFileIterableTestTemplate<File> {
 	@Mock
 	private File mockedFile;
 	private String authorName;
+	private RelativeFileFactory relativeFileFactory = RelativeFileFactoryImpl
+			.getInstance();
 
 	@Before
 	public void setUp() {
@@ -46,7 +51,7 @@ public class AuthorFolderTest extends RelativeFileIterableTestTemplate<File> {
 	private void givenAuthorName(String name) {
 		Mockito.when(mockedRelFile.getFile()).thenReturn(mockedFile);
 		Mockito.when(mockedFile.getName()).thenReturn(name);
-		victim = new AuthorFolder(mockedRelFile);
+		victim = new AuthorFolder(mockedRelFile, relativeFileFactory);
 	}
 
 	private void whenGetAuthorName() {
@@ -80,8 +85,8 @@ public class AuthorFolderTest extends RelativeFileIterableTestTemplate<File> {
 	}
 
 	@Override
-	protected RelativeFileIterable<File> getNewVictim() {
-		return new AuthorFolder(folder);
+	protected RelativeFileIterable<RelativeFile> getNewVictim() {
+		return new AuthorFolder(folder, relativeFileFactory);
 	}
 
 }

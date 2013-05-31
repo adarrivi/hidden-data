@@ -1,4 +1,4 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.file.FileException;
+import com.common.file.exception.FileException;
+import com.common.file.reader.BufferedReaderIterator;
+import com.common.file.reader.RelativeBufferedReader;
 import com.common.test.IteratorTestTemplate;
 
 public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {

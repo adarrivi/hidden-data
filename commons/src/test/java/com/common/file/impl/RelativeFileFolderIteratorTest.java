@@ -1,4 +1,4 @@
-package com.common.file;
+package com.common.file.impl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Before;
 
+import com.common.file.RelativeFile;
 import com.common.test.IteratorTestTemplate;
 import com.common.util.TestCommonsObjectFactory;
 
@@ -24,7 +25,8 @@ public class RelativeFileFolderIteratorTest extends
 	}
 
 	private void createVictim() {
-		victim = new RelativeFileFolderIterator(iterator);
+		victim = new RelativeFileFolderIterator(iterator,
+				RelativeFileFactoryImpl.getInstance());
 	}
 
 	@Override
@@ -40,8 +42,8 @@ public class RelativeFileFolderIteratorTest extends
 	}
 
 	@Override
-	protected RelativeFile getSingleContentItem() throws Exception {
-		return new RelativeFile(file.getPath());
+	protected RelativeFileImpl getSingleContentItem() throws Exception {
+		return new RelativeFileImpl(file.getPath());
 	}
 
 	@Override
@@ -54,8 +56,8 @@ public class RelativeFileFolderIteratorTest extends
 	}
 
 	@Override
-	protected RelativeFile getNullItem() {
-		return RelativeFile.createEmpty();
+	protected RelativeFileImpl getNullItem() {
+		return RelativeFileImpl.createEmpty();
 	}
 
 }

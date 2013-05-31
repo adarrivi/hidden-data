@@ -1,10 +1,10 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import com.common.file.FileException;
 import com.common.file.RelativeFile;
+import com.common.file.exception.FileException;
 
 class RelativeFileReader {
 

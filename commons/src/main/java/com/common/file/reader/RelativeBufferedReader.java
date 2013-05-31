@@ -1,6 +1,7 @@
-package com.common.file.impl;
+package com.common.file.reader;
 
 import java.io.BufferedReader;
+
 
 class RelativeBufferedReader {
 
