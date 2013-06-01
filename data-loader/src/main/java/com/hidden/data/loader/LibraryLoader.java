@@ -23,15 +23,15 @@ public class LibraryLoader {
 	@Autowired
 	private AuthorDao authorDao;
 
+	// context will get closed at JVM runtime
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"applicationDbContext.xml");
-		// context will get closed at JVM runtime
+				"applicationLoaderContext.xml");
 		ctx.registerShutdownHook();
-		LibraryLoader libraryLoader = (LibraryLoader) ctx
+		LibraryLoader dataBaseApp = (LibraryLoader) ctx
 				.getBean("libraryLoader");
-		libraryLoader.start();
+		dataBaseApp.start();
 	}
 
 	private void start() throws IOException {
