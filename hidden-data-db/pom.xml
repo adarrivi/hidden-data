@@ -18,6 +18,11 @@
     <javax.transaction.version>1.1</javax.transaction.version>
     <org.springframework.version>3.2.0.RELEASE</org.springframework.version>
     <mysql.connector.version>5.1.25</mysql.connector.version>
+    <dbunit.version>2.2.0</dbunit.version>
+    <dbcp.version>1.2.2.osgi</dbcp.version>
+    <hsqldb.version>2.2.8</hsqldb.version>
+    <liquibase.version>2.0.5</liquibase.version>
+    <log4j.version>1.2.15</log4j.version>
   </properties>
 
   <dependencies>
@@ -64,20 +69,18 @@
       <version>${org.springframework.version}</version>
     </dependency>
 
-    <!-- Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined 
-      with a 'test' scope for the integration testing framework and unit testing stubs -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.test</artifactId>
-      <version>${org.springframework.version}</version>
-      <scope>test</scope>
-    </dependency>
-
     <!-- Liquibase to manage the different databases (mysql and hslqdb) -->
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>2.0.5</version>
+      <version>${liquibase.version}</version>
+    </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.apache.log4j</groupId>
+      <artifactId>com.springsource.org.apache.log4j</artifactId>
+      <version>${log4j.version}</version>
     </dependency>
 
     <!-- Connection to the real Db -->
@@ -87,18 +90,38 @@
       <version>${mysql.connector.version}</version>
     </dependency>
 
+    <!-- Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined 
+      with a 'test' scope for the integration testing framework and unit testing stubs -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.test</artifactId>
+      <version>${org.springframework.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+
     <!-- Connection to unit test in-memory Db -->
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
-      <version>2.2.8</version>
+      <version>${hsqldb.version}</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- Used to load in-memory connection for unit tests -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
-      <version>1.2.2.osgi</version>
+      <version>${dbcp.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- db test framework -->
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>com.springsource.org.dbunit</artifactId>
+      <version>${dbunit.version}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

@@ -13,11 +13,18 @@ import liquibase.resource.FileSystemResourceAccessor;
 import liquibase.resource.ResourceAccessor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.csv.CsvDataSet;
+import org.dbunit.operation.DatabaseOperation;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.common.file.io.IOCommonsFileUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationDbContext-test.xml" })
@@ -45,8 +52,13 @@ public abstract class InMemoryDaoTest {
 	}
 
 	private void loadInMemoryDb() throws ClassNotFoundException, SQLException,
-			LiquibaseException {
+			LiquibaseException, DatabaseUnitException {
 		loadDriver();
+		loadLiquibase();
+		loadDBUnit();
+	}
+
+	private void loadLiquibase() throws LiquibaseException, SQLException {
 		DatabaseConnection hsqlConnection = getHsqlConnection();
 		loadLiquibaseChangelog(hsqlConnection);
 		hsqlConnection.close();
@@ -73,6 +85,18 @@ public abstract class InMemoryDaoTest {
 				hsqlConnection);
 		liquibase.dropAll();
 		liquibase.update(StringUtils.EMPTY);
+	}
+
+	private void loadDBUnit() throws SQLException, DatabaseUnitException {
+		IDatabaseConnection connection = getDBUnitConnection();
+		IDataSet dataSet = new CsvDataSet(IOCommonsFileUtils.getInstance()
+				.getFileFromRelativePath("/database/dataset"));
+		DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
+	}
+
+	private IDatabaseConnection getDBUnitConnection() throws SQLException {
+		Connection connection = getInMemoryConnection();
+		return new org.dbunit.database.DatabaseConnection(connection);
 	}
 
 }

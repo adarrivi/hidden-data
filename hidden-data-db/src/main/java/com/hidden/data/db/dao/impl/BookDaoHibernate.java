@@ -15,4 +15,9 @@ public class BookDaoHibernate extends CrudDaoHibernate<Book> implements BookDao 
 		super(Book.class);
 		setSessionFactory(sessionFactory);
 	}
+
+	@Override
+	public Book findByTitle(String title) {
+		return null;
+	}
 }

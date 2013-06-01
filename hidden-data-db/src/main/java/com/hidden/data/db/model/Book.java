@@ -1,7 +1,6 @@
 package com.hidden.data.db.model;
 
-
-public class Book {
+public class Book implements NotNullEntity, PersistentEntity {
 
 	private Integer id;
 	private String title;
@@ -24,10 +23,12 @@ public class Book {
 		this.content = content;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return getId() == null && getTitle() == null;
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}

@@ -23,6 +23,10 @@ public class AuthorDaoHibernate extends CrudDaoHibernate<Author> implements
 		Query query = getSession()
 				.createQuery("from Author where name = :name");
 		query.setParameter("name", name);
-		return (Author) query.uniqueResult();
+		Author author = (Author) query.uniqueResult();
+		if (author == null) {
+			return Author.createEmptyAuthor();
+		}
+		return author;
 	}
 }

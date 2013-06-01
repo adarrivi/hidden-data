@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.hidden.data.db.dao.CrudDao;
+import com.hidden.data.db.model.PersistentEntity;
 
-class CrudDaoHibernate<T> extends HibernateDaoSupport implements CrudDao<T> {
+class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
+		implements CrudDao<T> {
 
 	private Class<T> modelClass;
 

@@ -1,6 +1,6 @@
 package com.hidden.data.db.model;
 
-public class Author {
+public class Author implements NotNullEntity, PersistentEntity {
 	private Integer id;
 	private String name;
 
@@ -12,6 +12,7 @@ public class Author {
 		return new Author();
 	}
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -30,6 +31,11 @@ public class Author {
 		sb.append("[").append(id).append(", ").append(name).append("]");
 		return sb.toString();
 
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return name == null;
 	}
 
 }
