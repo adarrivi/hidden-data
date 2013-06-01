@@ -9,8 +9,8 @@ import com.hidden.data.db.model.Author;
 
 public class AuthorDaoHibernateTest extends InMemoryDaoTest {
 
-	private static final String NOT_EXISTING_AUTHOR_NAME = "notExisting";
-	private static final String EXISTING_AUTHOR_NAME = "Issac Asimov";
+	protected static final String NOT_EXISTING_AUTHOR_NAME = "notExisting";
+	protected static final String EXISTING_AUTHOR_NAME = "Issac Asimov";
 
 	private String authorName;
 	private Author author;

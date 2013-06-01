@@ -1,5 +1,6 @@
 package com.hidden.data.db.dao.impl;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,13 @@ public class BookDaoHibernate extends CrudDaoHibernate<Book> implements BookDao 
 
 	@Override
 	public Book findByTitle(String title) {
-		return null;
+		Query query = getSession()
+				.createQuery("from Book where title = :title");
+		query.setParameter("title", title);
+		Book book = (Book) query.uniqueResult();
+		if (book == null) {
+			return Book.createEmptyBook();
+		}
+		return book;
 	}
 }

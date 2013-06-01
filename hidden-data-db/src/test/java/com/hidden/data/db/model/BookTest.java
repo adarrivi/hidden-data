@@ -3,15 +3,28 @@ package com.hidden.data.db.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.hidden.data.db.util.TestObjectFactory;
+import com.common.reflexion.Reflexion;
 
 public class BookTest {
+
+	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+	private static final String BOOK_TITLE = "Lorem ipsum";
+	private static final Integer BOOK_ID = Integer.valueOf(1);
 
 	private Book victim;
 	private boolean isEmpty;
 	private Integer id;
 	private String title;
 	private String content;
+
+	public static Book createBook() {
+		Book book = Book.createEmptyBook();
+		Reflexion.getInstance().setMember(book, "id", BOOK_ID);
+		book.setTitle(BOOK_TITLE);
+		book.setContent(BOOK_CONTENT);
+		return book;
+
+	}
 
 	@Test
 	public void isEmpty_EmptyBook_ReturnsTrue() {
@@ -40,7 +53,7 @@ public class BookTest {
 	}
 
 	private void givenABook() {
-		victim = TestObjectFactory.getInstance().createBook();
+		victim = createBook();
 	}
 
 	@Test
@@ -55,7 +68,7 @@ public class BookTest {
 	}
 
 	private void thenBookIdShouldBeGiven() {
-		Assert.assertEquals(TestObjectFactory.BOOK_ID, id);
+		Assert.assertEquals(BOOK_ID, id);
 	}
 
 	@Test
@@ -92,7 +105,7 @@ public class BookTest {
 	}
 
 	private void thenBookTitleShouldBeGiven() {
-		Assert.assertEquals(TestObjectFactory.BOOK_TITLE, title);
+		Assert.assertEquals(BOOK_TITLE, title);
 	}
 
 	@Test
@@ -107,7 +120,7 @@ public class BookTest {
 	}
 
 	private void thenContentShouldBeEquals() {
-		Assert.assertEquals(TestObjectFactory.BOOK_CONTENT, content);
+		Assert.assertEquals(BOOK_CONTENT, content);
 	}
 
 }

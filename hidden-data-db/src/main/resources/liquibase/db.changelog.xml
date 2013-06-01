@@ -25,6 +25,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
       <column name="content" type="text">
         <constraints nullable="false" />
       </column>
+      <column name="authorId" type="int">
+            <constraints foreignKeyName="author_fk" references="author(id)" nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 </databaseChangeLog>

@@ -14,5 +14,6 @@
     <property name="content" type="text">
       <column name="content" not-null="true" />
     </property>
+    <many-to-one name="author" class="com.hidden.data.db.model.Author" column="authorId"  not-null="true" />
   </class>
 </hibernate-mapping>

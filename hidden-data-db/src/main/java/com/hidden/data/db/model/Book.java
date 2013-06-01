@@ -5,22 +5,14 @@ public class Book implements NotNullEntity, PersistentEntity {
 	private Integer id;
 	private String title;
 	private String content;
+	private Author author;
 
 	public static Book createEmptyBook() {
-		return new Book(null, null);
-	}
-
-	public static Book createBook(String title, String content) {
-		return new Book(title, content);
+		return new Book();
 	}
 
 	protected Book() {
 		// Used by Hibernate
-	}
-
-	protected Book(String title, String content) {
-		this.title = title;
-		this.content = content;
 	}
 
 	@Override
@@ -45,12 +37,15 @@ public class Book implements NotNullEntity, PersistentEntity {
 		this.content = content;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[").append(getId()).append(", ").append(getTitle())
-				.append(", ").append("]");
-		return sb.toString();
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
 }

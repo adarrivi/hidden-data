@@ -18,7 +18,7 @@ class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
 
 	@Override
 	public T save(T item) {
-		getHibernateTemplate().save(item);
+		getHibernateTemplate().saveOrUpdate(item);
 		return item;
 	}
 
@@ -26,10 +26,4 @@ class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
 	public List<T> loadAll() {
 		return getHibernateTemplate().loadAll(modelClass);
 	}
-
-	@Override
-	public void delete(T item) {
-		getHibernateTemplate().delete(item);
-	}
-
 }

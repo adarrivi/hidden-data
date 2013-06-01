@@ -8,6 +8,4 @@ public interface CrudDao<T> {
 
 	List<T> loadAll();
 
-	void delete(T item);
-
 }
