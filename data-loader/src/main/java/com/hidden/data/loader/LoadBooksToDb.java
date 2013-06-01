@@ -12,21 +12,21 @@ import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.db.model.Book;
 
-@Component("loadBooksMain")
-public class LoadBooksMain {
+@Component("loadBooksToDb")
+public class LoadBooksToDb {
 
 	@Autowired
 	private BookDao bookDao;
 	@Autowired
 	private AuthorDao authorDao;
 
+	// context will get closed at JVM runtime
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"applicationLoaderContext.xml");
-		// context will get closed at JVM runtime
 		ctx.registerShutdownHook();
-		LoadBooksMain dataBaseApp = (LoadBooksMain) ctx
+		LoadBooksToDb dataBaseApp = (LoadBooksToDb) ctx
 				.getBean("loadBooksMain");
 		dataBaseApp.start();
 	}
