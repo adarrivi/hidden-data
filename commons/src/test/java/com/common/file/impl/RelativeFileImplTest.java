@@ -15,6 +15,7 @@ public class RelativeFileImplTest {
 
 	private RelativeFile victim;
 	private File file;
+	private boolean isEmpty;
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -57,4 +58,30 @@ public class RelativeFileImplTest {
 				+ TestCommonsObjectFactory.NOT_EXISTING_FILE_NAME);
 	}
 
+	@Test
+	public void isEmpty_NotExistingResource_ReturnsTrue() {
+		givenNoExistingFilePath();
+		whenIsEmpty();
+		thenIsEmptyShouldBe(true);
+	}
+
+	private void whenIsEmpty() {
+		isEmpty = victim.isEmpty();
+	}
+
+	private void thenIsEmptyShouldBe(boolean value) {
+		Assert.assertEquals(value, isEmpty);
+	}
+
+	@Test
+	public void isEmpty_ExistingResource_ReturnsFalse() {
+		givenExistingFilePath();
+		whenIsEmpty();
+		thenIsEmptyShouldBe(false);
+	}
+
+	@Test
+	public void equalsHashCode_Equals() {
+
+	}
 }

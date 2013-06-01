@@ -17,12 +17,12 @@ public class TestObjectFactory {
 	}
 
 	public RelativeFile getEmptyFolder() {
-		return RelativeFileFactoryImpl.getInstance().createRelativeFile(
+		return RelativeFileFactoryImpl.getInstance().createRelativeFileFromPath(
 				EMPTY_FOLDER);
 	}
 
 	public RelativeFile getAuthorFolder() {
-		return RelativeFileFactoryImpl.getInstance().createRelativeFile(
+		return RelativeFileFactoryImpl.getInstance().createRelativeFileFromPath(
 				AUTHOR_FOLDER);
 	}
 }

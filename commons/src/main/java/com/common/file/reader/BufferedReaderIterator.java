@@ -3,7 +3,6 @@ package com.common.file.reader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import com.common.file.FileLineIterator;
 import com.common.file.exception.FileException;
 
 class BufferedReaderIterator implements FileLineIterator<String> {

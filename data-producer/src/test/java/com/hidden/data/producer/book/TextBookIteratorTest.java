@@ -1,19 +1,12 @@
 package com.hidden.data.producer.book;
 
-import org.junit.Before;
-
-import com.common.file.FileLineIterator;
+import com.common.file.reader.FileLineIterator;
 import com.common.test.IteratorTestTemplate;
 import com.hidden.data.producer.util.TestObjectFactory;
 
 public class TextBookIteratorTest extends IteratorTestTemplate<Line<String>> {
 
 	private FileLineIterator<String> fileContentIterator;
-
-	@Before
-	public void setUp() {
-		createVictim();
-	}
 
 	@Override
 	protected void givenEmptyContent() throws Exception {
@@ -22,7 +15,8 @@ public class TextBookIteratorTest extends IteratorTestTemplate<Line<String>> {
 		createVictim();
 	}
 
-	private void createVictim() {
+	@Override
+	protected void createVictim() {
 		victim = new TextBookIterator(TestObjectFactory.BOOK_ID,
 				fileContentIterator);
 	}

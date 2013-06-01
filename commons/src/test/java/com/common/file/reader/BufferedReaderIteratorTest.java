@@ -10,8 +10,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.common.file.exception.FileException;
-import com.common.file.reader.BufferedReaderIterator;
-import com.common.file.reader.RelativeBufferedReader;
 import com.common.test.IteratorTestTemplate;
 
 public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
@@ -50,7 +48,7 @@ public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
 	protected void givenTwoItemsContent() throws IOException {
 		Mockito.when(reader.readLine()).thenReturn(getSingleContentItem(),
 				getSingleContentItem(), null);
-		victim = new BufferedReaderIterator(reader);
+		createVictim();
 	}
 
 	@Test
@@ -93,6 +91,11 @@ public class BufferedReaderIteratorTest extends IteratorTestTemplate<String> {
 
 	private void givenIoExThrownWhenClosing() throws IOException {
 		Mockito.doThrow(new IOException()).when(reader).close();
+	}
+
+	@Override
+	protected void createVictim() {
+		victim = new BufferedReaderIterator(reader);
 	}
 
 }

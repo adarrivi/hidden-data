@@ -2,7 +2,7 @@ package com.hidden.data.producer.book;
 
 import java.util.Iterator;
 
-import com.common.file.FileLineIterator;
+import com.common.file.reader.FileLineIterator;
 
 public class BookFactory {
 	private static final BookFactory INSTANCE = new BookFactory();

@@ -22,8 +22,8 @@ class RelativeFileFolderIterator extends IteratorDecorator<RelativeFile, File> {
 		if (!getIterator().hasNext()) {
 			return relativeFileFactory.createEmptyRelativeFile();
 		}
-		return relativeFileFactory.createRelativeFile(getIterator().next()
-				.getPath());
+		return relativeFileFactory.createRelativeFileFromFile(getIterator()
+				.next());
 	}
 
 }

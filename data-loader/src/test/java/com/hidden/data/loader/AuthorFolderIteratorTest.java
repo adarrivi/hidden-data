@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Before;
-
 import com.common.file.RelativeFile;
 import com.common.file.RelativeFileFactory;
 import com.common.file.impl.RelativeFileFactoryImpl;
@@ -23,12 +21,8 @@ public class AuthorFolderIteratorTest extends
 	private RelativeFileFactory relativeFileFactory = RelativeFileFactoryImpl
 			.getInstance();
 
-	@Before
-	public void setUp() {
-		createVictim();
-	}
-
-	private void createVictim() {
+	@Override
+	protected void createVictim() {
 		victim = new AuthorFolderIterator(iterator, relativeFileFactory);
 	}
 

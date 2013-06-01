@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import com.common.file.FileLineIterator;
+import com.common.file.reader.FileLineIterator;
 
 class FileLineIteratorStub implements FileLineIterator<String> {
 

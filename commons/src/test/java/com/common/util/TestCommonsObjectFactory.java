@@ -2,6 +2,8 @@ package com.common.util;
 
 import java.io.File;
 
+import com.common.file.RelativeFile;
+import com.common.file.impl.RelativeFileFactoryImpl;
 import com.common.file.reader.FileLineIteratorFactory;
 
 public class TestCommonsObjectFactory {
@@ -22,6 +24,11 @@ public class TestCommonsObjectFactory {
 
 	public File getExistingFile() {
 		return FileLineIteratorFactory.getInstance().getFile(
+				FILES_FOLDER + FILE_NAME);
+	}
+
+	public RelativeFile getRelativeFile() {
+		return RelativeFileFactoryImpl.getInstance().createRelativeFileFromPath(
 				FILES_FOLDER + FILE_NAME);
 	}
 }

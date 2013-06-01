@@ -1,6 +1,6 @@
 package com.hidden.data.producer.book;
 
-import com.common.file.FileLineIterator;
+import com.common.file.reader.FileLineIterator;
 import com.common.iterator.IteratorDecorator;
 
 class TextBookIterator extends IteratorDecorator<Line<String>, String> {

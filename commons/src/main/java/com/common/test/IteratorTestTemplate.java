@@ -52,7 +52,10 @@ public abstract class IteratorTestTemplate<T> {
 
 	private void expectUnsupportedEx() {
 		expectedException.expect(UnsupportedOperationException.class);
+		createVictim();
 	}
+
+	protected abstract void createVictim();
 
 	protected void whenRemove() {
 		victim.remove();

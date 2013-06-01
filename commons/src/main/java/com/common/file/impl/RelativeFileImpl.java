@@ -10,24 +10,27 @@ import com.common.file.exception.FileException;
 
 class RelativeFileImpl implements RelativeFile {
 
-	private String relativeFilePath;
+	private URL resource;
 
-	static RelativeFileImpl createEmpty() {
+	final static RelativeFileImpl createEmpty() {
 		return new RelativeFileImpl(StringUtils.EMPTY);
 	}
 
 	RelativeFileImpl(String relativeFilePath) {
-		this.relativeFilePath = relativeFilePath;
+		this.resource = getClass().getResource(relativeFilePath);
+	}
+
+	RelativeFileImpl(URL url) {
+		resource = url;
 	}
 
 	@Override
 	public File getFile() {
-		URL resource = getClass().getResource(relativeFilePath);
-		assertFileExists(resource);
+		assertFileExists();
 		return new File(resource.getPath());
 	}
 
-	private void assertFileExists(URL resource) {
+	private void assertFileExists() {
 		if (resource == null) {
 			throw new FileException("File not found");
 		}
@@ -35,14 +38,14 @@ class RelativeFileImpl implements RelativeFile {
 
 	@Override
 	public boolean isEmpty() {
-		return StringUtils.isEmpty(relativeFilePath);
+		return resource == null;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + relativeFilePath.hashCode();
+		result = prime * result + getFile().hashCode();
 		return result;
 	}
 
@@ -58,7 +61,7 @@ class RelativeFileImpl implements RelativeFile {
 			return false;
 		}
 		RelativeFileImpl other = (RelativeFileImpl) obj;
-		return relativeFilePath.equals(other.relativeFilePath);
+		return getFile().equals(other.getFile());
 	}
 
 }

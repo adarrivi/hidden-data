@@ -1,4 +1,4 @@
-package com.common.file;
+package com.common.file.reader;
 
 import java.util.Iterator;
 

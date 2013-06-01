@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.Before;
-
 import com.common.file.RelativeFile;
 import com.common.test.IteratorTestTemplate;
 import com.common.util.TestCommonsObjectFactory;
@@ -16,15 +14,11 @@ public class RelativeFileFolderIteratorTest extends
 		IteratorTestTemplate<RelativeFile> {
 
 	private Iterator<File> iterator;
-	private File file = TestCommonsObjectFactory.getInstance()
-			.getExistingFile();
+	private RelativeFile relativeFile = TestCommonsObjectFactory.getInstance()
+			.getRelativeFile();
 
-	@Before
-	public void setUp() {
-		createVictim();
-	}
-
-	private void createVictim() {
+	@Override
+	protected void createVictim() {
 		victim = new RelativeFileFolderIterator(iterator,
 				RelativeFileFactoryImpl.getInstance());
 	}
@@ -37,13 +31,13 @@ public class RelativeFileFolderIteratorTest extends
 
 	@Override
 	protected void givenSingleItemContent() throws Exception {
-		iterator = Collections.singletonList(file).iterator();
+		iterator = Collections.singletonList(relativeFile.getFile()).iterator();
 		createVictim();
 	}
 
 	@Override
-	protected RelativeFileImpl getSingleContentItem() throws Exception {
-		return new RelativeFileImpl(file.getPath());
+	protected RelativeFile getSingleContentItem() throws Exception {
+		return relativeFile;
 	}
 
 	@Override

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.file.FileLineIterator;
+import com.common.file.reader.FileLineIterator;
 import com.hidden.data.producer.util.TestObjectFactory;
 
 public class SpaceBookTest {
