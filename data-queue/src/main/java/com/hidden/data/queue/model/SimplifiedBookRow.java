@@ -1,6 +1,10 @@
 package com.hidden.data.queue.model;
 
-public class SimplifiedBookRow {
+import java.io.Serializable;
+
+public class SimplifiedBookRow implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private boolean[] content;
 	private int rowNumber;
