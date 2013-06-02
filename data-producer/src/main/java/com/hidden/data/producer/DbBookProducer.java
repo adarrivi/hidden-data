@@ -1,4 +1,4 @@
-package com.hidden.data.db;
+package com.hidden.data.producer;
 
 import java.util.List;
 
@@ -7,33 +7,42 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-import com.hidden.data.db.dao.AuthorDao;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Book;
+import com.hidden.data.producer.db.SpaceBookDb;
 
-@Component("dataBaseApp")
-public class DataBaseApp {
+@Component("dbBookProducer")
+public class DbBookProducer {
 
 	@Autowired
 	private BookDao bookDao;
-	@Autowired
-	private AuthorDao authorDao;
 
+	// context will get closed at JVM runtime
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext(
-				"applicationDbContext.xml");
-		// context will get closed at JVM runtime
+				"applicationProducerContext.xml");
 		ctx.registerShutdownHook();
-		DataBaseApp dataBaseApp = (DataBaseApp) ctx.getBean("dataBaseApp");
+		DbBookProducer dataBaseApp = (DbBookProducer) ctx
+				.getBean("dbBookProducer");
 		dataBaseApp.start();
 	}
 
 	private void start() {
 		List<Book> allBooks = bookDao.loadAll();
 		for (Book book : allBooks) {
-			String content = new String(book.getContent());
-			System.out.println(content);
+			SpaceBookDb dbBook = new SpaceBookDb(book);
+			for (boolean[] line : dbBook.getLines()) {
+				printLine(line);
+			}
 		}
+	}
+
+	private void printLine(boolean[] line) {
+		for (boolean value : line) {
+			String toPrint = value ? " " : "X";
+			System.out.print(toPrint);
+		}
+		System.out.println();
 	}
 }

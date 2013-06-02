@@ -26,14 +26,6 @@ public class Author implements NotNullEntity, PersistentEntity {
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[").append(id).append(", ").append(name).append("]");
-		return sb.toString();
-
-	}
-
-	@Override
 	public boolean isEmpty() {
 		return name == null;
 	}
