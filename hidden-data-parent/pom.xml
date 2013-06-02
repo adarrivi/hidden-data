@@ -20,6 +20,8 @@
     <module>../data-loader</module>
     <module>../hidden-data-db</module>
     <module>../data-monitor</module>
+    <module>../data-filter</module>
+    <module>../data-queue</module>
   </modules>
 
   <artifactId>parent</artifactId>

@@ -21,7 +21,6 @@
     <dbcp.version>1.2.2.osgi</dbcp.version>
     <hsqldb.version>2.2.8</hsqldb.version>
     <liquibase.version>2.0.5</liquibase.version>
-    <log4j.version>1.2.15</log4j.version>
   </properties>
 
   <dependencies>
@@ -73,13 +72,6 @@
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
       <version>${liquibase.version}</version>
-    </dependency>
-
-    <!-- Logging -->
-    <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
-      <version>${log4j.version}</version>
     </dependency>
 
     <!-- Connection to the real Db -->

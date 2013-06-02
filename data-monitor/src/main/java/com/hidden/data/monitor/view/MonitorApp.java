@@ -3,7 +3,6 @@ package com.hidden.data.monitor.view;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,10 +24,13 @@ public class MonitorApp extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
+	protected Logger LOG = Logger.getLogger(MonitorApp.class);
+
 	@Autowired
 	protected LibraryLoader libraryLoader;
 
 	private JLabel label;
+	protected Thread libraryLoaderThread;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -59,11 +62,14 @@ public class MonitorApp extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					libraryLoader.start();
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				if (libraryLoaderThread != null
+						&& libraryLoaderThread.isAlive()) {
+					LOG.debug("LibraryLoader is still running");
+				} else {
+					libraryLoaderThread = new Thread(libraryLoader);
+					libraryLoaderThread.start();
 				}
+
 			}
 		});
 		panel.add(loadButton);
