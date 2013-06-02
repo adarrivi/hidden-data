@@ -11,6 +11,7 @@
     <junit.version>4.8.2</junit.version>
     <commons.lang.version>2.6</commons.lang.version>
     <mockito.version>1.9.5</mockito.version>
+     <org.springframework.version>3.2.0.RELEASE</org.springframework.version>
   </properties>
 
   <modules>
@@ -18,6 +19,7 @@
     <module>../data-producer</module>
     <module>../data-loader</module>
     <module>../hidden-data-db</module>
+    <module>../data-monitor</module>
   </modules>
 
   <artifactId>parent</artifactId>

@@ -16,7 +16,6 @@
   <properties>
     <hibernate.version>3.2.3.ga</hibernate.version>
     <javax.transaction.version>1.1</javax.transaction.version>
-    <org.springframework.version>3.2.0.RELEASE</org.springframework.version>
     <mysql.connector.version>5.1.25</mysql.connector.version>
     <dbunit.version>2.2.0</dbunit.version>
     <dbcp.version>1.2.2.osgi</dbcp.version>

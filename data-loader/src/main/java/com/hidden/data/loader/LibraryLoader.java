@@ -34,7 +34,7 @@ public class LibraryLoader {
 		dataBaseApp.start();
 	}
 
-	private void start() throws IOException {
+	public void start() throws IOException {
 		File libraryFolder = new File("D:/eclipse/dataMng/books/");
 		Library library = new Library(libraryFolder,
 				IOCommonsFileUtils.getInstance());
