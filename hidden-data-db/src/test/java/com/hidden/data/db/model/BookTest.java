@@ -10,18 +10,21 @@ public class BookTest {
 	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 	private static final String BOOK_TITLE = "Lorem ipsum";
 	private static final Integer BOOK_ID = Integer.valueOf(1);
+	private static final Author BOOK_AUTHOR = new Author();
 
 	private Book victim;
 	private boolean isEmpty;
 	private Integer id;
 	private String title;
 	private String content;
+	private Author author;
 
 	public static Book createBook() {
 		Book book = Book.createEmptyBook();
 		Reflexion.getInstance().setMember(book, "id", BOOK_ID);
 		book.setTitle(BOOK_TITLE);
 		book.setContent(BOOK_CONTENT);
+		book.setAuthor(BOOK_AUTHOR);
 		return book;
 
 	}
@@ -123,4 +126,18 @@ public class BookTest {
 		Assert.assertEquals(BOOK_CONTENT, content);
 	}
 
+	@Test
+	public void getAuthor_Book_ReturnsAuthor() {
+		givenABook();
+		whenGetAuthor();
+		thenAutorShouldBeEquals();
+	}
+
+	private void whenGetAuthor() {
+		author = victim.getAuthor();
+	}
+
+	private void thenAutorShouldBeEquals() {
+		Assert.assertEquals(BOOK_AUTHOR, author);
+	}
 }

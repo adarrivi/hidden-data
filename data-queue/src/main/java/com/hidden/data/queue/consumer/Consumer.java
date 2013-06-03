@@ -1,5 +1,7 @@
 package com.hidden.data.queue.consumer;
 
+import java.io.IOException;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
@@ -14,7 +16,7 @@ public class Consumer {
 
 	private static final Logger LOG = Logger.getLogger(Consumer.class);
 
-	public static void main(String[] args) throws JMSException {
+	public static void main(String[] args) throws JMSException, IOException {
 
 		QueueConnection connection = new QueueConnection();
 		connection.open();

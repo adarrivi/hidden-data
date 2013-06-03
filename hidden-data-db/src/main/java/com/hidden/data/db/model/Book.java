@@ -17,7 +17,7 @@ public class Book implements NotNullEntity, PersistentEntity {
 
 	@Override
 	public boolean isEmpty() {
-		return getId() == null && getTitle() == null;
+		return getTitle() == null;
 	}
 
 	@Override

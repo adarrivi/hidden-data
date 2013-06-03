@@ -1,6 +1,8 @@
 package com.hidden.data.queue;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Properties;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -11,31 +13,28 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class QueueConnection {
-
-	// URL of the JMS server. DEFAULT_BROKER_URL will just mean
-	// that JMS server is on localhost
-	private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
-
-	// Name of the queue we will be sending messages to
-	private static String subject = "TESTQUEUE";
 
 	private Connection connection;
 	private Destination destination;
 	private Session session;
 
-	public void open() throws JMSException {
+	public void open() throws JMSException, IOException {
+
+		Properties properties = new Properties();
+		properties.load(getClass().getResourceAsStream("/queue.properties"));
+
 		// Getting JMS connection from the server
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+				properties.getProperty("url"));
 		connection = connectionFactory.createConnection();
 		connection.start();
 
 		session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-		destination = session.createQueue(subject);
+		destination = session.createQueue(properties.getProperty("queue"));
 	}
 
 	public void close() throws JMSException {

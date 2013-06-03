@@ -1,5 +1,7 @@
 package com.hidden.data.queue.producer;
 
+import java.io.IOException;
+
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
@@ -13,7 +15,7 @@ public class Producer {
 
 	private static final Logger LOG = Logger.getLogger(Producer.class);
 
-	public static void main(String[] args) throws JMSException {
+	public static void main(String[] args) throws JMSException, IOException {
 		QueueConnection connection = new QueueConnection();
 		connection.open();
 		MessageProducer producer = connection.createProducer();
