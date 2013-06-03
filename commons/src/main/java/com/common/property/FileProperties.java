@@ -22,6 +22,8 @@ class FileProperties {
 		try {
 			assertRelativePathFileExists();
 			properties.load(resource);
+			//TODO CLOSE THE RESOURCE!!!
+			//TODO see http://docs.oracle.com/javase/tutorial/essential/environment/properties.html
 		} catch (IOException e) {
 			throw new FileException(e);
 		}
