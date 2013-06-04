@@ -6,33 +6,30 @@ import java.util.Properties;
 
 import com.common.file.exception.FileException;
 
-class FileProperties {
+public class FileProperties {
 
 	private Properties properties;
-	private String relativePathFile;
 	private InputStream resource;
 
-	FileProperties(String relativePathFile, Properties properties) {
-		this.relativePathFile = relativePathFile;
+	FileProperties(InputStream resource, Properties properties) {
 		this.properties = properties;
+		this.resource = resource;
 		loadProperties();
 	}
 
 	private void loadProperties() {
 		try {
-			assertRelativePathFileExists();
+			assertResourceExists();
 			properties.load(resource);
-			//TODO CLOSE THE RESOURCE!!!
-			//TODO see http://docs.oracle.com/javase/tutorial/essential/environment/properties.html
+			resource.close();
 		} catch (IOException e) {
 			throw new FileException(e);
 		}
 	}
 
-	private void assertRelativePathFileExists() {
-		resource = getClass().getResourceAsStream(relativePathFile);
+	private void assertResourceExists() {
 		if (resource == null) {
-			throw new FileException("File not found in:" + relativePathFile);
+			throw new FileException("Stream cannot be null");
 		}
 
 	}

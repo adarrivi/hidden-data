@@ -15,6 +15,7 @@ public class PropertiesFactory {
 	}
 
 	public FileProperties getPropertiesFromRelativePath(String relativePath) {
-		return new FileProperties(relativePath, new Properties());
+		return new FileProperties(getClass().getResourceAsStream(relativePath),
+				new Properties());
 	}
 }

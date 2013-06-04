@@ -1,24 +1,31 @@
 package com.hidden.data.queue.consumer;
 
-import java.io.IOException;
-
+import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.ObjectMessage;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
 
+import com.common.property.FileProperties;
+import com.common.property.PropertiesFactory;
 import com.hidden.data.queue.QueueConnection;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
 public class Consumer {
 
 	private static final Logger LOG = Logger.getLogger(Consumer.class);
+	private static final FileProperties PROPERTIES = PropertiesFactory
+			.getInstance().getPropertiesFromRelativePath("/queue.properties");
 
-	public static void main(String[] args) throws JMSException, IOException {
+	public static void main(String[] args) throws JMSException {
 
-		QueueConnection connection = new QueueConnection();
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+				PROPERTIES.getProperty("url"));
+
+		QueueConnection connection = new QueueConnection(connectionFactory);
 		connection.open();
 
 		MessageConsumer consumer = connection.createConsumer();

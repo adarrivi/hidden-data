@@ -1,5 +1,6 @@
 package com.common.property;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -25,6 +26,8 @@ public class FilePropertiesTest {
 
 	@Mock
 	private Properties properties;
+	@Mock
+	private ByteArrayInputStream mockedStream;
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -50,7 +53,8 @@ public class FilePropertiesTest {
 	}
 
 	private void whenNewInstance() {
-		victim = new FileProperties(relativePath, properties);
+		victim = new FileProperties(getClass()
+				.getResourceAsStream(relativePath), properties);
 	}
 
 	@Test
@@ -89,6 +93,20 @@ public class FilePropertiesTest {
 
 	private void thenShouldUseProperties() {
 		Mockito.verify(properties).getProperty(PROPERTY_KEY);
+	}
+
+	@Test
+	public void newInstance_ExistingProperty_Closes_Stream() throws IOException {
+		whenNewMockedInstance();
+		thenStreamShouldBeClosed();
+	}
+
+	private void whenNewMockedInstance() {
+		victim = new FileProperties(mockedStream, properties);
+	}
+
+	private void thenStreamShouldBeClosed() throws IOException {
+		Mockito.verify(mockedStream).close();
 	}
 
 }
