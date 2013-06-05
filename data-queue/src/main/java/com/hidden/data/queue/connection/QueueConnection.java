@@ -1,4 +1,4 @@
-package com.hidden.data.queue;
+package com.hidden.data.queue.connection;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ import com.common.property.FileProperties;
 import com.common.property.PropertiesFactory;
 import com.hidden.data.queue.exception.QueueException;
 
-public class QueueConnection {
+class QueueConnection {
 
 	private static final String QUEUE_PROPERTY_KEY = "queue";
 	private static final FileProperties PROPERTIES = PropertiesFactory
@@ -25,11 +25,11 @@ public class QueueConnection {
 	private Session session;
 	private ConnectionFactory connectionFactory;
 
-	public QueueConnection(ConnectionFactory connectionFactory) {
+	QueueConnection(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
 
-	public void open() {
+	void open() {
 		try {
 			connection = connectionFactory.createConnection();
 			connection.start();
@@ -41,7 +41,7 @@ public class QueueConnection {
 		}
 	}
 
-	public void close() {
+	void close() {
 		try {
 			assertConnectionAlreadyOpen();
 			connection.close();
@@ -50,30 +50,33 @@ public class QueueConnection {
 		}
 	}
 
-	public MessageConsumer createConsumer() {
+	MessageConsumer createConsumer() {
 		try {
+			assertConnectionAlreadyOpen();
 			return session.createConsumer(destination);
 		} catch (JMSException e) {
 			throw new QueueException(e);
 		}
 	}
 
-	private void assertConnectionAlreadyOpen() {
+	void assertConnectionAlreadyOpen() {
 		if (connection == null) {
 			throw new QueueException("The connection must be opened before");
 		}
 	}
 
-	public MessageProducer createProducer() {
+	MessageProducer createProducer() {
 		try {
+			assertConnectionAlreadyOpen();
 			return session.createProducer(destination);
 		} catch (JMSException e) {
 			throw new QueueException(e);
 		}
 	}
 
-	public ObjectMessage createObjectMessage(Serializable serialiazbleObject) {
+	ObjectMessage createObjectMessage(Serializable serialiazbleObject) {
 		try {
+			assertConnectionAlreadyOpen();
 			return session.createObjectMessage(serialiazbleObject);
 		} catch (JMSException e) {
 			throw new QueueException(e);

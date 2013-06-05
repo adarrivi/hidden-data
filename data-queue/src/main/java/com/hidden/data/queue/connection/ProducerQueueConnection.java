@@ -1,4 +1,4 @@
-package com.hidden.data.queue;
+package com.hidden.data.queue.connection;
 
 import java.io.Serializable;
 
@@ -14,13 +14,11 @@ public class ProducerQueueConnection {
 
 	private MessageProducer producer;
 
-	public ProducerQueueConnection(QueueConnection connection) {
+	ProducerQueueConnection(QueueConnection connection) {
 		this.connection = connection;
-	}
-
-	public void open() {
 		connection.open();
 		producer = connection.createProducer();
+
 	}
 
 	public void sendMessage(Serializable message) {
@@ -31,6 +29,10 @@ public class ProducerQueueConnection {
 		} catch (JMSException e) {
 			throw new QueueException(e);
 		}
+	}
+
+	public void close() {
+		connection.close();
 	}
 
 }
