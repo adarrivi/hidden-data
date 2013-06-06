@@ -8,19 +8,20 @@ import javax.jms.ObjectMessage;
 
 import com.hidden.data.queue.exception.QueueException;
 
-public class ProducerQueueConnection {
+class ProducerConnectionActiveMq implements JmsProducerConnection {
 
-	private QueueConnection connection;
+	private QueueConnectionActiveMq connection;
 
 	private MessageProducer producer;
 
-	ProducerQueueConnection(QueueConnection connection) {
+	ProducerConnectionActiveMq(QueueConnectionActiveMq connection) {
 		this.connection = connection;
 		connection.open();
 		producer = connection.createProducer();
 
 	}
 
+	@Override
 	public void sendMessage(Serializable message) {
 		try {
 			ObjectMessage objectMessage = connection
@@ -31,6 +32,7 @@ public class ProducerQueueConnection {
 		}
 	}
 
+	@Override
 	public void close() {
 		connection.close();
 	}

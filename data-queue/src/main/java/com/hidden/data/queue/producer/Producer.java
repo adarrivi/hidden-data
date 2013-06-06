@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.common.property.FileProperties;
 import com.common.property.PropertiesFactory;
-import com.hidden.data.queue.connection.QueueConnection;
+import com.hidden.data.queue.connection.QueueConnectionActiveMq;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
 public class Producer {
@@ -24,7 +24,7 @@ public class Producer {
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
 				PROPERTIES.getProperty("url"));
 
-		QueueConnection connection = new QueueConnection(connectionFactory);
+		QueueConnectionActiveMq connection = new QueueConnectionActiveMq(connectionFactory);
 		connection.open();
 		MessageProducer producer = connection.createProducer();
 

@@ -15,7 +15,7 @@ import com.common.property.FileProperties;
 import com.common.property.PropertiesFactory;
 import com.hidden.data.queue.exception.QueueException;
 
-class QueueConnection {
+class QueueConnectionActiveMq {
 
 	private static final String QUEUE_PROPERTY_KEY = "queue";
 	private static final FileProperties PROPERTIES = PropertiesFactory
@@ -25,7 +25,7 @@ class QueueConnection {
 	private Session session;
 	private ConnectionFactory connectionFactory;
 
-	QueueConnection(ConnectionFactory connectionFactory) {
+	QueueConnectionActiveMq(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
 
