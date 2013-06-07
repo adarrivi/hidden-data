@@ -1,42 +1,44 @@
 package com.hidden.data.queue.consumer;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageConsumer;
-import javax.jms.ObjectMessage;
+import javax.jms.ConnectionFactory;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
 
+import com.common.property.FileProperties;
+import com.common.property.PropertiesFactory;
 import com.hidden.data.queue.connection.ConnectionActiveMqFactory;
+import com.hidden.data.queue.connection.JmsConsumerConnection;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
 public class Consumer {
 
-	private static final Logger LOG = Logger.getLogger(Consumer.class);
+	private static final Logger LOG = Logger.getLogger(ConsumerTest.class);
+	private static final FileProperties PROPERTIES = PropertiesFactory
+			.getInstance().getPropertiesFromRelativePath("/queue.properties");
 
-	public static void main(String[] args) throws JMSException {
+	private static final Consumer INSTANCE = new Consumer();
 
-		ConsumerConnectionActiveMq connection = ConnectionActiveMqFactory
-				.getInstance().createConsumerConnection();
+	public static Consumer getInstance() {
+		return INSTANCE;
+	}
 
-		MessageConsumer consumer = connection.createConsumer();
+	private Consumer() {
+		// To limit scope
+	}
 
-		// Here we receive the message.
-		// By default this call is blocking, which means it will wait
-		// for a message to arrive on the queue.
-		Message message = consumer.receive();
+	public void run() {
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
+				PROPERTIES.getProperty("url"));
 
-		// There are many types of Message and TextMessage
-		// is just one of them. Producer sent us a TextMessage
-		// so we must cast to it to get access to its .getText()
-		// method.
-		if (message instanceof ObjectMessage) {
-			ObjectMessage objectMessage = (ObjectMessage) message;
-			SimplifiedBookRow row = (SimplifiedBookRow) objectMessage
-					.getObject();
-			LOG.debug("Received message " + row.getRowNumber() + " "
-					+ row.getBookId().intValue());
-		}
-		connection.close();
+		JmsConsumerConnection consumerConnection = ConnectionActiveMqFactory
+				.getInstance().createConsumerConnection(connectionFactory);
+
+		SimplifiedBookRow row = (SimplifiedBookRow) consumerConnection
+				.waitUntilReceive();
+
+		LOG.debug("Received message " + row.getRowNumber() + " "
+				+ row.getBookId().intValue());
+		consumerConnection.close();
 	}
 }

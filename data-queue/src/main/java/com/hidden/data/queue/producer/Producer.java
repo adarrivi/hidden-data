@@ -1,16 +1,14 @@
 package com.hidden.data.queue.producer;
 
 import javax.jms.ConnectionFactory;
-import javax.jms.JMSException;
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.log4j.Logger;
 
 import com.common.property.FileProperties;
 import com.common.property.PropertiesFactory;
-import com.hidden.data.queue.connection.QueueConnectionActiveMq;
+import com.hidden.data.queue.connection.ConnectionActiveMqFactory;
+import com.hidden.data.queue.connection.JmsProducerConnection;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
 public class Producer {
@@ -20,24 +18,30 @@ public class Producer {
 	private static final FileProperties PROPERTIES = PropertiesFactory
 			.getInstance().getPropertiesFromRelativePath("/queue.properties");
 
-	public static void main(String[] args) throws JMSException {
+	private static final Producer INSTANCE = new Producer();
+
+	public static Producer getInstance() {
+		return INSTANCE;
+	}
+
+	private Producer() {
+		// To limit scope
+	}
+
+	public void run() {
+
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
 				PROPERTIES.getProperty("url"));
 
-		QueueConnectionActiveMq connection = new QueueConnectionActiveMq(connectionFactory);
-		connection.open();
-		MessageProducer producer = connection.createProducer();
+		JmsProducerConnection producerConnection = ConnectionActiveMqFactory
+				.getInstance().createProducerConnection(connectionFactory);
 
-		// We will send a small text message saying 'Hello' in Japanese
 		boolean[] content = new boolean[] { false, false, true };
 		SimplifiedBookRow row = new SimplifiedBookRow(content, 3,
 				Integer.valueOf(23));
-		ObjectMessage objectMessage = connection.createObjectMessage(row);
 
-		// Here we are sending the message!
-		producer.send(objectMessage);
+		producerConnection.sendMessage(row);
 		LOG.debug("Sent message");
-
-		connection.close();
+		producerConnection.close();
 	}
 }
