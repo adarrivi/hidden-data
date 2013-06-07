@@ -17,18 +17,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.hidden.data.queue.connection.JmsConsumerConnection;
-import com.hidden.data.queue.connection.ConsumerConnectionActiveMq;
-import com.hidden.data.queue.connection.QueueConnectionActiveMq;
 import com.hidden.data.queue.exception.QueueException;
 
-public class ConsumerConnectionActiveMqTest {
+public class ConsumerConnectionTest {
 
 	private static final Serializable SERIALIZABLE_OBJECT = Integer.valueOf(0);
-	private JmsConsumerConnection victim;
+	private ConsumerConnection victim;
 	private Serializable receivedSerializable;
 	@Mock
-	private QueueConnectionActiveMq connection;
+	private QueueConnection connection;
 	@Mock
 	private MessageConsumer consumer;
 	@Mock
@@ -52,7 +49,7 @@ public class ConsumerConnectionActiveMqTest {
 		Mockito.when(connection.createConsumer()).thenReturn(consumer);
 		Mockito.when(consumer.receive()).thenReturn(objectMessage);
 		Mockito.when(objectMessage.getObject()).thenReturn(SERIALIZABLE_OBJECT);
-		victim = new ConsumerConnectionActiveMq(connection);
+		victim = new ConsumerConnection(connection);
 	}
 
 	private void thenShouldHaveOpenedConnection() {

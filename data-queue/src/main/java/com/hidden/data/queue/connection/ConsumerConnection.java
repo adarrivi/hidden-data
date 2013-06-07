@@ -8,20 +8,19 @@ import javax.jms.ObjectMessage;
 
 import com.hidden.data.queue.exception.QueueException;
 
-class ConsumerConnectionActiveMq implements JmsConsumerConnection {
+public class ConsumerConnection {
 
-	private QueueConnectionActiveMq connection;
+	private QueueConnection connection;
 
 	private MessageConsumer consumer;
 
-	ConsumerConnectionActiveMq(QueueConnectionActiveMq connection) {
+	public ConsumerConnection(QueueConnection connection) {
 		this.connection = connection;
 		connection.open();
 		consumer = connection.createConsumer();
 
 	}
 
-	@Override
 	public Serializable waitUntilReceive() {
 		try {
 			ObjectMessage message = (ObjectMessage) consumer.receive();
@@ -31,7 +30,6 @@ class ConsumerConnectionActiveMq implements JmsConsumerConnection {
 		}
 	}
 
-	@Override
 	public void close() {
 		connection.close();
 	}

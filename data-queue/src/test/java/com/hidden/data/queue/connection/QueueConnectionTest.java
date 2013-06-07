@@ -18,10 +18,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.hidden.data.queue.connection.QueueConnectionActiveMq;
+import com.hidden.data.queue.connection.QueueConnection;
 import com.hidden.data.queue.exception.QueueException;
 
-public class QueueConnectionActiveMqTest {
+public class QueueConnectionTest {
 
 	private static final Serializable SERIALIZABLE_OBJECT = Integer.valueOf(0);
 	@Mock
@@ -35,7 +35,7 @@ public class QueueConnectionActiveMqTest {
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
-	private QueueConnectionActiveMq victim;
+	private QueueConnection victim;
 
 	@Before
 	public void setUp() throws JMSException {
@@ -66,7 +66,7 @@ public class QueueConnectionActiveMqTest {
 	}
 
 	private void createVictim() {
-		victim = new QueueConnectionActiveMq(connectionFactory);
+		victim = new QueueConnection(connectionFactory);
 	}
 
 	private void whenOpen() {

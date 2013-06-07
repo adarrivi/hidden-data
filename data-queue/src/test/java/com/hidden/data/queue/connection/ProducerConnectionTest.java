@@ -15,17 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.hidden.data.queue.connection.JmsProducerConnection;
-import com.hidden.data.queue.connection.ProducerConnectionActiveMq;
-import com.hidden.data.queue.connection.QueueConnectionActiveMq;
 import com.hidden.data.queue.exception.QueueException;
 
-public class ProducerConnectionActiveMqTest {
+public class ProducerConnectionTest {
 
 	private static final Serializable SERIALIZABLE_OBJECT = Integer.valueOf(0);
-	private JmsProducerConnection victim;
+	private ProducerConnection victim;
 	@Mock
-	private QueueConnectionActiveMq connection;
+	private QueueConnection connection;
 	@Mock
 	private MessageProducer producer;
 	@Mock
@@ -49,7 +46,7 @@ public class ProducerConnectionActiveMqTest {
 		Mockito.when(connection.createProducer()).thenReturn(producer);
 		Mockito.when(connection.createObjectMessage(SERIALIZABLE_OBJECT))
 				.thenReturn(objectMessage);
-		victim = new ProducerConnectionActiveMq(connection);
+		victim = new ProducerConnection(connection);
 	}
 
 	private void thenShouldHaveOpenedConnection() {
