@@ -10,20 +10,24 @@ import com.hidden.data.queue.exception.QueueException;
 
 public class ConsumerConnection {
 
-	private QueueConnection connection;
+	private static final int ONE_SECOND = 1000;
 
+	private QueueConnection connection;
 	private MessageConsumer consumer;
 
 	public ConsumerConnection(QueueConnection connection) {
 		this.connection = connection;
 		connection.open();
 		consumer = connection.createConsumer();
-
 	}
 
 	public Serializable waitUntilReceive() {
 		try {
-			ObjectMessage message = (ObjectMessage) consumer.receive();
+			ObjectMessage message = (ObjectMessage) consumer
+					.receive(ONE_SECOND);
+			if (message == null) {
+				return new TimeOut();
+			}
 			return message.getObject();
 		} catch (JMSException e) {
 			throw new QueueException(e);

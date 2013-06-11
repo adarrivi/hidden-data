@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.hidden.data.queue.consumer.QueueSimplifiedRowConsumer;
+import com.hidden.data.queue.consumer.SimplifiedRowConsumer;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
-public class RowComsumer implements QueueSimplifiedRowConsumer {
+public class RowComsumer extends SimplifiedRowConsumer {
 
 	private static final Logger LOG = Logger.getLogger(RowComsumer.class);
 

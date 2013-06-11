@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -47,7 +48,8 @@ public class ConsumerConnectionTest {
 
 	private void createVictim() throws JMSException {
 		Mockito.when(connection.createConsumer()).thenReturn(consumer);
-		Mockito.when(consumer.receive()).thenReturn(objectMessage);
+		Mockito.when(consumer.receive(Matchers.anyLong())).thenReturn(
+				objectMessage);
 		Mockito.when(objectMessage.getObject()).thenReturn(SERIALIZABLE_OBJECT);
 		victim = new ConsumerConnection(connection);
 	}
@@ -71,7 +73,7 @@ public class ConsumerConnectionTest {
 	private void givenJmsExReceivingMessage() throws JMSException {
 		createVictim();
 		Mockito.doThrow(new JMSException(StringUtils.EMPTY)).when(consumer)
-				.receive();
+				.receive(Matchers.anyLong());
 	}
 
 	private void whenWaitUntilReceiveMessage() {
@@ -86,7 +88,7 @@ public class ConsumerConnectionTest {
 	}
 
 	private void thenShouldWaitForConnection() throws JMSException {
-		Mockito.verify(consumer).receive();
+		Mockito.verify(consumer).receive(Matchers.anyLong());
 		Assert.assertEquals(receivedSerializable, SERIALIZABLE_OBJECT);
 	}
 
@@ -105,4 +107,19 @@ public class ConsumerConnectionTest {
 		Mockito.verify(connection).close();
 	}
 
+	@Test
+	public void waitUntilReceive_TimeOut_ReturnsTimeOut() throws JMSException {
+		givenTimeOut();
+		whenWaitUntilReceiveMessage();
+		thenShouldReturnTimeOut();
+	}
+
+	private void givenTimeOut() throws JMSException {
+		createVictim();
+		Mockito.when(consumer.receive(Matchers.anyLong())).thenReturn(null);
+	}
+
+	private void thenShouldReturnTimeOut() {
+		Assert.assertTrue(receivedSerializable instanceof TimeOut);
+	}
 }
