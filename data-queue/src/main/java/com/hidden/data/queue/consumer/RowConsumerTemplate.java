@@ -8,12 +8,12 @@ import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.connection.TimeOut;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
-public abstract class SimplifiedRowConsumer {
+public abstract class RowConsumerTemplate {
 
 	private ConsumerConnection connection;
 	private boolean closeConnection;
 
-	protected SimplifiedRowConsumer(QueueConnectionFactory connectionFactory) {
+	protected RowConsumerTemplate(QueueConnectionFactory connectionFactory) {
 		connection = connectionFactory.createConsumerConnection();
 
 	}

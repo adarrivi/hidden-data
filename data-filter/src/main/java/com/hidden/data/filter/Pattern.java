@@ -70,7 +70,8 @@ class Pattern {
 
 	private boolean patternMatchesFromColumn(int startColumnIndex) {
 		for (int rowIndex = 0; rowIndex < trimmedRowsContent.length; rowIndex++) {
-			for (int columnIndex = 0; columnIndex < patternColumns; columnIndex++) {
+			for (int columnIndex = 0; columnIndex < patternColumns
+					&& (columnIndex + startColumnIndex < trimmedRowsContentColumns); columnIndex++) {
 				if (pattern[rowIndex][columnIndex] != trimmedRowsContent[rowIndex][columnIndex
 						+ startColumnIndex]) {
 					return false;

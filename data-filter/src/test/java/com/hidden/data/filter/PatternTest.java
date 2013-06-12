@@ -161,9 +161,9 @@ public class PatternTest {
 	public void matches_NoMatches3x3End_ReturnsTrue() {
 		givenPattern(PATTERN_3x3);
 		boolean[][] aPattern = {
-				{ false, false, PATTERN_3x3[0][1], PATTERN_3x3[0][2] },
-				{ true, PATTERN_3x3[1][0], PATTERN_3x3[1][1], PATTERN_3x3[1][2] },
-				{ true, PATTERN_3x3[2][0], PATTERN_3x3[2][1], PATTERN_3x3[2][2] } };
+				{ false, false, false, false, false, false, false },
+				{ false, false, false, false, false, false, false },
+				{ false, false, false, false, false, false, false } };
 		givenMatchingRows(aPattern);
 		whenMatches();
 		thenMatchesShouldBe(false);

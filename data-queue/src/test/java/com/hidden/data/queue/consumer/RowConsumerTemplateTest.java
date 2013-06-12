@@ -16,9 +16,9 @@ import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.connection.TimeOut;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
-public class SimplifiedRowConsumerTest {
+public class RowConsumerTemplateTest {
 
-	private SimplifiedRowConsumerStub victim;
+	private RowConsumerStub victim;
 	private List<SimplifiedBookRow> expectedConsumedRows;
 
 	@Mock
@@ -50,7 +50,7 @@ public class SimplifiedRowConsumerTest {
 		setExpectedConsumedRows();
 		Mockito.when(connection.waitUntilReceive()).thenReturn(
 				(Serializable) expectedConsumedRows, new TimeOut());
-		victim = new SimplifiedRowConsumerStub(connectionFactory, 1);
+		victim = new RowConsumerStub(connectionFactory, 1);
 	}
 
 	private void whenReceiveMessages() {
@@ -75,7 +75,7 @@ public class SimplifiedRowConsumerTest {
 				(Serializable) expectedConsumedRows,
 				(Serializable) expectedConsumedRows,
 				(Serializable) expectedConsumedRows, new TimeOut());
-		victim = new SimplifiedRowConsumerStub(connectionFactory, 3);
+		victim = new RowConsumerStub(connectionFactory, 3);
 	}
 
 	private void thenConsumeThreeRowsShouldBeExecuted() {
@@ -92,7 +92,7 @@ public class SimplifiedRowConsumerTest {
 
 	private void givenTimeOut() {
 		Mockito.when(connection.waitUntilReceive()).thenReturn(new TimeOut());
-		victim = new SimplifiedRowConsumerStub(connectionFactory, 0);
+		victim = new RowConsumerStub(connectionFactory, 0);
 	}
 
 	private void thenConsumeRowsShouldNotBeExecuted() {

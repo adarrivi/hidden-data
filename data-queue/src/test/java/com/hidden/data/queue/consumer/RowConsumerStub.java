@@ -8,12 +8,12 @@ import org.junit.Assert;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.model.SimplifiedBookRow;
 
-class SimplifiedRowConsumerStub extends SimplifiedRowConsumer {
+class RowConsumerStub extends RowConsumerTemplate {
 
 	private List<List<SimplifiedBookRow>> messagesReceived = new ArrayList<List<SimplifiedBookRow>>();
 	private int messagesReceivedBeforeClosingConnection;
 
-	SimplifiedRowConsumerStub(QueueConnectionFactory connectionFactory,
+	RowConsumerStub(QueueConnectionFactory connectionFactory,
 			int messagesReceivedBeforeClosingConnection) {
 		super(connectionFactory);
 		this.messagesReceivedBeforeClosingConnection = messagesReceivedBeforeClosingConnection;

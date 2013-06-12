@@ -1,6 +1,10 @@
 package com.hidden.data.producer;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -10,12 +14,22 @@ import org.springframework.stereotype.Component;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Book;
 import com.hidden.data.producer.db.SpaceBookDb;
+import com.hidden.data.queue.connection.ProducerConnection;
+import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
+import com.hidden.data.queue.model.SimplifiedBookRow;
 
 @Component("dbBookProducer")
 public class DbBookProducer {
 
+	private static final int PATTERN_SIZE = 3;
+
 	@Autowired
 	private BookDao bookDao;
+
+	private ProducerConnection producerConnection;
+	private int rowNumber;
+	private Integer bookId;
+	private Queue<SimplifiedBookRow> rowQueue = new LinkedList<SimplifiedBookRow>();
 
 	// context will get closed at JVM runtime
 	@SuppressWarnings("resource")
@@ -29,20 +43,31 @@ public class DbBookProducer {
 	}
 
 	private void start() {
+		producerConnection = ConnectionActiveMqFactory.getInstance()
+				.createProducerConnection();
 		List<Book> allBooks = bookDao.loadAll();
 		for (Book book : allBooks) {
+			rowNumber = 0;
+			bookId = book.getId();
 			SpaceBookDb dbBook = new SpaceBookDb(book);
 			for (boolean[] line : dbBook.getLines()) {
 				printLine(line);
 			}
 		}
+		producerConnection.close();
 	}
 
 	private void printLine(boolean[] line) {
-		for (boolean value : line) {
-			String toPrint = value ? " " : "X";
-			System.out.print(toPrint);
+		SimplifiedBookRow row = new SimplifiedBookRow(line, rowNumber++, bookId);
+		rowQueue.add(row);
+		if (rowQueue.size() > PATTERN_SIZE) {
+			rowQueue.remove();
 		}
-		System.out.println();
+		if (rowQueue.size() == PATTERN_SIZE) {
+			List<SimplifiedBookRow> list = new ArrayList<SimplifiedBookRow>();
+			list.addAll(rowQueue);
+			producerConnection.sendMessage((Serializable) list);
+		}
 	}
+
 }
