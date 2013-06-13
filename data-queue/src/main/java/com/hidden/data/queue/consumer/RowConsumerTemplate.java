@@ -14,7 +14,7 @@ public abstract class RowConsumerTemplate {
 	private boolean closeConnection;
 
 	protected RowConsumerTemplate(QueueConnectionFactory connectionFactory) {
-		connection = connectionFactory.createConsumerConnection();
+		connection = connectionFactory.createFilterConsumerConnection();
 
 	}
 

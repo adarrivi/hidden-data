@@ -2,8 +2,12 @@ package com.hidden.data.queue.connection;
 
 public interface QueueConnectionFactory {
 
-	ConsumerConnection createConsumerConnection();
+	ConsumerConnection createFilterConsumerConnection();
 
-	ProducerConnection createProducerConnection();
+	ProducerConnection createFilterProducerConnection();
+
+	ConsumerConnection createAggregateConsumerConnection();
+
+	ProducerConnection createAggregateProducerConnection();
 
 }

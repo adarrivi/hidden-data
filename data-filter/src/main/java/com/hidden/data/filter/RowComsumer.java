@@ -1,9 +1,11 @@
 package com.hidden.data.filter;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.hidden.data.queue.connection.ProducerConnection;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 import com.hidden.data.queue.consumer.RowConsumerTemplate;
 import com.hidden.data.queue.model.SimplifiedBookRow;
@@ -11,6 +13,8 @@ import com.hidden.data.queue.model.SimplifiedBookRow;
 public class RowComsumer extends RowConsumerTemplate {
 
 	private static final Logger LOG = Logger.getLogger(RowComsumer.class);
+	private Pattern pattern;
+	private ProducerConnection producerConnection;
 
 	public static void main(String[] args) {
 		// boolean[][] rowIntheMiddle = new boolean[][] { { true, false, false
@@ -25,11 +29,11 @@ public class RowComsumer extends RowConsumerTemplate {
 		rowComsumer.receiveMessages();
 	}
 
-	private Pattern pattern;
-
 	public RowComsumer(Pattern pattern) {
 		super(ConnectionActiveMqFactory.getInstance());
 		this.pattern = pattern;
+		this.producerConnection = ConnectionActiveMqFactory.getInstance()
+				.createAggregateProducerConnection();
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class RowComsumer extends RowConsumerTemplate {
 			for (SimplifiedBookRow row : rows) {
 				printLine(row.getContent());
 			}
+			producerConnection.sendMessage((Serializable) rows);
 		}
 	}
 

@@ -11,22 +11,20 @@ import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
-import com.common.property.FileProperties;
-import com.common.property.PropertiesFactory;
 import com.hidden.data.queue.exception.QueueException;
 
 public class QueueConnection {
 
-	private static final String QUEUE_PROPERTY_KEY = "queue";
-	private static final FileProperties PROPERTIES = PropertiesFactory
-			.getInstance().getPropertiesFromRelativePath("/queue.properties");
 	private Connection connection;
 	private Destination destination;
 	private Session session;
 	private ConnectionFactory connectionFactory;
+	private String destinationQueue;
 
-	public QueueConnection(ConnectionFactory connectionFactory) {
+	public QueueConnection(ConnectionFactory connectionFactory,
+			String destinationQueue) {
 		this.connectionFactory = connectionFactory;
+		this.destinationQueue = destinationQueue;
 	}
 
 	void open() {
@@ -34,8 +32,7 @@ public class QueueConnection {
 			connection = connectionFactory.createConnection();
 			connection.start();
 			session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			destination = session.createQueue(PROPERTIES
-					.getProperty(QUEUE_PROPERTY_KEY));
+			destination = session.createQueue(destinationQueue);
 		} catch (JMSException ex) {
 			throw new QueueException(ex);
 		}

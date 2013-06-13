@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.hidden.data.queue.connection.QueueConnection;
 import com.hidden.data.queue.exception.QueueException;
 
 public class QueueConnectionTest {
@@ -66,7 +65,7 @@ public class QueueConnectionTest {
 	}
 
 	private void createVictim() {
-		victim = new QueueConnection(connectionFactory);
+		victim = new QueueConnection(connectionFactory, StringUtils.EMPTY);
 	}
 
 	private void whenOpen() {

@@ -29,7 +29,7 @@ public class RowConsumerTemplateTest {
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		Mockito.when(connectionFactory.createConsumerConnection()).thenReturn(
+		Mockito.when(connectionFactory.createFilterConsumerConnection()).thenReturn(
 				connection);
 	}
 

@@ -44,20 +44,20 @@ public class DbBookProducer {
 
 	private void start() {
 		producerConnection = ConnectionActiveMqFactory.getInstance()
-				.createProducerConnection();
+				.createFilterProducerConnection();
 		List<Book> allBooks = bookDao.loadAll();
 		for (Book book : allBooks) {
 			rowNumber = 0;
 			bookId = book.getId();
 			SpaceBookDb dbBook = new SpaceBookDb(book);
 			for (boolean[] line : dbBook.getLines()) {
-				printLine(line);
+				sendRows(line);
 			}
 		}
 		producerConnection.close();
 	}
 
-	private void printLine(boolean[] line) {
+	private void sendRows(boolean[] line) {
 		SimplifiedBookRow row = new SimplifiedBookRow(line, rowNumber++, bookId);
 		rowQueue.add(row);
 		if (rowQueue.size() > PATTERN_SIZE) {
