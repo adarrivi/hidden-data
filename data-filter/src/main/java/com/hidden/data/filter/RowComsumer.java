@@ -13,9 +13,15 @@ public class RowComsumer extends RowConsumerTemplate {
 	private static final Logger LOG = Logger.getLogger(RowComsumer.class);
 
 	public static void main(String[] args) {
-		boolean[][] rowIntheMiddle = new boolean[][] { { true, false, false },
-				{ true, false, false }, { true, false, false } };
-		RowComsumer rowComsumer = new RowComsumer(new Pattern(rowIntheMiddle));
+		// boolean[][] rowIntheMiddle = new boolean[][] { { true, false, false
+		// },
+		// { true, false, false }, { true, false, false } };
+		boolean[][] smallPyramid = new boolean[][] {
+				{ false, false, false, true, false, false, false },
+				{ false, false, true, false, true, false, false },
+				{ false, true, false, false, false, true, false } };
+
+		RowComsumer rowComsumer = new RowComsumer(new Pattern(smallPyramid));
 		rowComsumer.receiveMessages();
 	}
 

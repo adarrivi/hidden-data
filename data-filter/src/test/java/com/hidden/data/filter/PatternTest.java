@@ -168,4 +168,38 @@ public class PatternTest {
 		whenMatches();
 		thenMatchesShouldBe(false);
 	}
+
+	@Test
+	public void matches_OutOfIndexInLive_ReturnsTrue() {
+		boolean[][] patternToMatch = { { true, false, false },
+				{ true, false, false }, { true, false, false } };
+		givenPattern(patternToMatch);
+		boolean[][] liveContent = {
+				{ false, false, false, false, false, false, false, false,
+						false, true, false, false, false, false, true, false,
+						false, false, true, false, false, false, false, false,
+						false, false, false, true, false, false, false, true,
+						false, false, false, false, true, false, false, false,
+						true, false, false, false, false, false, false, true,
+						false, false, true, false, false, false, false, true,
+						false, false, true, false, false, false, false, false,
+						true, false, false, false },
+				{ false, false, false, false, false, false, false, false,
+						false, true, false, false, false, false, true, false,
+						false, false, true, false, false, false, false, true,
+						false, false, false, false, false, false, false, true,
+						false, false, false, false, false, false, true, false,
+						false, false, false, false, false, false, false, false,
+						false, false, true, false, false, true, false, false,
+						false, false, false, false, false, false, false, false,
+						false, false, false, false },
+				{ false, false, false, false, true, false, false, true, false,
+						false, false, true, false, false, false, false, false,
+						true, false, false, false, false, false, false, false,
+						true, false, false, false, false, false, false, false,
+						false, false, true, false, false, false, false, false } };
+		givenMatchingRows(liveContent);
+		whenMatches();
+		thenMatchesShouldBe(false);
+	}
 }

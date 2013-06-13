@@ -26,12 +26,10 @@ class Pattern {
 		if (isTrimmedContentSmallerThanPatter()) {
 			return false;
 		}
-		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
-			for (int columnIndex = 0; columnIndex < rows.get(rowIndex)
-					.getContent().length; columnIndex++) {
-				if (patternMatchesFromColumn(columnIndex)) {
-					return true;
-				}
+		for (int columnIndex = 0; columnIndex < trimmedRowsContentColumns
+				- patternColumns + 1; columnIndex++) {
+			if (patternMatchesFromColumn(columnIndex)) {
+				return true;
 			}
 		}
 		return false;
@@ -70,8 +68,7 @@ class Pattern {
 
 	private boolean patternMatchesFromColumn(int startColumnIndex) {
 		for (int rowIndex = 0; rowIndex < trimmedRowsContent.length; rowIndex++) {
-			for (int columnIndex = 0; columnIndex < patternColumns
-					&& (columnIndex + startColumnIndex < trimmedRowsContentColumns); columnIndex++) {
+			for (int columnIndex = 0; columnIndex < patternColumns; columnIndex++) {
 				if (pattern[rowIndex][columnIndex] != trimmedRowsContent[rowIndex][columnIndex
 						+ startColumnIndex]) {
 					return false;
