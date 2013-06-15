@@ -44,7 +44,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
       <column name="patternId" type="int">
         <constraints foreignKeyName="pattern_fk" references="pattern(id)" nullable="false" />
       </column>
-      <column name="index" type="int">
+      <column name="listIndex" type="int">
         <constraints nullable="false" />
       </column>
     </createTable>
@@ -55,10 +55,10 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
       <column name="patternRowId" type="int">
         <constraints foreignKeyName="patternRow_fk" references="patternRow(id)" nullable="false" />
       </column>
-      <column name="index" type="int">
+      <column name="listIndex" type="int">
         <constraints nullable="false" />
       </column>
-      <column name="value" type="varchar(1)"/>
+      <column name="itemValue" type="varchar(1)"/>
     </createTable>
   </changeSet>
 

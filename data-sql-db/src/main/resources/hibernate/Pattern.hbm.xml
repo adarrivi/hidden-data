@@ -13,7 +13,7 @@
     </property>
     <list name="rows" fetch="join" inverse="false">
       <key column="patternId" />
-      <list-index column="index" />
+      <list-index column="listIndex" />
       <one-to-many class="com.hidden.data.db.model.PatternRow" />
     </list>
   </class>

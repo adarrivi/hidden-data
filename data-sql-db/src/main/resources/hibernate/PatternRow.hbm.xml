@@ -10,7 +10,7 @@
     </id>
     <list name="content" fetch="join" inverse="false">
       <key column="patternRowId" />
-      <list-index column="index" />
+      <list-index column="listIndex" />
       <one-to-many class="com.hidden.data.db.model.PatternItem" />
     </list>
   </class>
