@@ -26,8 +26,46 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
         <constraints nullable="false" />
       </column>
       <column name="authorId" type="int">
-            <constraints foreignKeyName="author_fk" references="author(id)" nullable="false"/>
+        <constraints foreignKeyName="author_fk" references="author(id)" nullable="false" />
       </column>
     </createTable>
+    <createTable tableName="pattern">
+      <column name="id" autoIncrement="true" type="int">
+        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_pattern" />
+      </column>
+      <column name="name" type="varchar(250)">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    <createTable tableName="patternRow">
+      <column name="id" autoIncrement="true" type="int">
+        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_patternRow" />
+      </column>
+      <column name="patternId" type="int">
+        <constraints foreignKeyName="pattern_fk" references="pattern(id)" nullable="false" />
+      </column>
+      <column name="index" type="int">
+        <constraints nullable="false" />
+      </column>
+    </createTable>
+    <createTable tableName="patternItem">
+      <column name="id" autoIncrement="true" type="int">
+        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_row" />
+      </column>
+      <column name="patternRowId" type="int">
+        <constraints foreignKeyName="patternRow_fk" references="patternRow(id)" nullable="false" />
+      </column>
+      <column name="index" type="int">
+        <constraints nullable="false" />
+      </column>
+      <column name="value" type="varchar(1)"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="patternLoad" author="adarrivi">
+    <comment>Adding predefined patterns</comment>
+    <loadData tableName="pattern" file="src/main/resources/database/dataset/Pattern.csv" encoding="UTF-8" />
+    <loadData tableName="patternRow" file="src/main/resources/database/dataset/PatternRow.csv" encoding="UTF-8" />
+    <loadData tableName="patternItem" file="src/main/resources/database/dataset/PatternItem.csv"  encoding="UTF-8" />
   </changeSet>
 </databaseChangeLog>

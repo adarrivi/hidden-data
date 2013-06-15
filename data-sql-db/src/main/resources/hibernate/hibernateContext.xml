@@ -23,6 +23,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 			<list>
 				<value>/hibernate/Book.hbm.xml</value>
 				<value>/hibernate/Author.hbm.xml</value>
+                <value>/hibernate/Pattern.hbm.xml</value>
+                <value>/hibernate/PatternItem.hbm.xml</value>
+                <value>/hibernate/PatternRow.hbm.xml</value>
 			</list>
 		</property>
 

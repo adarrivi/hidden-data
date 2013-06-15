@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import junit.framework.Assert;
 import liquibase.Liquibase;
 import liquibase.database.DatabaseConnection;
 import liquibase.database.jvm.HsqlConnection;
@@ -13,6 +14,7 @@ import liquibase.resource.FileSystemResourceAccessor;
 import liquibase.resource.ResourceAccessor;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -30,6 +32,8 @@ import com.common.file.io.IOCommonsFileUtils;
 @ContextConfiguration(locations = { "/applicationDbContext-test.xml" })
 public abstract class InMemoryDaoTest {
 
+	private Logger LOG = Logger.getLogger(InMemoryDaoTest.class);
+
 	@Value("${driver}")
 	private String driver;
 	@Value("${url}")
@@ -46,8 +50,9 @@ public abstract class InMemoryDaoTest {
 		try {
 			loadInMemoryDb();
 		} catch (Exception ex) {
-			throw new RuntimeException("Error during database initialization",
-					ex);
+			LOG.error(ex);
+			Assert.fail("Error during database initialization:"
+					+ ex.getMessage());
 		}
 	}
 

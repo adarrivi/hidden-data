@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field">
+  <class name="com.hidden.data.db.model.PatternRow" table="patternRow">
+    <id name="id" type="java.lang.Integer">
+      <column name="id" />
+      <generator class="identity" />
+    </id>
+    <list name="content" fetch="join" inverse="false">
+      <key column="patternRowId" />
+      <list-index column="index" />
+      <one-to-many class="com.hidden.data.db.model.PatternItem" />
+    </list>
+  </class>
+</hibernate-mapping>
