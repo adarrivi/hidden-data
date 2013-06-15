@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <packaging>jar</packaging>
+
+  <name>data-sql-db</name>
+  <parent>
+    <groupId>hidden.data</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../hidden-data-parent/pom.xml</relativePath>
+  </parent>
+  <artifactId>data-sql-db</artifactId>
+
+  <properties>
+    <hibernate.version>3.2.3.ga</hibernate.version>
+    <javax.transaction.version>1.1</javax.transaction.version>
+    <mysql.connector.version>5.1.25</mysql.connector.version>
+    <dbunit.version>2.2.0</dbunit.version>
+    <dbcp.version>1.2.2.osgi</dbcp.version>
+    <hsqldb.version>2.2.8</hsqldb.version>
+    <liquibase.version>2.0.5</liquibase.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>hidden.data</groupId>
+      <artifactId>commons</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <!-- Hibernate Object Relational Mapping (ORM) -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+
+    <!-- Java JTA -->
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>jta</artifactId>
+      <version>${javax.transaction.version}</version>
+    </dependency>
+
+    <!-- Spring dependencies -->
+    <!-- Core utilities used by other modules. Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.core</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+    <!-- Expression Language (depends on core) Define this if you use Spring Expression APIs (org.springframework.expression.*) -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.expression</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+    <!-- Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA, and iBatis. (depends on core, beans, context, 
+      transaction) Define this if you need ORM (org.springframework.orm.*) -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.orm</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+    <!-- Liquibase to manage the different databases (mysql and hslqdb) -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>${liquibase.version}</version>
+    </dependency>
+
+    <!-- Connection to the real Db -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.connector.version}</version>
+    </dependency>
+
+    <!-- Support for testing Spring applications with tools such as JUnit and TestNG This artifact is generally always defined 
+      with a 'test' scope for the integration testing framework and unit testing stubs -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.test</artifactId>
+      <version>${org.springframework.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+
+    <!-- Connection to unit test in-memory Db -->
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>${hsqldb.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Used to load in-memory connection for unit tests -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
+      <version>${dbcp.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- db test framework -->
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>com.springsource.org.dbunit</artifactId>
+      <version>${dbunit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>${liquibase.version}</version>
+        <configuration>
+          <propertyFile>database/database.properties</propertyFile>
+          <changeLogFile>liquibase/db.changelog.xml</changeLogFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

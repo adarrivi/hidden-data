@@ -15,7 +15,7 @@
   <dependencies>
     <dependency>
       <groupId>hidden.data</groupId>
-      <artifactId>hidden-data-db</artifactId>
+      <artifactId>data-sql-db</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>

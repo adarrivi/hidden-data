@@ -18,7 +18,7 @@
     <module>../commons</module>
     <module>../data-producer</module>
     <module>../data-loader</module>
-    <module>../hidden-data-db</module>
+    <module>../data-sql-db</module>
     <module>../data-monitor</module>
     <module>../data-filter</module>
     <module>../data-queue</module>
