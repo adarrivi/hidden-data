@@ -27,11 +27,11 @@ public class PatternItem implements NotNullEntity, PersistentEntity {
 		return value == null;
 	}
 
-	public boolean matches(String valueToMatch) {
+	public boolean matches(char valueToMatch) {
 		if (isEmpty()) {
 			return true;
 		}
-		return getValue().equals(valueToMatch);
+		return getValue().equals(String.valueOf(valueToMatch));
 	}
 
 }

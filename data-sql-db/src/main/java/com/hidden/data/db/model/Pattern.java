@@ -8,6 +8,8 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 	private Integer id;
 	private String name;
 	private List<PatternRow> rows;
+	private List<String> currentLines;
+	private int startIndex;
 
 	public static Pattern createEmptyPatter() {
 		return new Pattern();
@@ -39,5 +41,39 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 			}
 		}
 		return items;
+	}
+
+	public boolean matches(List<String> lines) {
+		currentLines = lines;
+		if (isEmpty()) {
+			return true;
+		}
+		if (isDifferentHeight()) {
+			return false;
+		}
+		return matchesCurrentLines();
+	}
+
+	private boolean isDifferentHeight() {
+		return rows.size() != currentLines.size();
+	}
+
+	private boolean matchesCurrentLines() {
+		for (startIndex = 0; startIndex < currentLines.get(0).length(); startIndex++) {
+			if (matchesForStartIndex()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean matchesForStartIndex() {
+		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+			if (!rows.get(rowIndex).matches(startIndex,
+					currentLines.get(rowIndex))) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

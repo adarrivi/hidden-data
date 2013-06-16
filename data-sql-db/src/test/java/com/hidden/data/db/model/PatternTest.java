@@ -3,8 +3,14 @@ package com.hidden.data.db.model;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import com.common.reflexion.Reflexion;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
@@ -15,11 +21,21 @@ import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 public class PatternTest implements NotNulEntityTestable,
 		PersistentEntityTestable {
 
+	private static final String MATCHING_STRING = "XXXXX";
 	private static final Integer PATTERN_ID = Integer.valueOf(1);
 	private static final String PATTERN_NAME = "3x3 Column in middle";
 	private Pattern victim;
 	private String name;
 	private List<List<PatternItem>> content;
+	private boolean matches;
+
+	@Mock
+	private PatternRow alwaysMatchingRow;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void getName_ReturnsCreationName() {
@@ -136,6 +152,81 @@ public class PatternTest implements NotNulEntityTestable,
 	public void verifyNotNullEntity() {
 		NotNullEntityVerifier verifier = new NotNullEntityVerifier(this);
 		verifier.verify();
+	}
+
+	@Test
+	public void matches_EmptyPatterEmptyLines_ReturnsTrue() {
+		givenEmptyPattern();
+		whenMatches(Collections.<String> emptyList());
+		thenMatchesShouldBe(true);
+	}
+
+	private void whenMatches(List<String> lines) {
+		matches = victim.matches(lines);
+	}
+
+	private void thenMatchesShouldBe(boolean expectedValue) {
+		Assert.assertEquals(expectedValue, matches);
+	}
+
+	@Test
+	public void matches_3xPatter2xLines_ReturnsFalse() {
+		givenAlwaysMatchingPattern(3);
+		whenMatches(Collections.nCopies(2, StringUtils.EMPTY));
+		thenMatchesShouldBe(false);
+	}
+
+	private void givenAlwaysMatchingPattern(int numberOfRows) {
+		givenPattern(numberOfRows, true);
+	}
+
+	private void givenPattern(int numberOfRows, boolean matchesAll) {
+		givenPattern();
+		Mockito.when(
+				alwaysMatchingRow.matches(Matchers.anyInt(),
+						Matchers.anyString())).thenReturn(matchesAll);
+		List<PatternRow> patternRows = Collections.nCopies(numberOfRows,
+				alwaysMatchingRow);
+		Reflexion.getInstance().setMember(victim, "rows", patternRows);
+	}
+
+	@Test
+	public void matches_3xPatter4xLines_ReturnsFalse() {
+		givenAlwaysMatchingPattern(3);
+		whenMatches(Collections.nCopies(4, MATCHING_STRING));
+		thenMatchesShouldBe(false);
+	}
+
+	@Test
+	public void matches_3xPatter3xLines_ReturnsFalse() {
+		givenAlwaysMatchingPattern(3);
+		whenMatches(Collections.nCopies(3, MATCHING_STRING));
+		thenMatchesShouldBe(true);
+	}
+
+	@Test
+	public void matches_NotMatching3xPatter3xLines_ReturnsFalse() {
+		givenNotMatchingPattern(3);
+		whenMatches(Collections.nCopies(3, MATCHING_STRING));
+		thenMatchesShouldBe(false);
+	}
+
+	private void givenNotMatchingPattern(int numberOfRows) {
+		givenPattern(numberOfRows, false);
+	}
+
+	@Test
+	public void matches_Matching_CallsMatchingForEveryChar() {
+		givenNotMatchingPattern(3);
+		whenMatches(Collections.nCopies(3, MATCHING_STRING));
+		thenVerifyCallsMatchingForEveryChar(MATCHING_STRING);
+	}
+
+	private void thenVerifyCallsMatchingForEveryChar(String matchingString) {
+		for (int i = 0; i < matchingString.length(); i++) {
+			Mockito.verify(alwaysMatchingRow, Mockito.atLeastOnce()).matches(i,
+					matchingString);
+		}
 	}
 
 }

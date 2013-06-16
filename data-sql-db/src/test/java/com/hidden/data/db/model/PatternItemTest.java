@@ -1,6 +1,5 @@
 package com.hidden.data.db.model;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,10 +12,10 @@ import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 public class PatternItemTest implements PersistentEntityTestable,
 		NotNulEntityTestable {
 
-	private static final String SPACE = " ";
-	private static final String CHAR = "c";
+	private static final char SPACE = ' ';
+	private static final char CHAR = 'c';
 	private static final Integer ITEM_ID = Integer.valueOf(1);
-	private static final String ITEM_VALUE = SPACE;
+	private static final String ITEM_VALUE = " ";
 
 	private PatternItem victim;
 	private String value;
@@ -83,14 +82,7 @@ public class PatternItemTest implements PersistentEntityTestable,
 		Assert.assertEquals(expectedValue, value);
 	}
 
-	@Test
-	public void matches_EmtpyAndEmptyPItem_ReturnsTrue() {
-		givenEmptyItem();
-		whenMatches(StringUtils.EMPTY);
-		thenExpectMatches(true);
-	}
-
-	private void whenMatches(String valueToMatch) {
+	private void whenMatches(char valueToMatch) {
 		matches = victim.matches(valueToMatch);
 	}
 
@@ -117,13 +109,6 @@ public class PatternItemTest implements PersistentEntityTestable,
 		givenSpacePItem();
 		whenMatches(SPACE);
 		thenExpectMatches(true);
-	}
-
-	@Test
-	public void matches_EmptyAndSpacePItem_ReturnsFalse() {
-		givenSpacePItem();
-		whenMatches(StringUtils.EMPTY);
-		thenExpectMatches(false);
 	}
 
 	@Test
