@@ -4,8 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflexion.Reflexion;
+import com.hidden.data.db.model.verifier.NotNulEntityTestable;
+import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
+import com.hidden.data.db.model.verifier.PersistentEntityTestable;
+import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 
-public class BookTest {
+public class BookTest implements NotNulEntityTestable, PersistentEntityTestable {
 
 	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 	private static final String BOOK_TITLE = "Lorem ipsum";
@@ -13,8 +17,6 @@ public class BookTest {
 	private static final Author BOOK_AUTHOR = new Author();
 
 	private Book victim;
-	private boolean isEmpty;
-	private Integer id;
 	private String title;
 	private String content;
 	private Author author;
@@ -29,60 +31,12 @@ public class BookTest {
 
 	}
 
-	@Test
-	public void isEmpty_EmptyBook_ReturnsTrue() {
-		givenEmptyBook();
-		whenIsEmpty();
-		thenShouldBeEmpty(true);
-	}
-
 	private void givenEmptyBook() {
 		victim = Book.createEmptyBook();
 	}
 
-	private void whenIsEmpty() {
-		isEmpty = victim.isEmpty();
-	}
-
-	private void thenShouldBeEmpty(boolean value) {
-		Assert.assertEquals(value, isEmpty);
-	}
-
-	@Test
-	public void isEmpty_NotEmptyBook_ReturnsFalse() {
-		givenABook();
-		whenIsEmpty();
-		thenShouldBeEmpty(false);
-	}
-
 	private void givenABook() {
 		victim = createBook();
-	}
-
-	@Test
-	public void getId_Book_ReturnsId() {
-		givenABook();
-		whenGetId();
-		thenBookIdShouldBeGiven();
-	}
-
-	private void whenGetId() {
-		id = victim.getId();
-	}
-
-	private void thenBookIdShouldBeGiven() {
-		Assert.assertEquals(BOOK_ID, id);
-	}
-
-	@Test
-	public void getId_EmptyBook_ReturnsNull() {
-		givenEmptyBook();
-		whenGetId();
-		thenBookIdNullShouldBeGiven();
-	}
-
-	private void thenBookIdNullShouldBeGiven() {
-		Assert.assertEquals(null, id);
 	}
 
 	@Test
@@ -139,5 +93,41 @@ public class BookTest {
 
 	private void thenAutorShouldBeEquals() {
 		Assert.assertEquals(BOOK_AUTHOR, author);
+	}
+
+	@Override
+	public PersistentEntity givenNewEntity() {
+		givenEmptyBook();
+		return victim;
+	}
+
+	@Override
+	public PersistentEntity givenExistingEntity() {
+		givenABook();
+		return victim;
+	}
+
+	@Override
+	public NotNullEntity givenEmptyEntity() {
+		givenEmptyBook();
+		return victim;
+	}
+
+	@Override
+	public NotNullEntity givenNotEmptyEntity() {
+		givenABook();
+		return victim;
+	}
+
+	@Test
+	public void verifyPersistentEntity() {
+		PersistentEntityVerifier verifier = new PersistentEntityVerifier(this);
+		verifier.verify();
+	}
+
+	@Test
+	public void verifyNotNullEntity() {
+		NotNullEntityVerifier verifier = new NotNullEntityVerifier(this);
+		verifier.verify();
 	}
 }

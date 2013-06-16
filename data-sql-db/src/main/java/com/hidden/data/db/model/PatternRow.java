@@ -7,11 +7,11 @@ public class PatternRow implements PersistentEntity {
 	private Integer id;
 	private List<PatternItem> content;
 
-	protected PatternRow() {
+	PatternRow() {
 		// Used by Hibernate
 	}
 
-	public List<PatternItem> getContent() {
+	List<PatternItem> getContent() {
 		return content;
 	}
 
@@ -19,5 +19,4 @@ public class PatternRow implements PersistentEntity {
 	public Integer getId() {
 		return id;
 	}
-
 }

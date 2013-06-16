@@ -20,9 +20,6 @@ public class PatternDaoHibernateTest extends InMemoryDaoTest {
 	public void loadAll_ReturnsNotEmpty() {
 		whenLoadAll();
 		thenPatternsShouldNotBeEmpty();
-		for (Pattern pattern : patterns) {
-			System.out.println(pattern.prettyFormat());
-		}
 	}
 
 	private void whenLoadAll() {

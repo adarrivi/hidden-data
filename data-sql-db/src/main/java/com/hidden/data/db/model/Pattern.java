@@ -1,5 +1,6 @@
 package com.hidden.data.db.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pattern implements NotNullEntity, PersistentEntity {
@@ -25,35 +26,18 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<PatternRow> getRows() {
-		return rows;
-	}
-
 	@Override
 	public boolean isEmpty() {
 		return name == null;
 	}
 
-	public String prettyFormat() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[id: ").append(id.intValue()).append(", name: ")
-				.append(name).append(", {\n");
-		for (PatternRow row : rows) {
-			for (PatternItem item : row.getContent()) {
-				if (item.isEmpty()) {
-					sb.append("*");
-				} else {
-					sb.append(item.getValue());
-				}
+	public List<List<PatternItem>> getContent() {
+		List<List<PatternItem>> items = new ArrayList<List<PatternItem>>();
+		if (rows != null) {
+			for (PatternRow row : rows) {
+				items.add(row.getContent());
 			}
-			sb.append("\n");
 		}
-		sb.append("}]");
-		return sb.toString();
+		return items;
 	}
-
 }

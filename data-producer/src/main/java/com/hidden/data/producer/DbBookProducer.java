@@ -12,9 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.db.dao.BookDao;
-import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Book;
-import com.hidden.data.db.model.Pattern;
 import com.hidden.data.producer.db.SpaceBookDb;
 import com.hidden.data.queue.connection.ProducerConnection;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
@@ -27,8 +25,6 @@ public class DbBookProducer {
 
 	@Autowired
 	private BookDao bookDao;
-	@Autowired
-	private PatternDao patternDao;
 
 	private ProducerConnection producerConnection;
 	private int rowNumber;
@@ -47,11 +43,6 @@ public class DbBookProducer {
 	}
 
 	private void start() {
-		List<Pattern> patterns = patternDao.loadAll();
-		for (Pattern pattern : patterns) {
-			System.out.println(pattern.prettyFormat());
-		}
-
 		producerConnection = ConnectionActiveMqFactory.getInstance()
 				.createFilterProducerConnection();
 		List<Book> allBooks = bookDao.loadAll();
