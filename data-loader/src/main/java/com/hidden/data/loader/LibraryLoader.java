@@ -14,7 +14,7 @@ import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.db.model.Book;
 
-@Component("libraryLoader")
+@Component
 public class LibraryLoader implements Runnable {
 
 	private static final Logger LOG = Logger.getLogger(LibraryLoader.class);

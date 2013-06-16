@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.hidden.data.queue.connection.ProducerConnection;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 import com.hidden.data.queue.consumer.RowConsumerTemplate;
-import com.hidden.data.queue.model.SimplifiedBookRow;
+import com.hidden.data.queue.model.FilterItem;
 
 public class RowComsumer extends RowConsumerTemplate {
 
@@ -37,11 +37,11 @@ public class RowComsumer extends RowConsumerTemplate {
 	}
 
 	@Override
-	public void consumeRows(List<SimplifiedBookRow> rows) {
+	public void consumeRows(List<FilterItem> rows) {
 		if (pattern.matches(rows)) {
 			LOG.debug("pattern matched from row: " + rows.get(0).getRowNumber()
 					+ " in book: " + rows.get(0).getBookId().intValue());
-			for (SimplifiedBookRow row : rows) {
+			for (FilterItem row : rows) {
 				printLine(row.getContent());
 			}
 			producerConnection.sendMessage((Serializable) rows);

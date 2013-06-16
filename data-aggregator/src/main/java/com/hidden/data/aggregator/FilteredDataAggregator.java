@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.consumer.RowConsumerTemplate;
-import com.hidden.data.queue.model.SimplifiedBookRow;
+import com.hidden.data.queue.model.FilterItem;
 
 public class FilteredDataAggregator extends RowConsumerTemplate {
 
@@ -14,7 +14,7 @@ public class FilteredDataAggregator extends RowConsumerTemplate {
 	}
 
 	@Override
-	protected void consumeRows(List<SimplifiedBookRow> rows) {
+	protected void consumeRows(List<FilterItem> rows) {
 		// TODO Auto-generated constructor stub
 	}
 

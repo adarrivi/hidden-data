@@ -18,6 +18,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.loader.LibraryLoader;
+import com.hidden.data.producer.BookProducer;
 
 @Component("monitorApp")
 public class MonitorApp extends JFrame {
@@ -29,8 +30,12 @@ public class MonitorApp extends JFrame {
 	@Autowired
 	protected LibraryLoader libraryLoader;
 
+	@Autowired
+	protected BookProducer dbBookProducer;
+
 	private JLabel label;
 	protected Thread libraryLoaderThread;
+	protected Thread bookProducerThread;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -73,6 +78,23 @@ public class MonitorApp extends JFrame {
 			}
 		});
 		panel.add(loadButton);
+
+		JButton produceButton = new JButton("StartProducer");
+		produceButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (bookProducerThread != null && bookProducerThread.isAlive()) {
+					LOG.debug("StartProducer is still running");
+				} else {
+					bookProducerThread = new Thread(dbBookProducer);
+					bookProducerThread.start();
+				}
+
+			}
+		});
+		panel.add(produceButton);
+
 		getContentPane().add(panel);
 	}
 

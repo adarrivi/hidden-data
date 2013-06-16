@@ -11,7 +11,7 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 	private List<String> currentLines;
 	private int startIndex;
 
-	public static Pattern createEmptyPatter() {
+	public static Pattern createEmptyPattern() {
 		return new Pattern();
 	}
 
@@ -43,6 +43,13 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 		return items;
 	}
 
+	public int getRowsNumber() {
+		if (isEmpty()) {
+			return 0;
+		}
+		return rows.size();
+	}
+
 	public boolean matches(List<String> lines) {
 		currentLines = lines;
 		if (isEmpty()) {
@@ -55,7 +62,7 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 	}
 
 	private boolean isDifferentHeight() {
-		return rows.size() != currentLines.size();
+		return getRowsNumber() != currentLines.size();
 	}
 
 	private boolean matchesCurrentLines() {
@@ -68,7 +75,7 @@ public class Pattern implements NotNullEntity, PersistentEntity {
 	}
 
 	private boolean matchesForStartIndex() {
-		for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
+		for (int rowIndex = 0; rowIndex < getRowsNumber(); rowIndex++) {
 			if (!rows.get(rowIndex).matches(startIndex,
 					currentLines.get(rowIndex))) {
 				return false;

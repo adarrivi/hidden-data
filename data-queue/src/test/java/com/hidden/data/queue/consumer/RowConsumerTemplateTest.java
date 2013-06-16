@@ -14,12 +14,12 @@ import org.mockito.MockitoAnnotations;
 import com.hidden.data.queue.connection.ConsumerConnection;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.connection.TimeOut;
-import com.hidden.data.queue.model.SimplifiedBookRow;
+import com.hidden.data.queue.model.FilterItem;
 
 public class RowConsumerTemplateTest {
 
 	private RowConsumerStub victim;
-	private List<SimplifiedBookRow> expectedConsumedRows;
+	private List<FilterItem> expectedConsumedRows;
 
 	@Mock
 	private QueueConnectionFactory connectionFactory;
@@ -34,8 +34,8 @@ public class RowConsumerTemplateTest {
 	}
 
 	private void setExpectedConsumedRows() {
-		expectedConsumedRows = new ArrayList<SimplifiedBookRow>();
-		expectedConsumedRows.add(new SimplifiedBookRow(null, 1, Integer
+		expectedConsumedRows = new ArrayList<FilterItem>();
+		expectedConsumedRows.add(new FilterItem(null, 1, Integer
 				.valueOf(1)));
 	}
 
@@ -97,7 +97,7 @@ public class RowConsumerTemplateTest {
 
 	private void thenConsumeRowsShouldNotBeExecuted() {
 		victim.assertConsumeRowsWith(Collections
-				.<List<SimplifiedBookRow>> emptyList());
+				.<List<FilterItem>> emptyList());
 	}
 
 }

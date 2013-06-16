@@ -28,6 +28,7 @@ public class PatternTest implements NotNulEntityTestable,
 	private String name;
 	private List<List<PatternItem>> content;
 	private boolean matches;
+	private int rowsNumber;
 
 	@Mock
 	private PatternRow alwaysMatchingRow;
@@ -51,7 +52,7 @@ public class PatternTest implements NotNulEntityTestable,
 	}
 
 	private void givenEmptyPattern() {
-		victim = Pattern.createEmptyPatter();
+		victim = Pattern.createEmptyPattern();
 	}
 
 	private void whenGetName() {
@@ -227,6 +228,35 @@ public class PatternTest implements NotNulEntityTestable,
 			Mockito.verify(alwaysMatchingRow, Mockito.atLeastOnce()).matches(i,
 					matchingString);
 		}
+	}
+
+	@Test
+	public void getRowsNumber_Empty_Returns0() {
+		givenEmptyPattern();
+		whenGetRowsNumber();
+		thenExpectRowsNumber(0);
+	}
+
+	private void whenGetRowsNumber() {
+		rowsNumber = victim.getRowsNumber();
+	}
+
+	private void thenExpectRowsNumber(int expectedNumber) {
+		Assert.assertEquals(expectedNumber, rowsNumber);
+	}
+
+	@Test
+	public void getRowsNumber_1Row_Returns1() {
+		givenAlwaysMatchingPattern(1);
+		whenGetRowsNumber();
+		thenExpectRowsNumber(1);
+	}
+
+	@Test
+	public void getRowsNumber_5Rows_Returns6() {
+		givenAlwaysMatchingPattern(5);
+		whenGetRowsNumber();
+		thenExpectRowsNumber(5);
 	}
 
 }
