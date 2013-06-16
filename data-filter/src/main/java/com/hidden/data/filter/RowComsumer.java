@@ -1,58 +1,58 @@
 package com.hidden.data.filter;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import com.hidden.data.queue.connection.ProducerConnection;
-import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
+import com.hidden.data.db.dao.PatternDao;
+import com.hidden.data.db.model.Pattern;
 import com.hidden.data.queue.consumer.RowConsumerTemplate;
 import com.hidden.data.queue.model.FilterItem;
 
-public class RowComsumer extends RowConsumerTemplate {
+@Component
+public class RowComsumer extends RowConsumerTemplate implements Runnable {
 
+	protected static final String LINE_BREAK = System
+			.getProperty("line.separator");
 	private static final Logger LOG = Logger.getLogger(RowComsumer.class);
-	private Pattern pattern;
-	private ProducerConnection producerConnection;
 
-	public static void main(String[] args) {
-		// boolean[][] rowIntheMiddle = new boolean[][] { { true, false, false
-		// },
-		// { true, false, false }, { true, false, false } };
-		boolean[][] smallPyramid = new boolean[][] {
-				{ false, false, false, true, false, false, false },
-				{ false, false, true, false, true, false, false },
-				{ false, true, false, false, false, true, false } };
+	@Autowired
+	private PatternDao patternDao;
+	private List<Pattern> allPatterns;
+	private FilterItem currentItem;
+	private Pattern currentPattern;
 
-		RowComsumer rowComsumer = new RowComsumer(new Pattern(smallPyramid));
-		rowComsumer.receiveMessages();
-	}
-
-	public RowComsumer(Pattern pattern) {
-		super(ConnectionActiveMqFactory.getInstance());
-		this.pattern = pattern;
-		this.producerConnection = ConnectionActiveMqFactory.getInstance()
-				.createAggregateProducerConnection();
+	@Override
+	public void run() {
+		allPatterns = patternDao.loadAll();
+		receiveMessages();
 	}
 
 	@Override
-	public void consumeRows(List<FilterItem> rows) {
-		if (pattern.matches(rows)) {
-			LOG.debug("pattern matched from row: " + rows.get(0).getRowNumber()
-					+ " in book: " + rows.get(0).getBookId().intValue());
-			for (FilterItem row : rows) {
-				printLine(row.getContent());
-			}
-			producerConnection.sendMessage((Serializable) rows);
+	public void consumeRows(FilterItem filterItem) {
+		currentItem = filterItem;
+		getPatternFromCurrentFilterItem();
+		if (currentPattern.matches(filterItem.getLines())) {
+			printLines();
 		}
 	}
 
-	private void printLine(boolean[] line) {
-		for (boolean value : line) {
-			String toPrint = value ? " " : "X";
-			System.out.print(toPrint);
+	private void getPatternFromCurrentFilterItem() {
+		for (Pattern pattern : allPatterns) {
+			if (pattern.getId().equals(currentItem.getPatternId())) {
+				currentPattern = pattern;
+			}
 		}
-		System.out.println();
+	}
+
+	private void printLines() {
+		LOG.debug("Pattern: " + currentPattern.getName());
+		StringBuilder sb = new StringBuilder(LINE_BREAK);
+		for (String line : currentItem.getLines()) {
+			sb.append(line).append(LINE_BREAK);
+		}
+		LOG.debug(sb.toString());
 	}
 }

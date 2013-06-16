@@ -30,6 +30,12 @@
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <groupId>hidden.data</groupId>
+      <artifactId>data-filter</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
     <!-- Spring Aspect Oriented Programming -->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -1,7 +1,6 @@
 package com.hidden.data.queue.consumer;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.hidden.data.queue.connection.ConsumerConnection;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
@@ -10,26 +9,26 @@ import com.hidden.data.queue.model.FilterItem;
 
 public abstract class RowConsumerTemplate {
 
+	private QueueConnectionFactory connectionFactory;
 	private ConsumerConnection connection;
 	private boolean closeConnection;
 
-	protected RowConsumerTemplate(QueueConnectionFactory connectionFactory) {
-		connection = connectionFactory.createFilterConsumerConnection();
-
+	public void setConnectionFactory(QueueConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void receiveMessages() {
+		connection = connectionFactory.createFilterConsumerConnection();
 		while (closeConnection == false) {
 			Serializable objectRetreived = connection.waitUntilReceive();
 			if (!(objectRetreived instanceof TimeOut)) {
-				consumeRows((List<FilterItem>) objectRetreived);
+				consumeRows((FilterItem) objectRetreived);
 			}
 		}
 		connection.close();
 	}
 
-	protected abstract void consumeRows(List<FilterItem> rows);
+	protected abstract void consumeRows(FilterItem filterItem);
 
 	public void closeConnection() {
 		closeConnection = true;

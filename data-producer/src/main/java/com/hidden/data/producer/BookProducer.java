@@ -27,14 +27,14 @@ public class BookProducer implements Runnable {
 	private ProducerConnection producerConnection;
 	private QueueConnectionFactory connectionFactory;
 
-	public BookProducer(QueueConnectionFactory connectionFactory) {
-		this.connectionFactory = connectionFactory;
-	}
-
 	private Book currentBook;
 	private Pattern currentPattern;
 	private List<String> bookLines;
 	private List<Pattern> allPatterns;
+
+	public void setConnectionFactory(QueueConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
 
 	@Override
 	public void run() {
@@ -49,7 +49,6 @@ public class BookProducer implements Runnable {
 		for (Book book : allBooks) {
 			currentBook = book;
 			sendLinesByPattern();
-
 		}
 	}
 
@@ -70,8 +69,9 @@ public class BookProducer implements Runnable {
 				int bookLinesStartIdx = i;
 				int bookLinesEndIdx = i + patternHeigth;
 				FilterItem item = new FilterItem(bookLines.subList(
-						bookLinesStartIdx, bookLinesEndIdx), firstBookLineNumber,
-						currentBook.getId(), currentPattern.getId());
+						bookLinesStartIdx, bookLinesEndIdx),
+						firstBookLineNumber, currentBook.getId(),
+						currentPattern.getId());
 				producerConnection.sendMessage(item);
 			}
 		}

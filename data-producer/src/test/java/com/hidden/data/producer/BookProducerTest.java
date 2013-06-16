@@ -45,7 +45,7 @@ public class BookProducerTest {
 	private ProducerConnectionStub producerConnection;
 
 	@InjectMocks
-	private BookProducer victim = new BookProducer(connectionFactory);
+	private BookProducer victim = new BookProducer();
 
 	@Before
 	public void setUp() {

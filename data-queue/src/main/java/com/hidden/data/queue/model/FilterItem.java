@@ -1,6 +1,7 @@
 package com.hidden.data.queue.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterItem implements Serializable {
@@ -12,9 +13,9 @@ public class FilterItem implements Serializable {
 	private Integer bookId;
 	private Integer patternId;
 
-	public FilterItem(List<String> lines, int firstLineNumber,
-			Integer bookId, Integer patternId) {
-		this.lines = lines;
+	public FilterItem(List<String> lines, int firstLineNumber, Integer bookId,
+			Integer patternId) {
+		this.lines = new ArrayList<String>(lines);
 		this.firstLineNumber = firstLineNumber;
 		this.bookId = bookId;
 		this.patternId = patternId;

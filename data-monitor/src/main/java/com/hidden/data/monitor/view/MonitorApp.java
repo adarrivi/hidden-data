@@ -1,8 +1,6 @@
 package com.hidden.data.monitor.view;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,8 +15,10 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.loader.LibraryLoader;
 import com.hidden.data.producer.BookProducer;
+import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 
 @Component("monitorApp")
 public class MonitorApp extends JFrame {
@@ -29,13 +29,12 @@ public class MonitorApp extends JFrame {
 
 	@Autowired
 	protected LibraryLoader libraryLoader;
-
 	@Autowired
-	protected BookProducer dbBookProducer;
-
+	protected BookProducer bookProducer;
+	@Autowired
+	protected RowComsumer rowComsumer;
+	private int times;
 	private JLabel label;
-	protected Thread libraryLoaderThread;
-	protected Thread bookProducerThread;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -43,6 +42,7 @@ public class MonitorApp extends JFrame {
 				"applicationMonitorContext.xml");
 		ctx.registerShutdownHook();
 		final MonitorApp monitorApp = (MonitorApp) ctx.getBean("monitorApp");
+		monitorApp.createPanelsAndButtons();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -51,7 +51,12 @@ public class MonitorApp extends JFrame {
 		});
 	}
 
-	public MonitorApp() {
+	private void createPanelsAndButtons() {
+		rowComsumer.setConnectionFactory(ConnectionActiveMqFactory
+				.getInstance());
+		bookProducer.setConnectionFactory(ConnectionActiveMqFactory
+				.getInstance());
+
 		setTitle("Data Monitor");
 		setSize(300, 200);
 		setLocationRelativeTo(null);
@@ -63,42 +68,22 @@ public class MonitorApp extends JFrame {
 		panel.add(label);
 
 		JButton loadButton = new JButton("LoadLibrary");
-		loadButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (libraryLoaderThread != null
-						&& libraryLoaderThread.isAlive()) {
-					LOG.debug("LibraryLoader is still running");
-				} else {
-					libraryLoaderThread = new Thread(libraryLoader);
-					libraryLoaderThread.start();
-				}
-
-			}
-		});
+		loadButton
+				.addActionListener(new NewThreadActionListener(libraryLoader));
 		panel.add(loadButton);
 
 		JButton produceButton = new JButton("StartProducer");
-		produceButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (bookProducerThread != null && bookProducerThread.isAlive()) {
-					LOG.debug("StartProducer is still running");
-				} else {
-					bookProducerThread = new Thread(dbBookProducer);
-					bookProducerThread.start();
-				}
-
-			}
-		});
+		produceButton.addActionListener(new NewThreadActionListener(
+				bookProducer));
 		panel.add(produceButton);
+
+		JButton consumerButton = new JButton("StartConsumer");
+		consumerButton.addActionListener(new NewThreadActionListener(
+				rowComsumer));
+		panel.add(consumerButton);
 
 		getContentPane().add(panel);
 	}
-
-	private int times = 0;
 
 	public void setLabel(String text) {
 		label.setText(text + times++);
