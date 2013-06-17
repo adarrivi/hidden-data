@@ -23,6 +23,7 @@
     <module>../data-filter</module>
     <module>../data-queue</module>
     <module>../data-aggregator</module>
+    <module>../data-nosql-db</module>
   </modules>
 
   <artifactId>parent</artifactId>

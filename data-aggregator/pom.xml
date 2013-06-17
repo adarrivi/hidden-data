@@ -13,17 +13,4 @@
   </parent>
   <artifactId>data-aggregator</artifactId>
 
-
-  <dependencies>
-    <dependency>
-      <groupId>hidden.data</groupId>
-      <artifactId>data-queue</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>hidden.data</groupId>
-      <artifactId>hidden-data-db</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
 </project>

@@ -2,7 +2,6 @@ package com.hidden.data.filter;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,10 +12,6 @@ import com.hidden.data.queue.model.FilterItem;
 
 @Component
 public class RowComsumer extends RowConsumerTemplate implements Runnable {
-
-	protected static final String LINE_BREAK = System
-			.getProperty("line.separator");
-	private static final Logger LOG = Logger.getLogger(RowComsumer.class);
 
 	@Autowired
 	private PatternDao patternDao;
@@ -35,7 +30,7 @@ public class RowComsumer extends RowConsumerTemplate implements Runnable {
 		currentItem = filterItem;
 		getPatternFromCurrentFilterItem();
 		if (currentPattern.matches(filterItem.getLines())) {
-			printLines();
+			// TODO save in nosql
 		}
 	}
 
@@ -47,12 +42,4 @@ public class RowComsumer extends RowConsumerTemplate implements Runnable {
 		}
 	}
 
-	private void printLines() {
-		LOG.debug("Pattern: " + currentPattern.getName());
-		StringBuilder sb = new StringBuilder(LINE_BREAK);
-		for (String line : currentItem.getLines()) {
-			sb.append(line).append(LINE_BREAK);
-		}
-		LOG.debug(sb.toString());
-	}
 }
