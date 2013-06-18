@@ -4,17 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import com.hidden.data.nosql.model.Account;
 import com.hidden.data.nosql.model.Person;
 
-@Repository
-public class HelloMongo {
+@Component
+public class HelloMongo implements Runnable {
 
 	@Autowired
-	MongoOperations mongoOperations;
+	private MongoOperations mongoOperations;
 
+	@Override
 	public void run() {
 
 		if (mongoOperations.collectionExists(Person.class)) {

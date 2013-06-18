@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.loader.LibraryLoader;
+import com.hidden.data.nosql.HelloMongo;
 import com.hidden.data.producer.BookProducer;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 
@@ -33,6 +34,8 @@ public class MonitorApp extends JFrame {
 	protected BookProducer bookProducer;
 	@Autowired
 	protected RowComsumer rowComsumer;
+	@Autowired
+	private HelloMongo helloMongo;
 	private int times;
 	private JLabel label;
 
@@ -42,6 +45,7 @@ public class MonitorApp extends JFrame {
 				"applicationMonitorContext.xml");
 		ctx.registerShutdownHook();
 		final MonitorApp monitorApp = (MonitorApp) ctx.getBean("monitorApp");
+
 		monitorApp.createPanelsAndButtons();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -63,7 +67,7 @@ public class MonitorApp extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(4, 1));
+		panel.setLayout(new GridLayout(5, 1));
 		label = new JLabel("A label", SwingConstants.CENTER);
 		panel.add(label);
 
@@ -81,6 +85,10 @@ public class MonitorApp extends JFrame {
 		consumerButton.addActionListener(new NewThreadActionListener(
 				rowComsumer));
 		panel.add(consumerButton);
+
+		JButton mongoButton = new JButton("Mongo");
+		mongoButton.addActionListener(new NewThreadActionListener(helloMongo));
+		panel.add(mongoButton);
 
 		getContentPane().add(panel);
 	}
