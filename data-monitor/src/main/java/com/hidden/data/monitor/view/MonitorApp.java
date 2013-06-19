@@ -1,6 +1,7 @@
 package com.hidden.data.monitor.view;
 
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +18,8 @@ import org.springframework.stereotype.Component;
 
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.loader.LibraryLoader;
-import com.hidden.data.nosql.HelloMongo;
+import com.hidden.data.nosql.dao.FilteredBlockDao;
+import com.hidden.data.nosql.model.FilteredBlock;
 import com.hidden.data.producer.BookProducer;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 
@@ -29,14 +31,14 @@ public class MonitorApp extends JFrame {
 	protected Logger LOG = Logger.getLogger(MonitorApp.class);
 
 	@Autowired
-	protected LibraryLoader libraryLoader;
+	private LibraryLoader libraryLoader;
 	@Autowired
-	protected BookProducer bookProducer;
+	private BookProducer bookProducer;
 	@Autowired
-	protected RowComsumer rowComsumer;
+	private RowComsumer rowComsumer;
 	@Autowired
-	private HelloMongo helloMongo;
-	private int times;
+	protected FilteredBlockDao filteredBlockDao;
+
 	private JLabel label;
 
 	@SuppressWarnings("resource")
@@ -86,14 +88,23 @@ public class MonitorApp extends JFrame {
 				rowComsumer));
 		panel.add(consumerButton);
 
-		JButton mongoButton = new JButton("Mongo");
-		mongoButton.addActionListener(new NewThreadActionListener(helloMongo));
-		panel.add(mongoButton);
+		JButton showFilteredButton = new JButton("ShowFiltered");
+		showFilteredButton.addActionListener(new NewThreadActionListener(
+				new Runnable() {
+
+					@Override
+					public void run() {
+						List<FilteredBlock> allFiltered = filteredBlockDao
+								.loadAll();
+						setLabel("Filtered: " + allFiltered.size());
+					}
+				}));
+		panel.add(showFilteredButton);
 
 		getContentPane().add(panel);
 	}
 
 	public void setLabel(String text) {
-		label.setText(text + times++);
+		label.setText(text);
 	}
 }

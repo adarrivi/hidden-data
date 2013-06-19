@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Pattern;
+import com.hidden.data.nosql.dao.FilteredBlockDao;
+import com.hidden.data.nosql.model.FilteredBlock;
 import com.hidden.data.queue.consumer.RowConsumerTemplate;
 import com.hidden.data.queue.model.FilterItem;
 
@@ -15,6 +17,8 @@ public class RowComsumer extends RowConsumerTemplate implements Runnable {
 
 	@Autowired
 	private PatternDao patternDao;
+	@Autowired
+	private FilteredBlockDao filteredBlockDao;
 	private List<Pattern> allPatterns;
 	private FilterItem currentItem;
 	private Pattern currentPattern;
@@ -30,7 +34,10 @@ public class RowComsumer extends RowConsumerTemplate implements Runnable {
 		currentItem = filterItem;
 		getPatternFromCurrentFilterItem();
 		if (currentPattern.matches(filterItem.getLines())) {
-			// TODO save in nosql
+			FilteredBlock block = new FilteredBlock(filterItem.getPatternId()
+					.intValue(), filterItem.getBookId().intValue(),
+					filterItem.getFirstLineNumber(), filterItem.getLines());
+			filteredBlockDao.save(block);
 		}
 	}
 
