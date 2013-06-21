@@ -47,7 +47,10 @@ public class Reflexion {
 			}
 			return getFieldFromClassHierarchy(superClass, fieldName);
 		}
+	}
 
+	public Object getValue(Object victim, String fieldName) {
+		return null;
 	}
 
 }

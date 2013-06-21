@@ -26,4 +26,9 @@ class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
 	public List<T> loadAll() {
 		return getHibernateTemplate().loadAll(modelClass);
 	}
+
+	@Override
+	public T findById(Integer id) {
+		return getHibernateTemplate().load(modelClass, id);
+	}
 }

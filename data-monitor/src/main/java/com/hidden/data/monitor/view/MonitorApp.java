@@ -16,6 +16,7 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.hidden.data.aggregator.BlockDataAggregator;
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.loader.LibraryLoader;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
@@ -36,6 +37,8 @@ public class MonitorApp extends JFrame {
 	private BookProducer bookProducer;
 	@Autowired
 	private RowComsumer rowComsumer;
+	@Autowired
+	private BlockDataAggregator blockDataAggregator;
 	@Autowired
 	protected FilteredBlockDao filteredBlockDao;
 
@@ -64,12 +67,12 @@ public class MonitorApp extends JFrame {
 				.getInstance());
 
 		setTitle("Data Monitor");
-		setSize(300, 200);
+		setSize(300, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(5, 1));
+		panel.setLayout(new GridLayout(6, 1));
 		label = new JLabel("A label", SwingConstants.CENTER);
 		panel.add(label);
 
@@ -100,6 +103,11 @@ public class MonitorApp extends JFrame {
 					}
 				}));
 		panel.add(showFilteredButton);
+
+		JButton aggregatorButton = new JButton("AggregateData");
+		aggregatorButton.addActionListener(new NewThreadActionListener(
+				blockDataAggregator));
+		panel.add(aggregatorButton);
 
 		getContentPane().add(panel);
 	}
