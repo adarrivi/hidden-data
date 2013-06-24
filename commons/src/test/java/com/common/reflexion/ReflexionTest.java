@@ -19,6 +19,9 @@ public class ReflexionTest {
 	private Reflexion victim;
 	private StubBookSubClass book = new StubBookSubClass();
 	private String memberName;
+	private String methodName;
+	private Object[] methodArgs;
+	private Object methodResult;
 	private Object value;
 	private static final Integer NEW_VALUE = new Integer(3);
 	private static final String INCORRECT_VALUE = "33234";
@@ -160,6 +163,101 @@ public class ReflexionTest {
 
 	private void givenStaticFinalMember() {
 		memberName = STATIC_FINAL_MEMBER;
+	}
+
+	@Test
+	public void invokeAccessibleMethod_NotExistingMethod_ThrowsReflexEx() {
+		expectReflexionEx();
+		givenNotExistingMethod();
+		whenInvokeAccessibleMethod();
+	}
+
+	private void givenNotExistingMethod() {
+		methodName = "notExistingMethod";
+	}
+
+	private void whenInvokeAccessibleMethod() {
+		methodResult = victim.invokeAccessibleMethod(book, methodName,
+				methodArgs);
+	}
+
+	@Test
+	public void invokeAccessibleMethod_NotAccessibleMethod_ThrowsReflexEx() {
+		expectReflexionEx();
+		givenNotAccessibleMethod();
+		whenInvokeAccessibleMethod();
+	}
+
+	private void givenNotAccessibleMethod() {
+		methodName = "getPrivateName";
+	}
+
+	@Test
+	public void invokeAccessibleMethod_ReturnsSameValue() {
+		givenExistingMethod();
+		whenInvokeAccessibleMethod();
+		thenMethodResultShouldBe(book.getName());
+	}
+
+	private void givenExistingMethod() {
+		methodName = "getName";
+	}
+
+	private void thenMethodResultShouldBe(Object expectedResult) {
+		Assert.assertEquals(expectedResult, methodResult);
+	}
+
+	@Test
+	public void reatField_NotExistingField_ThrowsReflexionEx() {
+		expectReflexionEx();
+		givenNoExistingMember();
+		whenReadField();
+	}
+
+	private void whenReadField() {
+		value = victim.readField(book, memberName);
+	}
+
+	@Test
+	public void readField_ReturnsFieldValue() {
+		givenCorrectMember();
+		whenReadField();
+		thenReadFieldValueShouldBe(book.getNumberOfPages());
+	}
+
+	private void thenReadFieldValueShouldBe(Object expectedValue) {
+		Assert.assertEquals(expectedValue, value);
+	}
+
+	@Test
+	public void readField_UnAccessible_DoesntThrowEx() {
+		givenUnAccessibleField();
+		whenReadField();
+	}
+
+	private void givenUnAccessibleField() {
+		memberName = "numberOfPages";
+	}
+
+	@Test
+	public void readAccessibleField_UnAccessible_ThrowsReflexionEx() {
+		expectReflexionEx();
+		givenUnAccessibleField();
+		whenReadAccessibleField();
+	}
+
+	private void whenReadAccessibleField() {
+		value = victim.readAccessibleField(book, memberName);
+	}
+
+	@Test
+	public void readAccessibleField_Accessible_DoesntThrowsEx() {
+		givenAccessibleField();
+		whenReadAccessibleField();
+	}
+
+	private void givenAccessibleField() {
+		memberName = "accessibleField";
 	}
 
 }

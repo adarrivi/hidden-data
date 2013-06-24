@@ -3,10 +3,8 @@ package com.hidden.data.aggregator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StopWatch;
 
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.dao.PatternDao;
@@ -22,9 +20,6 @@ import com.hidden.data.nosql.model.discovery.Line;
 @Component
 public class BlockDataAggregator implements Runnable {
 
-	private static final Logger LOG = Logger
-			.getLogger(BlockDataAggregator.class);
-
 	@Autowired
 	private BookDiscoveryDao bookDiscoveryDao;
 	@Autowired
@@ -34,43 +29,61 @@ public class BlockDataAggregator implements Runnable {
 	@Autowired
 	private PatternDao patternDao;
 
+	private FilteredBlock currentFilteredBlock;
+	private Pattern currentPattern;
+
 	@Override
 	public void run() {
-		FilteredBlock filteredBlock = filteredBlockDao.findOneAndRemove();
-		int times = 0;
-		StopWatch stopWatch = new StopWatch();
-		stopWatch.start();
-		while (filteredBlock != null && times < 50) {
-			Book book = bookDao.findById(filteredBlock.getBookId());
-			Pattern pattern = patternDao.findById(filteredBlock.getPatternId());
-			List<Line> lines = new ArrayList<Line>();
-			for (int i = 0; i < filteredBlock.getLines().size(); i++) {
-				String lineContent = filteredBlock.getLines().get(i);
-				Line line = new Line(filteredBlock.getStartLineNumber() + i,
-						lineContent);
-				lines.add(line);
-			}
-
-			List<List<Character>> patternContent = new ArrayList<List<Character>>();
-			for (List<PatternItem> itemsPerLine : pattern.getContent()) {
-				List<Character> charactersPerLine = new ArrayList<Character>();
-				for (PatternItem item : itemsPerLine) {
-					Character character = Character.SPACE_SEPARATOR;
-					if (!item.isEmpty()) {
-						character = item.getValue().toCharArray()[0];
-					}
-					charactersPerLine.add(character);
-				}
-				patternContent.add(charactersPerLine);
-			}
-			com.hidden.data.nosql.model.discovery.Pattern discoveryPattern = new com.hidden.data.nosql.model.discovery.Pattern(
-					pattern.getName(), patternContent);
-			BookDiscovery bookDiscovery = new BookDiscovery(book.getTitle(),
-					book.getAuthor().getName(), lines, discoveryPattern);
-			bookDiscoveryDao.save(bookDiscovery);
-			times++;
+		currentFilteredBlock = filteredBlockDao.findOneAndRemove();
+		while (currentFilteredBlock != null) {
+			createNewAggregatedData();
+			currentFilteredBlock = filteredBlockDao.findOneAndRemove();
 		}
-		stopWatch.stop();
-		LOG.debug(stopWatch.prettyPrint());
 	}
+
+	private void createNewAggregatedData() {
+		Book book = bookDao.findById(currentFilteredBlock.getBookId());
+		currentPattern = patternDao.findById(currentFilteredBlock
+				.getPatternId());
+		List<Line> bookLines = getBooLinesFromCurrentFilteredBlock();
+		com.hidden.data.nosql.model.discovery.Pattern discoveryPattern = createDiscoveryPatternFromCurrentFilteredBlock();
+		BookDiscovery bookDiscovery = new BookDiscovery(book.getTitle(), book
+				.getAuthor().getName(), bookLines, discoveryPattern);
+		bookDiscoveryDao.save(bookDiscovery);
+	}
+
+	private com.hidden.data.nosql.model.discovery.Pattern createDiscoveryPatternFromCurrentFilteredBlock() {
+		com.hidden.data.nosql.model.discovery.Pattern discoveryPattern = new com.hidden.data.nosql.model.discovery.Pattern(
+				currentPattern.getName(),
+				getPatternContentFromCurrentFilteredBlock());
+		return discoveryPattern;
+	}
+
+	private List<List<Character>> getPatternContentFromCurrentFilteredBlock() {
+		List<List<Character>> patternContent = new ArrayList<List<Character>>();
+		for (List<PatternItem> itemsPerLine : currentPattern.getContent()) {
+			List<Character> charactersPerLine = new ArrayList<Character>();
+			for (PatternItem item : itemsPerLine) {
+				Character character = Character.SPACE_SEPARATOR;
+				if (!item.isEmpty()) {
+					character = item.getValue().toCharArray()[0];
+				}
+				charactersPerLine.add(character);
+			}
+			patternContent.add(charactersPerLine);
+		}
+		return patternContent;
+	}
+
+	private List<Line> getBooLinesFromCurrentFilteredBlock() {
+		List<Line> lines = new ArrayList<Line>();
+		for (int i = 0; i < currentFilteredBlock.getLines().size(); i++) {
+			String lineContent = currentFilteredBlock.getLines().get(i);
+			Line line = new Line(currentFilteredBlock.getStartLineNumber() + i,
+					lineContent);
+			lines.add(line);
+		}
+		return lines;
+	}
+
 }

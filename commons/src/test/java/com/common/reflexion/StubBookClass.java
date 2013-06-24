@@ -15,6 +15,10 @@ abstract class StubBookClass {
 	}
 
 	public String getName() {
+		return getPrivateName();
+	}
+
+	private String getPrivateName() {
 		return name;
 	}
 

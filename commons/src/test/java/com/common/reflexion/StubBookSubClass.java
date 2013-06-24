@@ -6,6 +6,7 @@ final class StubBookSubClass extends StubBookClass {
 	private static final String BOOK_NAME = "Stranger in a Strange Land";
 	private static final long NUMBER_OF_PAGES = 256;
 	private long numberOfPages;
+	public String accessibleField;
 
 	StubBookSubClass() {
 		super(IDENTIFIER, BOOK_NAME);
