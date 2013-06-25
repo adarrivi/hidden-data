@@ -3,7 +3,7 @@ package com.hidden.data.db.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
 import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
@@ -23,7 +23,7 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 
 	public static Book createBook() {
 		Book book = Book.createEmptyBook();
-		Reflexion.getInstance().setMember(book, "id", BOOK_ID);
+		Reflection.getInstance().setField(book, "id", BOOK_ID);
 		book.setTitle(BOOK_TITLE);
 		book.setContent(BOOK_CONTENT);
 		book.setAuthor(BOOK_AUTHOR);

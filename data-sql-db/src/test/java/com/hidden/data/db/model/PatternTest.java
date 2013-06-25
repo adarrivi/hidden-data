@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
 import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
@@ -47,8 +47,8 @@ public class PatternTest implements NotNulEntityTestable,
 
 	private void givenPattern() {
 		givenEmptyPattern();
-		Reflexion.getInstance().setMember(victim, "id", PATTERN_ID);
-		Reflexion.getInstance().setMember(victim, "name", PATTERN_NAME);
+		Reflection.getInstance().setField(victim, "id", PATTERN_ID);
+		Reflection.getInstance().setField(victim, "name", PATTERN_NAME);
 	}
 
 	private void givenEmptyPattern() {
@@ -105,9 +105,9 @@ public class PatternTest implements NotNulEntityTestable,
 				.givenExistingEntity();
 		List<PatternItem> rowContent = Collections.nCopies(columns,
 				PatternItem.createEmptyItem());
-		Reflexion.getInstance().setMember(patternRow, "content", rowContent);
+		Reflection.getInstance().setField(patternRow, "content", rowContent);
 		List<PersistentEntity> rowList = Collections.nCopies(rows, patternRow);
-		Reflexion.getInstance().setMember(victim, "rows", rowList);
+		Reflection.getInstance().setField(victim, "rows", rowList);
 	}
 
 	private void thenContentShouldHave(int rows, int columns) {
@@ -188,7 +188,7 @@ public class PatternTest implements NotNulEntityTestable,
 						Matchers.anyString())).thenReturn(matchesAll);
 		List<PatternRow> patternRows = Collections.nCopies(numberOfRows,
 				alwaysMatchingRow);
-		Reflexion.getInstance().setMember(victim, "rows", patternRows);
+		Reflection.getInstance().setField(victim, "rows", patternRows);
 	}
 
 	@Test

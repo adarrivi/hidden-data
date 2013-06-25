@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 
 public class FilteredBlockTest {
 
@@ -36,7 +36,7 @@ public class FilteredBlockTest {
 	private void createVictim() {
 		victim = new FilteredBlock(PATTERN_ID, BOOK_ID, START_LINE_NUMBER,
 				LINES);
-		Reflexion.getInstance().setMember(victim, "id", BLOCK_ID);
+		Reflection.getInstance().setField(victim, "id", BLOCK_ID);
 	}
 
 	private void whenGetBookId() {

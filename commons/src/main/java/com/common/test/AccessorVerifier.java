@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import org.junit.Assert;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 
 public class AccessorVerifier {
 
@@ -23,9 +23,9 @@ public class AccessorVerifier {
 			String getterMethodName = getterEntry.getKey();
 			String fieldName = getterEntry.getValue().getName();
 			Object expectedGetterResult = getterEntry.getValue().getValue();
-			Reflexion.getInstance().setMember(victim, fieldName,
+			Reflection.getInstance().setField(victim, fieldName,
 					expectedGetterResult);
-			Object invokeResult = Reflexion.getInstance()
+			Object invokeResult = Reflection.getInstance()
 					.invokeAccessibleMethod(victim, getterMethodName);
 			Assert.assertEquals(expectedGetterResult, invokeResult);
 		}
@@ -48,9 +48,9 @@ public class AccessorVerifier {
 			String setterMethodName = setterEntry.getKey();
 			String fieldName = setterEntry.getValue().getName();
 			Object expectedValueInField = setterEntry.getValue().getValue();
-			Reflexion.getInstance().invokeAccessibleMethod(victim,
+			Reflection.getInstance().invokeAccessibleMethod(victim,
 					setterMethodName, expectedValueInField);
-			Object fieldValue = Reflexion.getInstance().readField(victim,
+			Object fieldValue = Reflection.getInstance().readField(victim,
 					fieldName);
 			Assert.assertEquals(expectedValueInField, fieldValue);
 		}

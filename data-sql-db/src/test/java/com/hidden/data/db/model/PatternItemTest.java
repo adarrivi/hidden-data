@@ -3,7 +3,7 @@ package com.hidden.data.db.model;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
 import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
@@ -63,8 +63,8 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	private void givenSpacePItem() {
 		givenEmptyItem();
-		Reflexion.getInstance().setMember(victim, "id", ITEM_ID);
-		Reflexion.getInstance().setMember(victim, "value", ITEM_VALUE);
+		Reflection.getInstance().setField(victim, "id", ITEM_ID);
+		Reflection.getInstance().setField(victim, "value", ITEM_VALUE);
 	}
 
 	@Test

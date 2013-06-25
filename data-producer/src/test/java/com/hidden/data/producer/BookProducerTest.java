@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Book;
@@ -112,7 +112,7 @@ public class BookProducerTest {
 
 	private Book createBook(int numberOfLines) {
 		Book book = Book.createEmptyBook();
-		Reflexion.getInstance().setMember(book, "id", BOOK_ID);
+		Reflection.getInstance().setField(book, "id", BOOK_ID);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < numberOfLines; i++) {
 			sb.append(BOOK_LINE_CONTENT).append(i)
@@ -132,9 +132,9 @@ public class BookProducerTest {
 
 	private Pattern createPatternWithLines(int numberOfLines) {
 		Pattern pattern = Pattern.createEmptyPattern();
-		Reflexion.getInstance().setMember(pattern, "id", PATTERN_ID);
-		Reflexion.getInstance().setMember(pattern, "name", PATTERN_NAME);
-		Reflexion.getInstance().setMember(pattern, "rows",
+		Reflection.getInstance().setField(pattern, "id", PATTERN_ID);
+		Reflection.getInstance().setField(pattern, "name", PATTERN_NAME);
+		Reflection.getInstance().setField(pattern, "rows",
 				Collections.nCopies(numberOfLines, patternRow));
 		return pattern;
 	}

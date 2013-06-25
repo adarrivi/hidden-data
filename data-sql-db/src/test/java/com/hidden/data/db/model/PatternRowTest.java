@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
 import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 
@@ -46,8 +46,8 @@ public class PatternRowTest implements PersistentEntityTestable {
 
 	protected void givenExistingItem() {
 		givenNewItem();
-		Reflexion.getInstance().setMember(victim, "id", ROW_ID);
-		Reflexion.getInstance().setMember(victim, "content", ROW_CONTENT);
+		Reflection.getInstance().setField(victim, "id", ROW_ID);
+		Reflection.getInstance().setField(victim, "content", ROW_CONTENT);
 
 	}
 
@@ -82,9 +82,9 @@ public class PatternRowTest implements PersistentEntityTestable {
 
 	private void givenAllXPatterRow(int rowLength) {
 		PatternItem saceItem = PatternItem.createEmptyItem();
-		Reflexion.getInstance().setMember(saceItem, "value", X_CHAR);
+		Reflection.getInstance().setField(saceItem, "value", X_CHAR);
 		givenNewItem();
-		Reflexion.getInstance().setMember(victim, "content",
+		Reflection.getInstance().setField(victim, "content",
 				Collections.nCopies(rowLength, saceItem));
 	}
 

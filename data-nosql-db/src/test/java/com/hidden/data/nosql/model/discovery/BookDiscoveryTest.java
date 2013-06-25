@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.reflexion.Reflexion;
+import com.common.reflection.Reflection;
 
 public class BookDiscoveryTest {
 
@@ -32,7 +32,7 @@ public class BookDiscoveryTest {
 
 	private void createVictim() {
 		victim = new BookDiscovery(BOOK_TITLE, AUTHOR, LINES, PATTERN);
-		Reflexion.getInstance().setMember(victim, "id", BOOK_ID);
+		Reflection.getInstance().setField(victim, "id", BOOK_ID);
 	}
 
 	private void whenGetId() {

@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.common.reflexion.ReflexionException;
+import com.common.reflection.ReflectionException;
 
 public class AccessorVerifierTest {
 
@@ -48,7 +48,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectGetters_GetterDoesntExist_ThrowsReflexionEx() {
-		expectedException.expect(ReflexionException.class);
+		expectedException.expect(ReflectionException.class);
 		givenNotExistingGetter();
 		whenVerifyDirectGetters();
 	}
@@ -60,7 +60,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectGetters_FieldDoesntExist_ThrowsReflexion() {
-		expectException(ReflexionException.class);
+		expectException(ReflectionException.class);
 		givenNotExistingFieldGetter();
 		whenVerifyDirectGetters();
 	}
@@ -126,7 +126,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectSetters_SetterDoesntExist_ThrowsReflexionEx() {
-		expectException(ReflexionException.class);
+		expectException(ReflectionException.class);
 		givenNotExistingSetter();
 		whenVerifyDirectSetters();
 	}
@@ -139,7 +139,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectSetters_FieldDoesntExist_ThrowsReflexionEx() {
-		expectException(ReflexionException.class);
+		expectException(ReflectionException.class);
 		givenNotExistingFieldSetter();
 		whenVerifyDirectSetters();
 	}
