@@ -2,7 +2,6 @@ package com.hidden.data.loader;
 
 import java.io.File;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,11 +9,15 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.common.test.AccessorVerifier;
+
 public class BookFileTest {
 
+	private static final String TWO_SUFFIXES = "fileName.cfr.txt";
+	private static final String ONE_SUFFIX = "fileName.txt";
+	private static final String FILE_NAME = "fileName";
 	private BookFile victim;
 	private String title;
-	private File file;
 
 	@Mock
 	private File expectedFile;
@@ -26,7 +29,7 @@ public class BookFileTest {
 
 	@Test
 	public void getTitle_NoSuffix_DoesNotRemoveAnything() {
-		String fileName = "fileName";
+		String fileName = FILE_NAME;
 		givenBookWithFileName(fileName);
 		whenGetTitle();
 		thenTitleShouldBe(fileName);
@@ -47,31 +50,25 @@ public class BookFileTest {
 
 	@Test
 	public void getTitle_OneSuffix_RemovesSuffix() {
-		givenBookWithFileName("fileName.txt");
+		givenBookWithFileName(ONE_SUFFIX);
 		whenGetTitle();
-		thenTitleShouldBe("fileName");
+		thenTitleShouldBe(FILE_NAME);
 	}
 
 	@Test
 	public void getTitle_TwoSuffixes_RemovesLast() {
-		givenBookWithFileName("fileName.cfr.txt");
+		givenBookWithFileName(TWO_SUFFIXES);
 		whenGetTitle();
 		thenTitleShouldBe("fileName.cfr");
 	}
 
 	@Test
-	public void getFile_EqualsInputFile() {
-		givenBookWithFileName(StringUtils.EMPTY);
-		whenGetFile();
-		thenFileIsEqualsExpected();
-	}
-
-	private void whenGetFile() {
-		file = victim.getFile();
-	}
-
-	private void thenFileIsEqualsExpected() {
-		Assert.assertEquals(expectedFile, file);
+	public void verifyDirectGetters() {
+		givenBookWithFileName(FILE_NAME);
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getFile", "file", expectedFile);
+		verifier.addGetterToVerify("getTitle", "title", ONE_SUFFIX);
+		verifier.verifyDirectGetters();
 	}
 
 }

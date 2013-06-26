@@ -14,13 +14,13 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.common.file.CommonsFileUtils;
+import com.common.test.AccessorVerifier;
 
 public class AuthorFolderTest {
 
-	private static final String ANONYMOUS = "Anonymous";
+	private static final String AUTHOR = "Anonymous";
 	private AuthorFolder victim;
 	private Collection<BookFile> files;
-	private String authorName;
 	@Mock
 	private File expectedFile;
 	@Mock
@@ -51,7 +51,7 @@ public class AuthorFolderTest {
 	}
 
 	private void givenFolderName() {
-		Mockito.when(folder.getName()).thenReturn(ANONYMOUS);
+		Mockito.when(folder.getName()).thenReturn(AUTHOR);
 		createVictim();
 	}
 
@@ -71,18 +71,10 @@ public class AuthorFolderTest {
 	}
 
 	@Test
-	public void getAuthorName() {
-		givenFolderName();
-		whenGetAuthorName();
-		thenAuthorNameShouldBeAsExpected();
+	public void verifyDirectGetters() {
+		createVictim();
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getAuthorName", "authorName", AUTHOR);
+		verifier.verifyDirectGetters();
 	}
-
-	private void whenGetAuthorName() {
-		authorName = victim.getAuthorName();
-	}
-
-	private void thenAuthorNameShouldBeAsExpected() {
-		Assert.assertEquals(ANONYMOUS, authorName);
-	}
-
 }

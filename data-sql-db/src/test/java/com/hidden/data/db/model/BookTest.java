@@ -1,9 +1,9 @@
 package com.hidden.data.db.model;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflection.Reflection;
+import com.common.test.AccessorVerifier;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
 import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
@@ -11,15 +11,12 @@ import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 
 public class BookTest implements NotNulEntityTestable, PersistentEntityTestable {
 
-	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet.";
 	private static final String BOOK_TITLE = "Lorem ipsum";
 	private static final Integer BOOK_ID = Integer.valueOf(1);
 	private static final Author BOOK_AUTHOR = new Author();
 
 	private Book victim;
-	private String title;
-	private String content;
-	private Author author;
 
 	public static Book createBook() {
 		Book book = Book.createEmptyBook();
@@ -37,62 +34,6 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 
 	private void givenABook() {
 		victim = createBook();
-	}
-
-	@Test
-	public void getTitle_EmptyBook_ReturnsNull() {
-		givenEmptyBook();
-		whenGetTitle();
-		thenBookTitleNullShouldBeGiven();
-	}
-
-	private void whenGetTitle() {
-		title = victim.getTitle();
-	}
-
-	private void thenBookTitleNullShouldBeGiven() {
-		Assert.assertNull(title);
-	}
-
-	@Test
-	public void getTitle_Book_ReturnsTitle() {
-		givenABook();
-		whenGetTitle();
-		thenBookTitleShouldBeGiven();
-	}
-
-	private void thenBookTitleShouldBeGiven() {
-		Assert.assertEquals(BOOK_TITLE, title);
-	}
-
-	@Test
-	public void getContent_Book_ReturnsContent() {
-		givenABook();
-		whenGetContent();
-		thenContentShouldBeEquals();
-	}
-
-	private void whenGetContent() {
-		content = victim.getContent();
-	}
-
-	private void thenContentShouldBeEquals() {
-		Assert.assertEquals(BOOK_CONTENT, content);
-	}
-
-	@Test
-	public void getAuthor_Book_ReturnsAuthor() {
-		givenABook();
-		whenGetAuthor();
-		thenAutorShouldBeEquals();
-	}
-
-	private void whenGetAuthor() {
-		author = victim.getAuthor();
-	}
-
-	private void thenAutorShouldBeEquals() {
-		Assert.assertEquals(BOOK_AUTHOR, author);
 	}
 
 	@Override
@@ -129,5 +70,24 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 	public void verifyNotNullEntity() {
 		NotNullEntityVerifier verifier = new NotNullEntityVerifier(this);
 		verifier.verify();
+	}
+
+	@Test
+	public void verifyDirectGetters() {
+		AccessorVerifier verifier = new AccessorVerifier(createBook());
+		verifier.addGetterToVerify("getId", "id", BOOK_ID);
+		verifier.addGetterToVerify("getTitle", "title", BOOK_TITLE);
+		verifier.addGetterToVerify("getContent", "content", BOOK_CONTENT);
+		verifier.addGetterToVerify("getAuthor", "author", BOOK_AUTHOR);
+		verifier.verifyDirectGetters();
+	}
+
+	@Test
+	public void verifyDirectSetters() {
+		AccessorVerifier verifier = new AccessorVerifier(createBook());
+		verifier.addSetterToVerify("setContent", "content", BOOK_CONTENT);
+		verifier.addSetterToVerify("setTitle", "title", BOOK_TITLE);
+		verifier.addSetterToVerify("setAuthor", "author", BOOK_AUTHOR);
+		verifier.verifyDirectSetters();
 	}
 }
