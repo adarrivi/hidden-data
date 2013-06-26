@@ -48,9 +48,13 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectGetters_GetterDoesntExist_ThrowsReflexionEx() {
-		expectedException.expect(ReflectionException.class);
+		expectReflextionEx();
 		givenNotExistingGetter();
 		whenVerifyDirectGetters();
+	}
+
+	private void expectReflextionEx() {
+		expectedException.expect(ReflectionException.class);
 	}
 
 	private void givenNotExistingGetter() {
@@ -60,13 +64,9 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectGetters_FieldDoesntExist_ThrowsReflexion() {
-		expectException(ReflectionException.class);
+		expectReflextionEx();
 		givenNotExistingFieldGetter();
 		whenVerifyDirectGetters();
-	}
-
-	private void expectException(Class<? extends Throwable> exceptionClass) {
-		expectedException.expect(exceptionClass);
 	}
 
 	private void givenNotExistingFieldGetter() {
@@ -75,7 +75,7 @@ public class AccessorVerifierTest {
 	}
 
 	@Test
-	public void verifyDirectGetters_GetterDoesntReturnFieldValue_ThrowsAssertionError() {
+	public void verifyDirectGetters_GetterDoesntReturnFieldValue_ThrowsAssertError() {
 		expectedException.expect(AssertionError.class);
 		givenGetterReturningUnexpectedValue();
 		whenVerifyDirectGetters();
@@ -126,7 +126,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectSetters_SetterDoesntExist_ThrowsReflexionEx() {
-		expectException(ReflectionException.class);
+		expectReflextionEx();
 		givenNotExistingSetter();
 		whenVerifyDirectSetters();
 	}
@@ -139,7 +139,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectSetters_FieldDoesntExist_ThrowsReflexionEx() {
-		expectException(ReflectionException.class);
+		expectReflextionEx();
 		givenNotExistingFieldSetter();
 		whenVerifyDirectSetters();
 	}
@@ -152,7 +152,7 @@ public class AccessorVerifierTest {
 
 	@Test
 	public void verifyDirectSetters_SetterDoesntSetFieldValue_ThrowsAssertionError() {
-		expectException(AssertionError.class);
+		expectedException.expect(AssertionError.class);
 		givenSetterDoesntSetFiledValue();
 		whenVerifyDirectSetters();
 	}

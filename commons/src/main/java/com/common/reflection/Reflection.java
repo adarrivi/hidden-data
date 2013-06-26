@@ -7,15 +7,24 @@ public class Reflection {
 
 	private static final Reflection INSTANCE = new Reflection();
 
-	private MethodAccessor methodAccessor = new MethodAccessorApache();
-	private FieldAccessor fieldAccessor = new FieldAccessorApache();
+	private MethodAccessor methodAccessor;
+	private FieldAccessor fieldAccessor;
 
 	private Reflection() {
-		// to limit scope
+		methodAccessor = new MethodAccessorApache();
+		fieldAccessor = new FieldAccessorApache();
 	}
 
 	public static final Reflection getInstance() {
 		return INSTANCE;
+	}
+
+	protected void setMethodAccessor(MethodAccessor methodAccessor) {
+		this.methodAccessor = methodAccessor;
+	}
+
+	protected void setFieldAccessor(FieldAccessor fieldAccessor) {
+		this.fieldAccessor = fieldAccessor;
 	}
 
 	public void setField(Object victim, String fieldName, Object value) {

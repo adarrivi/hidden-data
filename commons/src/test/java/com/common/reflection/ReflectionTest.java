@@ -19,11 +19,12 @@ public class ReflectionTest {
 
 	private static final Class<StubObject> TARGET_CLASS = StubObject.class;
 	private static final String FIELD_NAME = "name";
+	private static final String FIELD_VALUE = "value";
 	private static final String FIELD_NEW_VALUE = "newValue";
 	private static final String METHOD_NAME = "getName";
 	private static final String METHOD_RESULT = "methodResult";
 
-	private StubObject target = new StubObject();
+	private StubObject target = new StubObject(FIELD_VALUE);
 	private Field field;
 	private Object result;
 	@Mock
@@ -43,11 +44,10 @@ public class ReflectionTest {
 
 	@After
 	public void tearDown() {
-		tearDownSecurityManagerToThrowEx();
-	}
-
-	private void tearDownSecurityManagerToThrowEx() {
-		System.setSecurityManager(null);
+		// We need to remove the mocks, restoring the real accessors because
+		// Reflection(singleton) is used in other tests
+		victim.setFieldAccessor(new FieldAccessorApache());
+		victim.setMethodAccessor(new MethodAccessorApache());
 	}
 
 	@Test
@@ -217,5 +217,4 @@ public class ReflectionTest {
 	private void thenShouldReturnFieldValue() {
 		Assert.assertEquals(FIELD_NEW_VALUE, result);
 	}
-
 }
