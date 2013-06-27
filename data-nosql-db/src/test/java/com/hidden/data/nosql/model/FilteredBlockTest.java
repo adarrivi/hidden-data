@@ -3,10 +3,10 @@ package com.hidden.data.nosql.model;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflection.Reflection;
+import com.common.test.AccessorVerifier;
 
 public class FilteredBlockTest {
 
@@ -18,93 +18,24 @@ public class FilteredBlockTest {
 			"Lorem ipsum dolor");
 
 	private FilteredBlock victim;
-	private int intResult;
-	private String stringResult;
-	private List<String> listResult;
 
 	@Test
-	public void getBookId_NewInstance_ReturnsCreationBookId() {
-		givenNewInstance();
-		whenGetBookId();
-		thenBookIdShouldBeAsInCreation();
-	}
-
-	private void givenNewInstance() {
+	public void verifyDirectGetters() {
 		createVictim();
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getId", "id", BLOCK_ID);
+		verifier.addGetterToVerify("getPatternId", "patternId", PATTERN_ID);
+		verifier.addGetterToVerify("getBookId", "bookId", BOOK_ID);
+		verifier.addGetterToVerify("getStartLineNumber", "startLineNumber",
+				START_LINE_NUMBER);
+		verifier.addGetterToVerify("getLines", "lines", LINES);
+		verifier.verifyDirectGetters();
 	}
 
 	private void createVictim() {
 		victim = new FilteredBlock(PATTERN_ID, BOOK_ID, START_LINE_NUMBER,
 				LINES);
 		Reflection.getInstance().setField(victim, "id", BLOCK_ID);
-	}
-
-	private void whenGetBookId() {
-		intResult = victim.getBookId();
-	}
-
-	private void thenBookIdShouldBeAsInCreation() {
-		Assert.assertEquals(BOOK_ID, intResult);
-	}
-
-	@Test
-	public void getPatternId_NewInstance_ReturnsCreationPatternId() {
-		givenNewInstance();
-		whenGetPatternId();
-		thenPatternIdShouldBeAsInCreation();
-	}
-
-	private void whenGetPatternId() {
-		intResult = victim.getPatternId();
-	}
-
-	private void thenPatternIdShouldBeAsInCreation() {
-		Assert.assertEquals(PATTERN_ID, intResult);
-	}
-
-	@Test
-	public void getStartLineNumber_NewInstance_ReturnsCreationStartLineNumber() {
-		givenNewInstance();
-		whenGetStartLineNumber();
-		thenStartLineNumberShouldBeAsInCreation();
-	}
-
-	private void whenGetStartLineNumber() {
-		intResult = victim.getStartLineNumber();
-	}
-
-	private void thenStartLineNumberShouldBeAsInCreation() {
-		Assert.assertEquals(START_LINE_NUMBER, intResult);
-	}
-
-	@Test
-	public void getLines_NewInstance_ReturnsCreationLines() {
-		givenNewInstance();
-		whenGetLines();
-		thenLinesShouldBeAsInCreation();
-	}
-
-	private void whenGetLines() {
-		listResult = victim.getLines();
-	}
-
-	private void thenLinesShouldBeAsInCreation() {
-		Assert.assertEquals(LINES, listResult);
-	}
-
-	@Test
-	public void getId_NewInstance_ReturnsCreationId() {
-		givenNewInstance();
-		whenGetId();
-		thenIdShouldBeAsInCreation();
-	}
-
-	private void whenGetId() {
-		stringResult = victim.getId();
-	}
-
-	private void thenIdShouldBeAsInCreation() {
-		Assert.assertEquals(stringResult, BLOCK_ID);
 	}
 
 }

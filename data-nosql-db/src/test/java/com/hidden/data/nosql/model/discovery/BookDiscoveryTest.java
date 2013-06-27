@@ -3,10 +3,10 @@ package com.hidden.data.nosql.model.discovery;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflection.Reflection;
+import com.common.test.AccessorVerifier;
 
 public class BookDiscoveryTest {
 
@@ -19,87 +19,21 @@ public class BookDiscoveryTest {
 			.createVictim();
 
 	private BookDiscovery victim;
-	private String stringResult;
-	private List<Line> listResult;
-	private Pattern patternResult;
 
 	@Test
-	public void getId_ReturnsCreationId() {
+	public void verifyDirectGetters() {
 		createVictim();
-		whenGetId();
-		thenIdShouldBeAsInCreation();
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getId", "id", BOOK_ID);
+		verifier.addGetterToVerify("getBookTitle", "bookTitle", BOOK_TITLE);
+		verifier.addGetterToVerify("getAuthor", "author", AUTHOR);
+		verifier.addGetterToVerify("getLines", "lines", LINES);
+		verifier.addGetterToVerify("getPattern", "pattern", PATTERN);
+		verifier.verifyDirectGetters();
 	}
 
 	private void createVictim() {
 		victim = new BookDiscovery(BOOK_TITLE, AUTHOR, LINES, PATTERN);
 		Reflection.getInstance().setField(victim, "id", BOOK_ID);
-	}
-
-	private void whenGetId() {
-		stringResult = victim.getId();
-	}
-
-	private void thenIdShouldBeAsInCreation() {
-		Assert.assertEquals(BOOK_ID, stringResult);
-	}
-
-	@Test
-	public void getBookTitle_ReturnsCreationBookTitle() {
-		createVictim();
-		whenGetBookTitle();
-		thenBookTitleShouldBeAsInCreation();
-	}
-
-	private void whenGetBookTitle() {
-		stringResult = victim.getBookTitle();
-	}
-
-	private void thenBookTitleShouldBeAsInCreation() {
-		Assert.assertEquals(BOOK_TITLE, stringResult);
-	}
-
-	@Test
-	public void getAuthor_ReturnsCreationAuthor() {
-		createVictim();
-		whenGetAuthor();
-		thenAuthorShouldBeAsInCreation();
-	}
-
-	private void whenGetAuthor() {
-		stringResult = victim.getAuthor();
-	}
-
-	private void thenAuthorShouldBeAsInCreation() {
-		Assert.assertEquals(AUTHOR, stringResult);
-	}
-
-	@Test
-	public void getLines_ReturnsCreationLines() {
-		createVictim();
-		whenGetLines();
-		thenLinesShouldBeAsInCreation();
-	}
-
-	private void whenGetLines() {
-		listResult = victim.getLines();
-	}
-
-	private void thenLinesShouldBeAsInCreation() {
-		Assert.assertEquals(LINES, listResult);
-	}
-
-	@Test
-	public void getPattern_ReturnsCreationPattern() {
-		createVictim();
-		whenGetPattern();
-		thenPatternShouldBeAsInCreation();
-	}
-
-	private void whenGetPattern() {
-		patternResult = victim.getPattern();
-	}
-
-	private void thenPatternShouldBeAsInCreation() {
-		Assert.assertEquals(PATTERN, patternResult);
 	}
 }

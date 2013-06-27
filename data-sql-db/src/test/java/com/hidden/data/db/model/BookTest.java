@@ -15,7 +15,7 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 	private static final String BOOK_TITLE = "Lorem ipsum";
 	private static final Integer BOOK_ID = Integer.valueOf(1);
 	private static final Author BOOK_AUTHOR = new Author();
-
+	private AccessorVerifier verifier = new AccessorVerifier(createBook());
 	private Book victim;
 
 	public static Book createBook() {
@@ -74,7 +74,6 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 
 	@Test
 	public void verifyDirectGetters() {
-		AccessorVerifier verifier = new AccessorVerifier(createBook());
 		verifier.addGetterToVerify("getId", "id", BOOK_ID);
 		verifier.addGetterToVerify("getTitle", "title", BOOK_TITLE);
 		verifier.addGetterToVerify("getContent", "content", BOOK_CONTENT);
@@ -84,7 +83,6 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 
 	@Test
 	public void verifyDirectSetters() {
-		AccessorVerifier verifier = new AccessorVerifier(createBook());
 		verifier.addSetterToVerify("setContent", "content", BOOK_CONTENT);
 		verifier.addSetterToVerify("setTitle", "title", BOOK_TITLE);
 		verifier.addSetterToVerify("setAuthor", "author", BOOK_AUTHOR);

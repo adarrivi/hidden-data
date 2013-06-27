@@ -2,9 +2,11 @@ package com.hidden.data.db.dao.impl;
 
 import java.util.List;
 
+import org.springframework.orm.hibernate3.HibernateObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.hidden.data.db.dao.CrudDao;
+import com.hidden.data.db.exception.DaoException;
 import com.hidden.data.db.model.PersistentEntity;
 
 class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
@@ -29,6 +31,10 @@ class CrudDaoHibernate<T extends PersistentEntity> extends HibernateDaoSupport
 
 	@Override
 	public T findById(Integer id) {
-		return getHibernateTemplate().load(modelClass, id);
+		try {
+			return getHibernateTemplate().load(modelClass, id);
+		} catch (HibernateObjectRetrievalFailureException e) {
+			throw new DaoException(e);
+		}
 	}
 }

@@ -1,15 +1,14 @@
 package com.hidden.data.nosql.model.discovery;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import com.common.test.AccessorVerifier;
 
 public class LineTest {
 
 	private static final int LINE_NUMBER = 1;
 	private static final String CONTENT = "Lorem ipsum dolor";
 	private Line victim;
-	private int intResult;
-	private String stringResult;
 
 	private static final LineTest INSTANCE = new LineTest();
 
@@ -18,38 +17,16 @@ public class LineTest {
 	}
 
 	@Test
-	public void getLineNumber_ReturnsCreationLineNumber() {
+	public void verifyDirectGetters() {
 		createVictim();
-		whenGetLineNumber();
-		thenLineNumberShouldBeAsInCreation();
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getLineNumber", "lineNumber", LINE_NUMBER);
+		verifier.addGetterToVerify("getContent", "content", CONTENT);
+		verifier.verifyDirectGetters();
 	}
 
 	protected Line createVictim() {
 		victim = new Line(LINE_NUMBER, CONTENT);
 		return victim;
 	}
-
-	private void whenGetLineNumber() {
-		intResult = victim.getLineNumber();
-	}
-
-	private void thenLineNumberShouldBeAsInCreation() {
-		Assert.assertEquals(LINE_NUMBER, intResult);
-	}
-
-	@Test
-	public void getContent_ReturnsCreationContent() {
-		createVictim();
-		whenGetContent();
-		thenContentShouldBeAsInCreation();
-	}
-
-	private void whenGetContent() {
-		stringResult = victim.getContent();
-	}
-
-	private void thenContentShouldBeAsInCreation() {
-		Assert.assertEquals(CONTENT, stringResult);
-	}
-
 }

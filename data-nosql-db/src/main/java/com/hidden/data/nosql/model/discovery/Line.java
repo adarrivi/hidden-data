@@ -6,7 +6,6 @@ public class Line {
 	private String content;
 
 	public Line(int lineNumber, String content) {
-		super();
 		this.lineNumber = lineNumber;
 		this.content = content;
 	}

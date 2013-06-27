@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflection.Reflection;
+import com.common.test.AccessorVerifier;
 import com.hidden.data.db.model.verifier.NotNulEntityTestable;
 import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
@@ -18,7 +19,6 @@ public class PatternItemTest implements PersistentEntityTestable,
 	private static final String ITEM_VALUE = " ";
 
 	private PatternItem victim;
-	private String value;
 	private boolean matches;
 
 	@Test
@@ -41,7 +41,7 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	@Override
 	public NotNullEntity givenNotEmptyEntity() {
-		givenSpacePItem();
+		createVictim();
 		return victim;
 	}
 
@@ -57,29 +57,21 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	@Override
 	public PersistentEntity givenExistingEntity() {
-		givenSpacePItem();
+		createVictim();
 		return victim;
 	}
 
-	private void givenSpacePItem() {
+	private void createVictim() {
 		givenEmptyItem();
 		Reflection.getInstance().setField(victim, "id", ITEM_ID);
 		Reflection.getInstance().setField(victim, "value", ITEM_VALUE);
 	}
 
 	@Test
-	public void getValue_ReturnsExpectedValue() {
-		givenExistingEntity();
-		whenGetValue();
-		thenExpectValue(ITEM_VALUE);
-	}
-
-	private void whenGetValue() {
-		value = victim.getValue();
-	}
-
-	private void thenExpectValue(String expectedValue) {
-		Assert.assertEquals(expectedValue, value);
+	public void matches_CharAndEmptyPItem_ReturnsTrue() {
+		givenEmptyItem();
+		whenMatches(CHAR);
+		thenExpectMatches(true);
 	}
 
 	private void whenMatches(char valueToMatch) {
@@ -91,13 +83,6 @@ public class PatternItemTest implements PersistentEntityTestable,
 	}
 
 	@Test
-	public void matches_CharAndEmptyPItem_ReturnsTrue() {
-		givenEmptyItem();
-		whenMatches(CHAR);
-		thenExpectMatches(true);
-	}
-
-	@Test
 	public void matches_SpaceAndEmptyPItem_ReturnsTrue() {
 		givenEmptyItem();
 		whenMatches(SPACE);
@@ -106,16 +91,25 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	@Test
 	public void matches_SpaceAndSpacePItem_ReturnsTrue() {
-		givenSpacePItem();
+		createVictim();
 		whenMatches(SPACE);
 		thenExpectMatches(true);
 	}
 
 	@Test
 	public void matches_CharAndSpacePItem_ReturnsFalse() {
-		givenSpacePItem();
+		createVictim();
 		whenMatches(CHAR);
 		thenExpectMatches(false);
+	}
+
+	@Test
+	public void verifyDirectGetters() {
+		createVictim();
+		AccessorVerifier verifier = new AccessorVerifier(victim);
+		verifier.addGetterToVerify("getId", "id", ITEM_ID);
+		verifier.addGetterToVerify("getValue", "value", ITEM_VALUE);
+		verifier.verifyDirectGetters();
 	}
 
 }
