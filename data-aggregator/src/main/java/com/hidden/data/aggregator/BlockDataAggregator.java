@@ -16,6 +16,7 @@ import com.hidden.data.nosql.dao.FilteredBlockDao;
 import com.hidden.data.nosql.model.FilteredBlock;
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 import com.hidden.data.nosql.model.discovery.Line;
+import com.hidden.data.nosql.model.discovery.PatternDiscovery;
 
 @Component
 public class BlockDataAggregator implements Runnable {
@@ -46,14 +47,14 @@ public class BlockDataAggregator implements Runnable {
 		currentPattern = patternDao.findById(currentFilteredBlock
 				.getPatternId());
 		List<Line> bookLines = getBooLinesFromCurrentFilteredBlock();
-		com.hidden.data.nosql.model.discovery.Pattern discoveryPattern = createDiscoveryPatternFromCurrentFilteredBlock();
+		PatternDiscovery discoveryPattern = createDiscoveryPatternFromCurrentFilteredBlock();
 		BookDiscovery bookDiscovery = new BookDiscovery(book.getTitle(), book
 				.getAuthor().getName(), bookLines, discoveryPattern);
 		bookDiscoveryDao.save(bookDiscovery);
 	}
 
-	private com.hidden.data.nosql.model.discovery.Pattern createDiscoveryPatternFromCurrentFilteredBlock() {
-		com.hidden.data.nosql.model.discovery.Pattern discoveryPattern = new com.hidden.data.nosql.model.discovery.Pattern(
+	private PatternDiscovery createDiscoveryPatternFromCurrentFilteredBlock() {
+		PatternDiscovery discoveryPattern = new PatternDiscovery(
 				currentPattern.getName(),
 				getPatternContentFromCurrentFilteredBlock());
 		return discoveryPattern;
@@ -64,7 +65,7 @@ public class BlockDataAggregator implements Runnable {
 		for (List<PatternItem> itemsPerLine : currentPattern.getContent()) {
 			List<Character> charactersPerLine = new ArrayList<Character>();
 			for (PatternItem item : itemsPerLine) {
-				Character character = Character.SPACE_SEPARATOR;
+				Character character = null;
 				if (!item.isEmpty()) {
 					character = item.getValue().toCharArray()[0];
 				}

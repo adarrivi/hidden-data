@@ -7,14 +7,14 @@ import org.junit.Test;
 
 import com.common.test.AccessorVerifier;
 
-public class PatternTest {
+public class PatternDiscoveryTest {
 
-	private static final PatternTest INSTANCE = new PatternTest();
+	private static final PatternDiscoveryTest INSTANCE = new PatternDiscoveryTest();
 	private static final String PATTERN_NAME = "3x3 middle column";
 	private List<List<Character>> LINES;
-	private Pattern victim;
+	private PatternDiscovery victim;
 
-	protected static PatternTest getInstance() {
+	protected static PatternDiscoveryTest getInstance() {
 		return INSTANCE;
 	}
 
@@ -27,10 +27,10 @@ public class PatternTest {
 		verifier.verifyDirectGetters();
 	}
 
-	protected Pattern createVictim() {
+	protected PatternDiscovery createVictim() {
 		List<Character> line = Collections.nCopies(5, new Character('a'));
 		LINES = Collections.nCopies(5, line);
-		victim = new Pattern(PATTERN_NAME, LINES);
+		victim = new PatternDiscovery(PATTERN_NAME, LINES);
 		return victim;
 	}
 }

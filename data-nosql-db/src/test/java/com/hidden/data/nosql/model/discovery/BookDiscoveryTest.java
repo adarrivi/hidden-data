@@ -15,7 +15,7 @@ public class BookDiscoveryTest {
 	private static final String BOOK_TITLE = "Ulysses";
 	private static final List<Line> LINES = Collections.nCopies(5, LineTest
 			.getInstance().createVictim());
-	private static final Pattern PATTERN = PatternTest.getInstance()
+	private static final PatternDiscovery PATTERN = PatternDiscoveryTest.getInstance()
 			.createVictim();
 
 	private BookDiscovery victim;

@@ -13,10 +13,10 @@ public class BookDiscovery {
 	private String bookTitle;
 	private String author;
 	private List<Line> lines;
-	private Pattern pattern;
+	private PatternDiscovery pattern;
 
 	public BookDiscovery(String bookTitle, String author, List<Line> lines,
-			Pattern pattern) {
+			PatternDiscovery pattern) {
 		super();
 		this.bookTitle = bookTitle;
 		this.author = author;
@@ -40,7 +40,7 @@ public class BookDiscovery {
 		return lines;
 	}
 
-	public Pattern getPattern() {
+	public PatternDiscovery getPattern() {
 		return pattern;
 	}
 
