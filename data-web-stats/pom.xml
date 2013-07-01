@@ -4,18 +4,19 @@
 
   <packaging>jar</packaging>
 
-  <name>data-nosql-db</name>
+  <name>data-web-stats</name>
   <parent>
     <groupId>hidden.data</groupId>
     <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../hidden-data-parent/pom.xml</relativePath>
   </parent>
-  <artifactId>data-nosql-db</artifactId>
+  <artifactId>data-web-stats</artifactId>
 
   <properties>
-    <spring.data.mongo.version>1.0.0.M4</spring.data.mongo.version>
     <cglib.version>2.2</cglib.version>
+    <jstl.version>1.2</jstl.version>
+    <jetty.embedded.plugin.version>6.1.15</jetty.embedded.plugin.version>
   </properties>
 
   <repositories>
@@ -50,6 +51,7 @@
       <artifactId>spring-context</artifactId>
       <version>${org.springframework.version}</version>
     </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
@@ -60,10 +62,20 @@
       <artifactId>cglib</artifactId>
       <version>${cglib.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.data</groupId>
-      <artifactId>spring-data-mongodb</artifactId>
-      <version>${spring.data.mongo.version}</version>
-    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Allows embedded Jetty execution from maven -->
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>${jetty.embedded.plugin.version}</version>
+        <configuration>
+          <contextPath>/</contextPath>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
