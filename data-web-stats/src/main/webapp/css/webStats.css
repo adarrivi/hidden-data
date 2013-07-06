@@ -1,13 +1,21 @@
 .header {
-	height:10;
+	
 }
-.navigationMenu{
-	height:10;
+
+.navigationMenu {
+	
 }
-.footer{
-	height:30;
+
+.footer {
+	
 }
+
 body {
-    background-color: #DBF5FF;
-    color: #007AAB;
+	background-color: #DBF5FF;
+	color: #007AAB;
+}
+
+.userMng {
+	border: 1px solid #ccc;
+	width: 500px;
 }
