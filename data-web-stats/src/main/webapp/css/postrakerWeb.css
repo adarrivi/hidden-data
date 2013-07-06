@@ -1,0 +1,13 @@
+.header {
+	height:10;
+}
+.navigationMenu{
+	height:10;
+}
+.footer{
+	height:30;
+}
+body {
+    background-color: #DBF5FF;
+    color: #007AAB;
+}
