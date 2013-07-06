@@ -15,6 +15,7 @@
   <properties>
     <jackson.version>1.6.3</jackson.version>
     <jstl.version>1.2</jstl.version>
+    <jetty.embedded.plugin.version>6.1.15</jetty.embedded.plugin.version>
   </properties>
   <repositories>
 
@@ -38,6 +39,15 @@
       <artifactId>jbossjts</artifactId>
       <version>4.16.6.Final</version>
     </dependency>
+
+    <!-- Necessary implementation for slf4j dependency defined in org.apache.tiles -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.3</version>
+    </dependency>
+
+
     <!-- Required for @ResponseBody in the controllers -->
     <dependency>
       <groupId>org.codehaus.jackson</groupId>
@@ -93,10 +103,15 @@
 
   <build>
     <plugins>
+      <!-- Allows embedded Jetty execution from maven -->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.2</version>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>${jetty.embedded.plugin.version}</version>
+        <configuration>
+          <contextPath>/</contextPath>
+          <scanIntervalSeconds>2</scanIntervalSeconds>
+        </configuration>
       </plugin>
     </plugins>
     <finalName>dataWebStats</finalName>

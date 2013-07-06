@@ -4,8 +4,9 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="/css/postrakerWeb.css" type="text/css">
+<link rel="stylesheet" href="/css/webStats.css" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/js/jquery-1.9.1.js"></script>
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>

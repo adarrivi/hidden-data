@@ -13,16 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hidden.data.web.dto.UserDto;
 
 @Controller
-@RequestMapping("/userManagement")
 public class UserManagementController {
-
-	private static final String BASE_FOLDER = "userManagement/";
 
 	private List<UserDto> allUsers = new ArrayList<UserDto>();
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String dbManagementPage() {
-		return BASE_FOLDER + "userManagement";
+	@RequestMapping("/userManagement")
+	public String home() {
+		return "userManagement";
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
