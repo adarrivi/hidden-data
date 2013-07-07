@@ -10,28 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hidden.data.web.dto.UserDto;
+import com.hidden.data.web.dto.PatternDto;
 
 @Controller
-public class UserManagementController {
+public class PatternsPerBookController {
 
-	private List<UserDto> allUsers = new ArrayList<UserDto>();
+	private List<PatternDto> allPatterns = new ArrayList<PatternDto>();
 
-	@RequestMapping("/userManagement")
-	public String home() {
-		return "userManagement";
+	@RequestMapping("/PatternsPerBook")
+	public String welcomePage() {
+		return "PatternsPerBook";
 	}
 
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public @ResponseBody
-	List<UserDto> list() {
-		return allUsers;
+	List<PatternDto> list() {
+		return allPatterns;
 	}
 
-	@RequestMapping(value = "createUser", method = RequestMethod.POST)
-	public void createUser(HttpServletResponse response) {
+	@RequestMapping(value = "addPattern", method = RequestMethod.POST)
+	public void addPattern(HttpServletResponse response) {
 		response.getBufferSize();
-		UserDto dto = new UserDto("user" + allUsers.size());
-		allUsers.add(dto);
+		PatternDto dto = new PatternDto("pattern" + allPatterns.size());
+		allPatterns.add(dto);
 	}
 }

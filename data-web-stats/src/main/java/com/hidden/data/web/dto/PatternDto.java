@@ -1,9 +1,9 @@
 package com.hidden.data.web.dto;
 
-public class UserDto {
+public class PatternDto {
 	private String name;
 
-	public UserDto(String name) {
+	public PatternDto(String name) {
 		this.name = name;
 	}
 

@@ -13,9 +13,10 @@
 body {
 	background-color: #DBF5FF;
 	color: #007AAB;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 0.8em;
 }
 
-.userMng {
-	border: 1px solid #ccc;
+.patterns_button_div {
 	width: 500px;
 }
