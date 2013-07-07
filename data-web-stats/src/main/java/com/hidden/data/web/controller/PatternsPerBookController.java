@@ -2,6 +2,7 @@ package com.hidden.data.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hidden.data.web.dto.PatternDto;
+import com.hidden.data.web.dto.PatternsInBook;
 
 @Controller
 public class PatternsPerBookController {
@@ -33,5 +35,21 @@ public class PatternsPerBookController {
 		response.getBufferSize();
 		PatternDto dto = new PatternDto("pattern" + allPatterns.size());
 		allPatterns.add(dto);
+	}
+
+	@RequestMapping(value = "getPatternsChart", method = RequestMethod.GET)
+	public @ResponseBody
+	List<PatternsInBook> getPatternsChart() {
+		Random randomizer = new Random();
+		randomizer.setSeed(System.currentTimeMillis());
+		List<PatternsInBook> allBooks = new ArrayList<PatternsInBook>();
+		for (int i = 0; i < 4; i++) {
+			PatternsInBook patternsInBook = new PatternsInBook();
+			for (int j = 0; j < 3; j++) {
+				patternsInBook.addNumberOfPatterns(randomizer.nextInt(9) + 1);
+			}
+			allBooks.add(patternsInBook);
+		}
+		return allBooks;
 	}
 }

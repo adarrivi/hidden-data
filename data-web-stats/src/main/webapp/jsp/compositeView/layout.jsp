@@ -7,18 +7,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- Styling -->
 <link rel="stylesheet" href="/css/webStats.css" type="text/css">
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<!-- Included scripts -->
+<link rel="stylesheet" href="/css/jquery.jqplot.css" />
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<!--  -->
+<script type="text/javascript"
+	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script type="text/javascript" src="/js/jqueryPlugins/jquery.jqplot.js"></script>
+<script type="text/javascript"
+	src="/js/jqueryPlugins/jqplot.barRenderer.js"></script>
+<script type="text/javascript"
+	src="/js/jqueryPlugins/jqplot.categoryAxisRenderer.js"></script>
+<script type="text/javascript"
+	src="/js/jqueryPlugins/jqplot.pointLabels.js"></script>
 
 <script type="text/javascript">
+	// Set all buttons to jquery ui style
 	$(document).ready(function() {
 		$("button").button();
 	});

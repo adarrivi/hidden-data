@@ -20,3 +20,9 @@ body {
 .patterns_button_div {
 	width: 500px;
 }
+
+.patPerBookBarChart {
+	width: 400px;
+	height: 300px;
+	position: relative;
+}
