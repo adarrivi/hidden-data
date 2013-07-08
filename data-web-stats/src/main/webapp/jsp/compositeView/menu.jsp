@@ -4,12 +4,6 @@
 <html>
 <head>
 <script type="text/javascript" src="/js/compositeView/menu.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		onMenuReady()
-	});
-</script>
-
 </head>
 <body>
 	<button id="welcomeButton">Welcome</button>

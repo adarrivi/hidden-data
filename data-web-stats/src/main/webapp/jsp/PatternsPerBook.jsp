@@ -4,11 +4,6 @@
 <html>
 <head>
 <script type="text/javascript" src="/js/PatternsPerBook.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		onReady()
-	});
-</script>
 
 </head>
 <body>

@@ -1,4 +1,4 @@
-function onReady() {
+$(document).ready(function() {
 	var setResultMessage = function(message) {
 		$("#patternResult").text(message);
 	};
@@ -12,7 +12,10 @@ function onReady() {
 			setResultMessage('Number of patterns: ' + data.length);
 		});
 	});
+	loadCharButton();
+});
 
+function loadCharButton() {
 	$('#loadChartButton').click(
 			function(event) {
 				$('#chart3').empty();
@@ -78,4 +81,4 @@ function onReady() {
 							});
 				});
 			});
-};
+}
