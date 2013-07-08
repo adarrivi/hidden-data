@@ -42,10 +42,15 @@ public class PatternsPerBookController {
 	List<PatternsInBook> getPatternsChart() {
 		Random randomizer = new Random();
 		randomizer.setSeed(System.currentTimeMillis());
+		// int numberOfBooks = randomizer.nextInt(9) + 1;
+		// int numberOfPatterns = randomizer.nextInt(4) + 1;
+		int numberOfBooks = 3;
+		int numberOfPatterns = 4;
+
 		List<PatternsInBook> allBooks = new ArrayList<PatternsInBook>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < numberOfBooks; i++) {
 			PatternsInBook patternsInBook = new PatternsInBook();
-			for (int j = 0; j < 3; j++) {
+			for (int j = 0; j < numberOfPatterns; j++) {
 				patternsInBook.addNumberOfPatterns(randomizer.nextInt(9) + 1);
 			}
 			allBooks.add(patternsInBook);
