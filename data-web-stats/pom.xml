@@ -113,6 +113,13 @@
           <scanIntervalSeconds>2</scanIntervalSeconds>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <warName>mywebapp</warName>
+        </configuration>
+      </plugin>
     </plugins>
     <finalName>dataWebStats</finalName>
   </build>
