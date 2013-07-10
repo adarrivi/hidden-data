@@ -3,5 +3,5 @@ $(document).ready(function() {
 		$("#authorNumber").text("Authors: " + data.numberOfAuthors);
 		$("#bookNumber").text("Books: " + data.numberOfBooks);
 		$("#patternNumber").text("Patterns: " + data.numberOfPatterns);
-	})
+	});
 });
