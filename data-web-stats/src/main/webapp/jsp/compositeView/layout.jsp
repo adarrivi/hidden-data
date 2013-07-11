@@ -34,18 +34,17 @@
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>
-	<table border="1" align="center" width="100%">
+	<table align="center" width="100%">
 		<tr>
-			<td class="header"><tiles:insertAttribute name="header" /></td>
+			<td class="header" colspan="2"><tiles:insertAttribute
+					name="header" /></td>
 		</tr>
-		<tr>
-			<td class="navigationMenu"><tiles:insertAttribute name="menu" /></td>
-		</tr>
-		<tr>
+		<tr valign="top">
+			<td class="menu"><tiles:insertAttribute name="menu" /></td>
 			<td><tiles:insertAttribute name="body" /></td>
 		</tr>
 		<tr>
-			<td class="footer"><tiles:insertAttribute name="footer" /></td>
+			<td class="footer" colspan="2"><tiles:insertAttribute name="footer" /></td>
 		</tr>
 	</table>
 </body>

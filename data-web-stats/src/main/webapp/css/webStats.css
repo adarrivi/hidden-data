@@ -1,17 +1,36 @@
 .header {
-	
+	color: #5e50ff;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-style: normal;
+	text-align: center;
 }
 
-.navigationMenu {
-	
+.menu {
+	border-radius: 10px;
+	border: 1px solid #e4f7de;
+	margin: 5px;
+	background: #e4f7de;
+	width: 20%;
+	padding-top: 20px;
+	padding-left: 10px;
 }
+.menu-button {
+	margin-bottom: 3px;	
+}
+
 
 .footer {
-	
+	color: #000000;
+	border-radius: 10px;
+	border: 1px solid #dfe7e7;
+	margin: 5px;
+	background: #dfe7e7;
+	text-align: right;
+	font-style:italic;
 }
 
-body {
-	background-color: #DBF5FF;
+html {
+	background-color: #FFFFFF;
 	color: #007AAB;
 	font-family: Verdana, Arial, sans-serif;
 	font-size: 0.8em;
@@ -19,6 +38,8 @@ body {
 
 .patterns_button_div {
 	width: 500px;
+	margin:auto;
+	width:80%;
 }
 
 .patPerBookBarChart {

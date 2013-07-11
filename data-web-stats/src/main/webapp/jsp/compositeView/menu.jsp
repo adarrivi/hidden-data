@@ -6,8 +6,13 @@
 <script type="text/javascript" src="/js/compositeView/menu.js"></script>
 </head>
 <body>
-	<button id="welcomeButton">Welcome</button>
-	<button id="patPerBookButton">Patterns per Book</button>
+	<div>
+		<button id="welcomeButton" class="menu-button">Welcome</button>
+		<br />
+		<button id="patPerBookButton" class="menu-button">Patterns
+			per Book</button>
+		<br />
+	</div>
 </body>
 </html>
 

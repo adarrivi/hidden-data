@@ -5,4 +5,5 @@
 <body>
 	<h1>Welcome to Web Stats</h1>
 </body>
+
 </html>
