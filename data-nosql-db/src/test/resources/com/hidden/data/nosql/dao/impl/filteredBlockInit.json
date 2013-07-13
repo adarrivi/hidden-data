@@ -1,0 +1,17 @@
+{
+	"filtered" : [
+		{
+			"patternId" : 1,
+			"bookId" : 1,
+			"startLineNumber" : 30,
+			"lines": [ "line content 1", "line content 2", "line content 3" ]
+		},
+		{
+			"patternId" : 1,
+			"bookId" : 1,
+			"startLineNumber" : 56,
+			"lines": [ "line content 1", "line content 2" ]
+		}
+				
+	] 
+}

@@ -11,9 +11,9 @@
     <put-attribute name="footer" value="/jsp/compositeView/footer.jsp" />
   </definition>
 
-  <definition name="Welcome" extends="base.definition">
-    <put-attribute name="title" value="Web Stats" />
-    <put-attribute name="body" value="/jsp/Welcome.jsp" />
+  <definition name="DbInfo" extends="base.definition">
+    <put-attribute name="title" value="Database Info" />
+    <put-attribute name="body" value="/jsp/DbInfo.jsp" />
   </definition>
 
 

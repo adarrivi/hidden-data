@@ -6,15 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<link rel="stylesheet" href="/css/webStats.css" type="text/css">
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="/css/jquery.jqplot.css" />
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.10.2.js"></script>
+
+<!-- jQuery Plugins -->
 <script type="text/javascript"
 	src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/css/jqueryPlugins/jquery.jqplot.css" />
 <script type="text/javascript" src="/js/jqueryPlugins/jquery.jqplot.js"></script>
 <script type="text/javascript"
 	src="/js/jqueryPlugins/jqplot.barRenderer.js"></script>
@@ -22,6 +22,11 @@
 	src="/js/jqueryPlugins/jqplot.categoryAxisRenderer.js"></script>
 <script type="text/javascript"
 	src="/js/jqueryPlugins/jqplot.pointLabels.js"></script>
+<script type="text/javascript" src="/js/jqueryPlugins/jMenu.jquery.js"></script>
+<link rel="stylesheet" href="/css/jqueryPlugins/jMenu.jquery.css" />
+<!-- End of jQueryPlugins -->
+
+<link rel="stylesheet" href="/css/webStats.css" type="text/css">	
 
 <script type="text/javascript">
 	// Set all buttons to jquery ui style
@@ -36,15 +41,16 @@
 <body>
 	<table align="center" width="100%">
 		<tr>
-			<td class="header" colspan="2"><tiles:insertAttribute
-					name="header" /></td>
+			<td class="header"><tiles:insertAttribute name="header" /></td>
 		</tr>
-		<tr valign="top">
+		<tr>
 			<td class="menu"><tiles:insertAttribute name="menu" /></td>
+		</tr>
+		<tr valign="top" height="400px">
 			<td><tiles:insertAttribute name="body" /></td>
 		</tr>
 		<tr>
-			<td class="footer" colspan="2"><tiles:insertAttribute name="footer" /></td>
+			<td class="footer"><tiles:insertAttribute name="footer" /></td>
 		</tr>
 	</table>
 </body>

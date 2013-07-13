@@ -1,8 +1,11 @@
 $(document).ready(function() {
-	$('#welcomeButton').click(function(event) {
-		document.location.href = 'Welcome';
+    $(document).ready(function() {
+        $("#jMenu").jMenu();
+    });
+	$('#dbInfoNavLink').click(function(event) {
+		document.location.href = 'DbInfo';
 	});
-	$('#patPerBookButton').click(function(event) {
+	$('#patPerBookNavLink').click(function(event) {
 		document.location.href = 'PatternsPerBook';
 	});
 });

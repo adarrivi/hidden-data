@@ -15,6 +15,11 @@ public class DatabaseInfoController {
 	@Autowired
 	private StatisticsService statisticsService;
 
+	@RequestMapping(value = { "/", "/DbInfo" })
+	public String welcomePage() {
+		return "DbInfo";
+	}
+
 	@RequestMapping(value = "getDatabaseInfo", method = RequestMethod.GET)
 	public @ResponseBody
 	DatabaseInfoDto getDatabaseInfo() {

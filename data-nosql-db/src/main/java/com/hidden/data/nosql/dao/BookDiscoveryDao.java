@@ -11,4 +11,6 @@ public interface BookDiscoveryDao extends CrudDao<BookDiscovery> {
 	List<String> getDifferentAuthors();
 
 	List<String> getDifferentPatterns();
+
+	List<BookDiscovery> findBookDiscoveries(String bookTitle, String pattern);
 }

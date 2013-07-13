@@ -6,12 +6,9 @@
 <script type="text/javascript" src="/js/compositeView/footer.js"></script>
 </head>
 <body>
-	<div>
-		<p>
-			DataBase: <span id="authorNumber"></span>, <span id="bookNumber"></span>,
-			<span id="patternNumber">.</span>
-		</p>
-	</div>
+	<p>
+		Statistics Web is been created by Alvaro de Miguel. <span id="currentClientDate"></span>
+	</p>
 
 </body>
 </html>

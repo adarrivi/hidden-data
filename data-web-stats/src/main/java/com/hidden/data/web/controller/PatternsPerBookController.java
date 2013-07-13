@@ -2,10 +2,10 @@ package com.hidden.data.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,11 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hidden.data.web.dto.PatternDto;
 import com.hidden.data.web.dto.PatternsInBook;
+import com.hidden.data.web.service.StatisticsService;
 
 @Controller
 public class PatternsPerBookController {
 
 	private List<PatternDto> allPatterns = new ArrayList<PatternDto>();
+	@Autowired
+	private StatisticsService statisticsService;
 
 	@RequestMapping("/PatternsPerBook")
 	public String welcomePage() {
@@ -40,21 +43,6 @@ public class PatternsPerBookController {
 	@RequestMapping(value = "getPatternsChart", method = RequestMethod.GET)
 	public @ResponseBody
 	List<PatternsInBook> getPatternsChart() {
-		Random randomizer = new Random();
-		randomizer.setSeed(System.currentTimeMillis());
-		// int numberOfBooks = randomizer.nextInt(9) + 1;
-		// int numberOfPatterns = randomizer.nextInt(4) + 1;
-		int numberOfBooks = 3;
-		int numberOfPatterns = 4;
-
-		List<PatternsInBook> allBooks = new ArrayList<PatternsInBook>();
-		for (int i = 0; i < numberOfBooks; i++) {
-			PatternsInBook patternsInBook = new PatternsInBook();
-			for (int j = 0; j < numberOfPatterns; j++) {
-				patternsInBook.addNumberOfPatterns(randomizer.nextInt(9) + 1);
-			}
-			allBooks.add(patternsInBook);
-		}
-		return allBooks;
+		return statisticsService.getPatternsPerBook();
 	}
 }

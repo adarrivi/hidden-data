@@ -6,13 +6,14 @@
 <script type="text/javascript" src="/js/compositeView/menu.js"></script>
 </head>
 <body>
-	<div>
-		<button id="welcomeButton" class="menu-button">Welcome</button>
-		<br />
-		<button id="patPerBookButton" class="menu-button">Patterns
-			per Book</button>
-		<br />
-	</div>
+	<ul id="jMenu">
+		<li><a id="dbInfoNavLink" class="fNiv">Db Content Info</a>
+		<li><a class="fNiv">Graphs</a>
+			<ul>
+				<li class="arrow"></li>
+				<li><a id="patPerBookNavLink">Patterns per Book</a></li>
+			</ul></li>
+	</ul>
 </body>
 </html>
 
