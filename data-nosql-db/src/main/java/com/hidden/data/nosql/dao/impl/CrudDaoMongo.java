@@ -11,6 +11,7 @@ public class CrudDaoMongo<T> implements CrudDao<T> {
 
 	@Autowired
 	protected MongoOperations mongoOperations;
+
 	private Class<T> daoClass;
 
 	protected CrudDaoMongo(Class<T> daoClass) {
