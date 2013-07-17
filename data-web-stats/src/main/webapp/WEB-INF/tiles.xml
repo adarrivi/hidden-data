@@ -1,42 +1,58 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
-  <definition name="base.definition" template="/jsp/compositeView/layout.jsp">
-    <put-attribute name="title" value="" />
-    <put-attribute name="header" value="/jsp/compositeView/header.jsp" />
-    <put-attribute name="menu" value="/jsp/compositeView/menu.jsp" />
-    <put-attribute name="body" value="" />
-    <put-attribute name="footer" value="/jsp/compositeView/footer.jsp" />
-  </definition>
 
-  <definition name="DbInfo" extends="base.definition">
-    <put-attribute name="title" value="Database Info" />
-    <put-attribute name="body" value="/jsp/DbInfo.jsp" />
-  </definition>
+	<definition name="baseTile" template="/WEB-INF/jsp/compositeView/layout.jsp"
+		preparer="com.spring32.MyPreparer">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/jsp/compositeView/header.jsp" />
+		<put-attribute name="menu"
+			value="/WEB-INF/jsp/compositeView/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/jsp/compositeView/footer.jsp" />
 
+		<put-list-attribute name="mainStylesheets">
+			<add-attribute
+				value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui" />
+			<add-attribute value="css/jqueryPlugins/jquery.jqplot" />
+			<add-attribute value="css/jqueryPlugins/jMenu.jquery" />
+			<add-attribute value="css/webStats" />
+		</put-list-attribute>
+		<put-list-attribute name="specificStylesheets">
+		</put-list-attribute>
+		<put-list-attribute name="mainScripts">
+			<add-attribute value="http://code.jquery.com/jquery-1.10.2" />
+			<add-attribute value="http://code.jquery.com/ui/1.10.3/jquery-ui" />
+			<add-attribute value="js/jqueryPlugins/jquery.jqplot" />
+			<add-attribute value="js/jqueryPlugins/jqplot.barRenderer" />
+			<add-attribute value="js/jqueryPlugins/jqplot.categoryAxisRenderer" />
+			<add-attribute value="js/jqueryPlugins/jqplot.pointLabels" />
+			<add-attribute value="js/jqueryPlugins/jMenu.jquery" />
+			<add-attribute value="js/compositeView/footer" />
+			<add-attribute value="js/compositeView/menu" />
+		</put-list-attribute>
+		<put-list-attribute name="specificScripts">
+		</put-list-attribute>
+	</definition>
 
-  <definition name="PatternsPerBook" extends="base.definition">
-    <put-attribute name="title" value="Patterns Per Book" />
-    <put-attribute name="body" value="/jsp/PatternsPerBook.jsp" />
-  </definition>
+	<definition name="DbInfo" extends="baseTile">
+	<put-attribute name="title" value="Database Info" />
+		<put-attribute name="body" value="/WEB-INF/jsp/DbInfo.jsp" />
+		<put-list-attribute name="specificScripts">
+			<add-attribute value="js/DbInfo" />
+		</put-list-attribute>
+	</definition>
 
-  <definition name="Home" extends="base.definition">
-    <put-attribute name="title" value="Home TITLE" />
-    <put-attribute name="body" value="/jsp/Home.jsp" />
-  </definition>
-
-
-
-  <definition name="User" extends="base.definition">
-    <put-attribute name="title" value="User TITLE" />
-    <put-attribute name="body" value="/jsp/User.jsp" />
-  </definition>
-
-  <definition name="userManagement" extends="base.definition">
-    <put-attribute name="title" value="User Management" />
-    <put-attribute name="body" value="/jsp/userManagement/UserManagement.jsp" />
-  </definition>
+	<definition name="PatternsPerBook" extends="baseTile">
+	<put-attribute name="title" value="Patterns Per Book" />
+		<put-attribute name="body" value="/WEB-INF/jsp/PatternsPerBook.jsp" />
+		<put-list-attribute name="specificScripts">
+			<add-attribute value="js/PatternsPerBook" />
+		</put-list-attribute>
+	</definition>
 
 </tiles-definitions>
