@@ -1,0 +1,84 @@
+{
+	"discovery.book" : [
+		{
+		  	"_id" : 1,
+  			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+			"bookTitle" : "A Treatise of Human Nature",
+  			"author" : "David Hume",
+			"lines" : [{
+			      "lineNumber" : 16,
+			      "content" : "line number 16."
+			    }, {
+			      "lineNumber" : 17,
+			      "content" : "line number 17."
+			    }, {
+			      "lineNumber" : 18,
+			      "content" : "line number 18."
+			    }],
+			"pattern" : {
+			    "name" : "3x3 Column in middle",
+			    "lines" : [[null, " ", null], [null, " ", null], [null, " ", null]]
+			}
+		},
+		{
+		  	"_id" : 2,
+  			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+			"bookTitle" : "A Treatise of Human Nature",
+  			"author" : "David Hume",
+			"lines" : [{
+			      "lineNumber" : 20,
+			      "content" : "line number 20."
+			    }, {
+			      "lineNumber" : 21,
+			      "content" : "line number 21."
+			    }, {
+			      "lineNumber" : 22,
+			      "content" : "line number 22."
+			    }],
+			"pattern" : {
+			    "name" : "3x3 Column beginning",
+			    "lines" : [[" ", null, null], [" ", null, null], [" ", null, null]]
+			}
+		},
+		{
+		  	"_id" : 3,
+  			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+			"bookTitle" : "A Treatise of Human Nature",
+  			"author" : "David Hume",
+			"lines" : [{
+			      "lineNumber" : 1,
+			      "content" : "line number 1."
+			    }, {
+			      "lineNumber" : 2,
+			      "content" : "line number 2."
+			    }, {
+			      "lineNumber" : 3,
+			      "content" : "line number 3."
+			    }],
+			"pattern" : {
+			    "name" : "3x3 Column in middle",
+			    "lines" : [[null, " ", null], [null, " ", null], [null, " ", null]]
+			}
+		},
+		{
+		  	"_id" : 4,
+  			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+			"bookTitle" : "Youth",
+  			"author" : "Isaac Asimov",
+			"lines" : [{
+			      "lineNumber" : 16,
+			      "content" : "line number 16."
+			    }, {
+			      "lineNumber" : 17,
+			      "content" : "line number 17."
+			    }, {
+			      "lineNumber" : 18,
+			      "content" : "line number 18."
+			    }],
+			"pattern" : {
+			    "name" : "3x3 Column in middle",
+			    "lines" : [[null, " ", null], [null, " ", null], [null, " ", null]]
+			}
+		}			
+	] 
+}

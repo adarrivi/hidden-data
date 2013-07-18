@@ -44,6 +44,7 @@ public class BookProducer implements Runnable {
 	}
 
 	private void loadBooksAndSendLines() {
+		// TODO Don't load all the books at the same time! Go one by one
 		List<Book> allBooks = bookDao.loadAll();
 		allPatterns = patternDao.loadAll();
 		for (Book book : allBooks) {

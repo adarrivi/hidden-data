@@ -7,8 +7,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<tiles:insertAttribute name="title" />
-
 <tilesx:useAttribute id="mainStylesheets" name="mainStylesheets"
 	classname="java.util.List" />
 <c:forEach items="${mainStylesheets}" var="src">

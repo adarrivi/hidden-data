@@ -4,8 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-	<definition name="baseTile" template="/WEB-INF/jsp/compositeView/layout.jsp"
-		preparer="com.spring32.MyPreparer">
+	<definition name="baseTile" template="/WEB-INF/jsp/compositeView/layout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header"
 			value="/WEB-INF/jsp/compositeView/header.jsp" />
@@ -40,7 +39,6 @@
 	</definition>
 
 	<definition name="DbInfo" extends="baseTile">
-	<put-attribute name="title" value="Database Info" />
 		<put-attribute name="body" value="/WEB-INF/jsp/DbInfo.jsp" />
 		<put-list-attribute name="specificScripts">
 			<add-attribute value="js/DbInfo" />
@@ -48,7 +46,6 @@
 	</definition>
 
 	<definition name="PatternsPerBook" extends="baseTile">
-	<put-attribute name="title" value="Patterns Per Book" />
 		<put-attribute name="body" value="/WEB-INF/jsp/PatternsPerBook.jsp" />
 		<put-list-attribute name="specificScripts">
 			<add-attribute value="js/PatternsPerBook" />

@@ -32,14 +32,8 @@ html {
 	font-size: 0.8em;
 }
 
-.patterns_button_div {
-	width: 500px;
-	margin:auto;
-	width:80%;
-}
-
-.patPerBookBarChart {
-	width: 400px;
+.patPerBookChartClass {
+	width: 800px;
 	height: 300px;
 	position: relative;
 }

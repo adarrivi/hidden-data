@@ -38,7 +38,7 @@ public class FilteredBlockDaoMongoIntegrationTest {
 
 	private FilteredBlock newFilteredBlock;
 
-	// TODO I am not able to make @@ShouldMatchDataSet, and also remove
+	// TODO I am not able to make @ShouldMatchDataSet, and also remove
 	// operations are not working.
 	@Test
 	@UsingDataSet(locations = "filteredBlockInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)

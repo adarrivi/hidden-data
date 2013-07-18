@@ -41,11 +41,9 @@ public class BookDiscoveryDaoMongo extends CrudDaoMongo<BookDiscovery>
 	@Override
 	public List<BookDiscovery> findBookDiscoveries(String bookTitle,
 			String patternName) {
-		// BasicQuery query = new BasicQuery("{ 'bookTitle' : '" + bookTitle
-		// + "', 'pattern.name' : '" + patternName + "' }");
 		Query query = new Query();
-		query.addCriteria(Criteria.where("bookTitle").is(bookTitle));
-		System.out.println(query.toString());
+		query.addCriteria(Criteria.where("bookTitle").is(bookTitle)
+				.and("pattern.name").is(patternName));
 		return mongoOperations.find(query, BookDiscovery.class);
 	}
 

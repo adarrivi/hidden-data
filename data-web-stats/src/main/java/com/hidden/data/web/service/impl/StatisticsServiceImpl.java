@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hidden.data.nosql.dao.BookDiscoveryDao;
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 import com.hidden.data.web.dto.DatabaseInfoDto;
-import com.hidden.data.web.dto.PatternsInBook;
+import com.hidden.data.web.dto.PatternsPerBookChart;
 import com.hidden.data.web.service.StatisticsService;
 
 @Service
@@ -29,19 +29,21 @@ public class StatisticsServiceImpl implements StatisticsService {
 	}
 
 	@Override
-	public List<PatternsInBook> getPatternsPerBook() {
-		List<PatternsInBook> allPatternsInBooks = new ArrayList<PatternsInBook>();
+	public PatternsPerBookChart getPatternsPerBook() {
+		PatternsPerBookChart chart = new PatternsPerBookChart();
 		List<String> allPatternNames = bookDiscoveryDao.getDifferentPatterns();
 		List<String> allBookTitles = bookDiscoveryDao.getDifferentBooks();
+		chart.setBookTitles(allBookTitles);
+		chart.setPatternNames(allPatternNames);
 		for (String patternName : allPatternNames) {
-			PatternsInBook patternsInBook = new PatternsInBook();
+			List<Integer> patternRepetitions = new ArrayList<Integer>();
 			for (String bookTitle : allBookTitles) {
 				List<BookDiscovery> bookDiscoveries = bookDiscoveryDao
 						.findBookDiscoveries(bookTitle, patternName);
-				patternsInBook.addNumberOfPatterns(bookDiscoveries.size());
+				patternRepetitions.add(bookDiscoveries.size());
 			}
-			allPatternsInBooks.add(patternsInBook);
+			chart.addPatternRepetitions(patternRepetitions);
 		}
-		return allPatternsInBooks;
+		return chart;
 	}
 }
