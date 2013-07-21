@@ -10,16 +10,16 @@
 <tilesx:useAttribute id="mainStylesheets" name="mainStylesheets"
 	classname="java.util.List" />
 <c:forEach items="${mainStylesheets}" var="src">
-	<link rel="stylesheet" type="text/css" href="${src}.css" />
+	<link rel="stylesheet" type="text/css" href="${src}" />
 </c:forEach>
 <tilesx:useAttribute id="specificStylesheets" name="specificStylesheets"
 	classname="java.util.List" />
 <c:forEach items="${specificStylesheets}" var="src">
-	<link rel="stylesheet" type="text/css" href="${src}.css" />
+	<link rel="stylesheet" type="text/css" href="${src}" />
 </c:forEach>
 </head>
 <body>
-	<table align="center" width="100%">
+	<table>
 		<tr>
 			<td class="header"><tiles:insertAttribute name="header" /></td>
 		</tr>
@@ -36,12 +36,12 @@
 	<tilesx:useAttribute id="mainScripts" name="mainScripts"
 		classname="java.util.List" />
 	<c:forEach items="${mainScripts}" var="src">
-		<script type="text/javascript" src="${src}.js"></script>
+		<script type="text/javascript" src="${src}"></script>
 	</c:forEach>
 	<tilesx:useAttribute id="specificScripts" name="specificScripts"
 		classname="java.util.List" />
 	<c:forEach items="${specificScripts}" var="src">
-		<script type="text/javascript" src="${src}.js"></script>
+		<script type="text/javascript" src="${src}"></script>
 	</c:forEach>
 </body>
 </html>

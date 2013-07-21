@@ -13,26 +13,26 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/jsp/compositeView/footer.jsp" />
-
+ 
 		<put-list-attribute name="mainStylesheets">
 			<add-attribute
-				value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui" />
-			<add-attribute value="css/jqueryPlugins/jquery.jqplot" />
-			<add-attribute value="css/jqueryPlugins/jMenu.jquery" />
-			<add-attribute value="css/webStats" />
+				value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+			<add-attribute value="css/jqueryPlugins/jquery.jqplot.css" />
+			<add-attribute value="css/jqueryPlugins/jMenu.jquery.css" />
+			<add-attribute value="css/webStats.css" />
 		</put-list-attribute>
 		<put-list-attribute name="specificStylesheets">
 		</put-list-attribute>
 		<put-list-attribute name="mainScripts">
-			<add-attribute value="http://code.jquery.com/jquery-1.10.2" />
-			<add-attribute value="http://code.jquery.com/ui/1.10.3/jquery-ui" />
-			<add-attribute value="js/jqueryPlugins/jquery.jqplot" />
-			<add-attribute value="js/jqueryPlugins/jqplot.barRenderer" />
-			<add-attribute value="js/jqueryPlugins/jqplot.categoryAxisRenderer" />
-			<add-attribute value="js/jqueryPlugins/jqplot.pointLabels" />
-			<add-attribute value="js/jqueryPlugins/jMenu.jquery" />
-			<add-attribute value="js/compositeView/footer" />
-			<add-attribute value="js/compositeView/menu" />
+			<add-attribute value="http://code.jquery.com/jquery-1.10.2.js" />
+			<add-attribute value="http://code.jquery.com/ui/1.10.3/jquery-ui.js" />
+			<add-attribute value="js/jqueryPlugins/jquery.jqplot.js" />
+			<add-attribute value="js/jqueryPlugins/jqplot.barRenderer.js" />
+			<add-attribute value="js/jqueryPlugins/jqplot.categoryAxisRenderer.js" />
+			<add-attribute value="js/jqueryPlugins/jqplot.pointLabels.js" />
+			<add-attribute value="js/jqueryPlugins/jMenu.jquery.js" />
+			<add-attribute value="js/compositeView/footer.js" />
+			<add-attribute value="js/compositeView/menu.js" />
 		</put-list-attribute>
 		<put-list-attribute name="specificScripts">
 		</put-list-attribute>
@@ -41,14 +41,14 @@
 	<definition name="DbInfo" extends="baseTile">
 		<put-attribute name="body" value="/WEB-INF/jsp/DbInfo.jsp" />
 		<put-list-attribute name="specificScripts">
-			<add-attribute value="js/DbInfo" />
+			<add-attribute value="js/DbInfo.js" />
 		</put-list-attribute>
 	</definition>
 
 	<definition name="PatternsPerBook" extends="baseTile">
 		<put-attribute name="body" value="/WEB-INF/jsp/PatternsPerBook.jsp" />
 		<put-list-attribute name="specificScripts">
-			<add-attribute value="js/PatternsPerBook" />
+			<add-attribute value="js/PatternsPerBook.js" />
 		</put-list-attribute>
 	</definition>
 
