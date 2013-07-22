@@ -3,9 +3,8 @@ package com.hidden.data.db.model;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.common.reflection.Reflection;

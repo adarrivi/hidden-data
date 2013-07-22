@@ -3,6 +3,7 @@ package com.hidden.data.aggregator;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,9 @@ import com.hidden.data.nosql.model.discovery.PatternDiscovery;
 
 @Component
 public class BlockDataAggregator implements Runnable {
+
+	private static final Logger LOG = Logger
+			.getLogger(BlockDataAggregator.class);
 
 	@Autowired
 	private BookDiscoveryDao bookDiscoveryDao;
@@ -40,16 +44,19 @@ public class BlockDataAggregator implements Runnable {
 			createNewAggregatedData();
 			currentFilteredBlock = filteredBlockDao.findOneAndRemove();
 		}
+		LOG.debug("Aggregation done");
 	}
 
 	private void createNewAggregatedData() {
+		// TODO Add caching everywhere
 		Book book = bookDao.findById(currentFilteredBlock.getBookId());
 		currentPattern = patternDao.findById(currentFilteredBlock
 				.getPatternId());
 		List<Line> bookLines = getBooLinesFromCurrentFilteredBlock();
 		PatternDiscovery discoveryPattern = createDiscoveryPatternFromCurrentFilteredBlock();
 		BookDiscovery bookDiscovery = new BookDiscovery(book.getTitle(), book
-				.getAuthor().getName(), bookLines, discoveryPattern);
+				.getAuthor().getName(), bookLines, discoveryPattern, book
+				.getBookLines().size());
 		bookDiscoveryDao.save(bookDiscovery);
 	}
 

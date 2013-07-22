@@ -13,10 +13,11 @@ public class BookDiscoveryTest {
 	private static final String BOOK_ID = "A1224BC03";
 	private static final String AUTHOR = "James Joyce";
 	private static final String BOOK_TITLE = "Ulysses";
+	private static final int BOOK_TOTAL_LINES = 100;
 	private static final List<Line> LINES = Collections.nCopies(5, LineTest
 			.getInstance().createVictim());
-	private static final PatternDiscovery PATTERN = PatternDiscoveryTest.getInstance()
-			.createVictim();
+	private static final PatternDiscovery PATTERN = PatternDiscoveryTest
+			.getInstance().createVictim();
 
 	private BookDiscovery victim;
 
@@ -29,11 +30,14 @@ public class BookDiscoveryTest {
 		verifier.addGetterToVerify("getAuthor", "author", AUTHOR);
 		verifier.addGetterToVerify("getLines", "lines", LINES);
 		verifier.addGetterToVerify("getPattern", "pattern", PATTERN);
+		verifier.addGetterToVerify("getBookTotalLines", "bookTotalLines",
+				BOOK_TOTAL_LINES);
 		verifier.verifyDirectGetters();
 	}
 
 	private void createVictim() {
-		victim = new BookDiscovery(BOOK_TITLE, AUTHOR, LINES, PATTERN);
+		victim = new BookDiscovery(BOOK_TITLE, AUTHOR, LINES, PATTERN,
+				BOOK_TOTAL_LINES);
 		Reflection.getInstance().setField(victim, "id", BOOK_ID);
 	}
 }

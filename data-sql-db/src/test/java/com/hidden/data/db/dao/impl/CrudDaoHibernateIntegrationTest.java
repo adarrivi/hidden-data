@@ -13,7 +13,7 @@ import com.hidden.data.db.exception.DaoException;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.db.model.PersistentEntity;
 
-public class CrudDaoHibernateTest extends InMemoryDaoTest {
+public class CrudDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest {
 
 	private static final Integer NOT_EXISTING_ID = Integer.valueOf(-999);
 	private static final Integer EXISTING_ID = Integer.valueOf(1);
@@ -38,7 +38,7 @@ public class CrudDaoHibernateTest extends InMemoryDaoTest {
 
 	private void givenNewEntity() {
 		Author author = Author.createEmptyAuthor();
-		author.setName(AuthorDaoHibernateTest.NOT_EXISTING_AUTHOR_NAME);
+		author.setName(AuthorDaoHibernateIntegrationTest.NOT_EXISTING_AUTHOR_NAME);
 		entity = author;
 	}
 
@@ -60,7 +60,7 @@ public class CrudDaoHibernateTest extends InMemoryDaoTest {
 	}
 
 	private void givenExistingEntity() {
-		entity = victim.findByName(AuthorDaoHibernateTest.EXISTING_AUTHOR_NAME);
+		entity = victim.findByName(AuthorDaoHibernateIntegrationTest.EXISTING_AUTHOR_NAME);
 	}
 
 	private void thenEntityShoulHaveSameId() {

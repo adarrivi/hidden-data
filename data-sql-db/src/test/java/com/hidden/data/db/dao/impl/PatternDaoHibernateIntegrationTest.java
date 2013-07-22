@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Pattern;
 
-public class PatternDaoHibernateTest extends InMemoryDaoTest {
+public class PatternDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest {
 
 	@Autowired
 	private PatternDao victim;

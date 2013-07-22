@@ -5,6 +5,7 @@
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
+  			"bookTotalLines" : 100,
 			"lines" : [{
 			      "lineNumber" : 16,
 			      "content" : "line number 16."
@@ -25,6 +26,7 @@
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
+  			"bookTotalLines" : 100,
 			"lines" : [{
 			      "lineNumber" : 20,
 			      "content" : "line number 20."
@@ -45,6 +47,7 @@
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
+  			"bookTotalLines" : 100,
 			"lines" : [{
 			      "lineNumber" : 1,
 			      "content" : "line number 1."
@@ -65,6 +68,7 @@
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
 			"bookTitle" : "Youth",
   			"author" : "Isaac Asimov",
+  			"bookTotalLines" : 100,
 			"lines" : [{
 			      "lineNumber" : 16,
 			      "content" : "line number 16."

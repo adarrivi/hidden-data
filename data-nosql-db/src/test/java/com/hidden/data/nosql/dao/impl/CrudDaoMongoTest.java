@@ -12,6 +12,8 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoOperations;
 
+import com.hidden.data.nosql.dao.impl.CrudDaoMongo;
+
 public class CrudDaoMongoTest {
 
 	private static final String ENTITY = "entity";

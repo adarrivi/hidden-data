@@ -52,4 +52,13 @@
 		</put-list-attribute>
 	</definition>
 
+	<definition name="PatternLocation" extends="baseTile">
+		<put-attribute name="body" value="/WEB-INF/jsp/PatternLocation.jsp" />
+		<put-list-attribute name="specificScripts">
+			<add-attribute value="js/PatternLocation.js" />
+		</put-list-attribute>
+	</definition>
+	
+	
+
 </tiles-definitions>

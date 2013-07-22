@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.hidden.data.nosql.dao.FilteredBlockDao;
+import com.hidden.data.nosql.dao.impl.FilteredBlockDaoMongo;
 import com.hidden.data.nosql.model.FilteredBlock;
 
 public class FilteredBlockDaoMongoTest {

@@ -1,8 +1,8 @@
 package com.hidden.data.producer;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +17,8 @@ import com.hidden.data.queue.model.FilterItem;
 @Component
 public class BookProducer implements Runnable {
 
-	protected static final String LINE_BREAK = System
-			.getProperty("line.separator");
+	private static final Logger LOG = Logger.getLogger(BookProducer.class);
+
 	@Autowired
 	private BookDao bookDao;
 	@Autowired
@@ -50,11 +50,12 @@ public class BookProducer implements Runnable {
 		for (Book book : allBooks) {
 			currentBook = book;
 			sendLinesByPattern();
+			LOG.debug("Book done: " + book.getTitle());
 		}
 	}
 
 	private void sendLinesByPattern() {
-		bookLines = Arrays.asList(currentBook.getContent().split(LINE_BREAK));
+		bookLines = currentBook.getBookLines();
 		for (Pattern pattern : allPatterns) {
 			currentPattern = pattern;
 			produceMessage();

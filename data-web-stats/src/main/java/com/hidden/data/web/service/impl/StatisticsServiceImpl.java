@@ -25,7 +25,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 		List<String> differentPatterns = bookDiscoveryDao
 				.getDifferentPatterns();
 		return new DatabaseInfoDto(differentBooks.size(),
-				differentAuthors.size(), differentPatterns.size());
+				differentPatterns.size(), differentAuthors.size());
 	}
 
 	@Override
@@ -36,14 +36,21 @@ public class StatisticsServiceImpl implements StatisticsService {
 		chart.setBookTitles(allBookTitles);
 		chart.setPatternNames(allPatternNames);
 		for (String patternName : allPatternNames) {
-			List<Integer> patternRepetitions = new ArrayList<Integer>();
-			for (String bookTitle : allBookTitles) {
-				List<BookDiscovery> bookDiscoveries = bookDiscoveryDao
-						.findBookDiscoveries(bookTitle, patternName);
-				patternRepetitions.add(bookDiscoveries.size());
-			}
+			List<Integer> patternRepetitions = getPatternRepetitionsInBooks(
+					patternName, allBookTitles);
 			chart.addPatternRepetitions(patternRepetitions);
 		}
 		return chart;
+	}
+
+	private List<Integer> getPatternRepetitionsInBooks(String patternName,
+			List<String> bookTitles) {
+		List<Integer> patternRepetitions = new ArrayList<Integer>();
+		for (String bookTitle : bookTitles) {
+			List<BookDiscovery> bookDiscoveries = bookDiscoveryDao
+					.findBookDiscoveries(bookTitle, patternName);
+			patternRepetitions.add(bookDiscoveries.size());
+		}
+		return patternRepetitions;
 	}
 }

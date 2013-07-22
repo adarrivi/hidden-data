@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hidden.data.db.dao.AuthorDao;
 import com.hidden.data.db.model.Author;
 
-public class AuthorDaoHibernateTest extends InMemoryDaoTest {
+public class AuthorDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest {
 
 	protected static final String NOT_EXISTING_AUTHOR_NAME = "notExisting";
 	protected static final String EXISTING_AUTHOR_NAME = "Issac Asimov";

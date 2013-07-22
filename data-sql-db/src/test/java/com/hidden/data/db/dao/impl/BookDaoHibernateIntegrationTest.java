@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Book;
 
-public class BookDaoHibernateTest extends InMemoryDaoTest {
+public class BookDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest {
 
 	protected static final String NOT_EXISTING_BOOK_TITLE = "notExisting";
 	protected static final String EXISTING_BOOK_TITLE = "Youth";

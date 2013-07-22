@@ -1,3 +1,3 @@
 <div>
-	<div id="patPerBookChartId" class="patPerBookChartClass"></div>
+	<div id="patPerBookChartId" class="patChartClass"></div>
 </div>

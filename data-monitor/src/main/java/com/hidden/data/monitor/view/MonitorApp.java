@@ -1,6 +1,5 @@
 package com.hidden.data.monitor.view;
 
-import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -9,8 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -27,9 +26,12 @@ import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 @Component("monitorApp")
 public class MonitorApp extends JFrame {
 
+	private static final int BUTTON_X_OFFSET = 10;
+	private static final int BUTTON_HEIGTH = 23;
+	private static final int BUTTON_WIDTH = 140;
+	private static final int LABEL_X_OFFSET = BUTTON_X_OFFSET + BUTTON_WIDTH
+			+ 20;
 	private static final long serialVersionUID = 1L;
-
-	protected Logger LOG = Logger.getLogger(MonitorApp.class);
 
 	@Autowired
 	private LibraryLoader libraryLoader;
@@ -42,7 +44,7 @@ public class MonitorApp extends JFrame {
 	@Autowired
 	protected FilteredBlockDao filteredBlockDao;
 
-	private JLabel label;
+	private JLabel infoLabel;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -51,6 +53,7 @@ public class MonitorApp extends JFrame {
 		ctx.registerShutdownHook();
 		final MonitorApp monitorApp = (MonitorApp) ctx.getBean("monitorApp");
 
+		monitorApp.initQueueConnection();
 		monitorApp.createPanelsAndButtons();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -60,38 +63,55 @@ public class MonitorApp extends JFrame {
 		});
 	}
 
-	private void createPanelsAndButtons() {
+	private void initQueueConnection() {
 		rowComsumer.setConnectionFactory(ConnectionActiveMqFactory
 				.getInstance());
 		bookProducer.setConnectionFactory(ConnectionActiveMqFactory
 				.getInstance());
+	}
 
+	private void createPanelsAndButtons() {
 		setTitle("Data Monitor");
-		setSize(300, 400);
+		setBounds(100, 100, 450, 300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(6, 1));
-		label = new JLabel("A label", SwingConstants.CENTER);
-		panel.add(label);
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(null);
+
+		infoLabel = new JLabel("A label", SwingConstants.CENTER);
+		infoLabel.setBounds(LABEL_X_OFFSET, 15, 273, 14);
+		panel.add(infoLabel);
+
+		JLabel performanceLabel = new JLabel("Performance Info");
+		performanceLabel.setVerticalAlignment(SwingConstants.TOP);
+		performanceLabel.setBounds(LABEL_X_OFFSET, 49, 273, 121);
+		panel.add(performanceLabel);
 
 		JButton loadButton = new JButton("LoadLibrary");
+		loadButton.setBounds(BUTTON_X_OFFSET, 11, BUTTON_WIDTH, BUTTON_HEIGTH);
 		loadButton
 				.addActionListener(new NewThreadActionListener(libraryLoader));
 		panel.add(loadButton);
 
 		JButton produceButton = new JButton("StartProducer");
+		produceButton.setBounds(BUTTON_X_OFFSET, 45, BUTTON_WIDTH,
+				BUTTON_HEIGTH);
 		produceButton.addActionListener(new NewThreadActionListener(
 				bookProducer));
 		panel.add(produceButton);
 
 		JButton consumerButton = new JButton("StartConsumer");
+		consumerButton.setBounds(BUTTON_X_OFFSET, 79, BUTTON_WIDTH,
+				BUTTON_HEIGTH);
 		consumerButton.addActionListener(new NewThreadActionListener(
 				rowComsumer));
 		panel.add(consumerButton);
 
 		JButton showFilteredButton = new JButton("ShowFiltered");
+		showFilteredButton.setBounds(BUTTON_X_OFFSET, 113, BUTTON_WIDTH,
+				BUTTON_HEIGTH);
 		showFilteredButton.addActionListener(new NewThreadActionListener(
 				new Runnable() {
 
@@ -99,12 +119,14 @@ public class MonitorApp extends JFrame {
 					public void run() {
 						List<FilteredBlock> allFiltered = filteredBlockDao
 								.loadAll();
-						setLabel("Filtered: " + allFiltered.size());
+						setInfoLabel("Filtered: " + allFiltered.size());
 					}
 				}));
 		panel.add(showFilteredButton);
 
 		JButton aggregatorButton = new JButton("AggregateData");
+		aggregatorButton.setBounds(BUTTON_X_OFFSET, 147, BUTTON_WIDTH,
+				BUTTON_HEIGTH);
 		aggregatorButton.addActionListener(new NewThreadActionListener(
 				blockDataAggregator));
 		panel.add(aggregatorButton);
@@ -112,7 +134,8 @@ public class MonitorApp extends JFrame {
 		getContentPane().add(panel);
 	}
 
-	public void setLabel(String text) {
-		label.setText(text);
+	public void setInfoLabel(String text) {
+		infoLabel.setText(text);
 	}
+
 }

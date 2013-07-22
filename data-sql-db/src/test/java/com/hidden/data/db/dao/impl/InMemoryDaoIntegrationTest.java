@@ -30,9 +30,9 @@ import com.common.file.io.IOCommonsFileUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationDbContext-test.xml" })
-public abstract class InMemoryDaoTest {
+public abstract class InMemoryDaoIntegrationTest {
 
-	private Logger LOG = Logger.getLogger(InMemoryDaoTest.class);
+	private Logger LOG = Logger.getLogger(InMemoryDaoIntegrationTest.class);
 
 	@Value("${driver}")
 	private String driver;

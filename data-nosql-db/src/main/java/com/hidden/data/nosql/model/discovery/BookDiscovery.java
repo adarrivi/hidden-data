@@ -14,9 +14,10 @@ public class BookDiscovery {
 	private String author;
 	private List<Line> lines;
 	private PatternDiscovery pattern;
+	private int bookTotalLines;
 
 	public BookDiscovery(String bookTitle, String author, List<Line> lines,
-			PatternDiscovery pattern) {
+			PatternDiscovery pattern, int bookTotalLines) {
 		super();
 		this.bookTitle = bookTitle;
 		this.author = author;
@@ -44,4 +45,7 @@ public class BookDiscovery {
 		return pattern;
 	}
 
+	public int getBookTotalLines() {
+		return bookTotalLines;
+	}
 }

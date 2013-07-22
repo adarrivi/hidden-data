@@ -1,6 +1,14 @@
 package com.hidden.data.db.model;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.common.reflection.Reflection;
 import com.common.test.AccessorVerifier;
@@ -11,14 +19,20 @@ import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 
 public class BookTest implements NotNulEntityTestable, PersistentEntityTestable {
 
-	private static final String BOOK_CONTENT = "Lorem ipsum dolor sit amet.";
+	private static final String BOOK_LINE1 = "Lorem ipsum dolor sit amet, ";
+	private static final String BOOK_LINE2 = "consectetur adipisicing elit.";
+	private static final String BOOK_CONTENT = BOOK_LINE1 + Book.LINE_BREAK
+			+ BOOK_LINE2;
 	private static final String BOOK_TITLE = "Lorem ipsum";
 	private static final Integer BOOK_ID = Integer.valueOf(1);
 	private static final Author BOOK_AUTHOR = new Author();
-	private AccessorVerifier verifier = new AccessorVerifier(createBook());
+	private AccessorVerifier verifier = new AccessorVerifier(createVictim());
 	private Book victim;
+	private List<String> bookLines;
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
-	public static Book createBook() {
+	private Book createVictim() {
 		Book book = Book.createEmptyBook();
 		Reflection.getInstance().setField(book, "id", BOOK_ID);
 		book.setTitle(BOOK_TITLE);
@@ -28,24 +42,24 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 
 	}
 
-	private void givenEmptyBook() {
-		victim = Book.createEmptyBook();
-	}
-
-	private void givenABook() {
-		victim = createBook();
-	}
-
 	@Override
 	public PersistentEntity givenNewEntity() {
 		givenEmptyBook();
 		return victim;
 	}
 
+	private void givenEmptyBook() {
+		victim = Book.createEmptyBook();
+	}
+
 	@Override
 	public PersistentEntity givenExistingEntity() {
 		givenABook();
 		return victim;
+	}
+
+	private void givenABook() {
+		victim = createVictim();
 	}
 
 	@Override
@@ -76,7 +90,6 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 	public void verifyDirectGetters() {
 		verifier.addGetterToVerify("getId", "id", BOOK_ID);
 		verifier.addGetterToVerify("getTitle", "title", BOOK_TITLE);
-		verifier.addGetterToVerify("getContent", "content", BOOK_CONTENT);
 		verifier.addGetterToVerify("getAuthor", "author", BOOK_AUTHOR);
 		verifier.verifyDirectGetters();
 	}
@@ -88,4 +101,56 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 		verifier.addSetterToVerify("setAuthor", "author", BOOK_AUTHOR);
 		verifier.verifyDirectSetters();
 	}
+
+	@Test
+	public void getBookLines_Empty_ReturnsEmptyCollection() {
+		givenEmptyBook();
+		whenGetBookLines();
+		thenBookLinesShouldBe(Collections.<String> emptyList());
+	}
+
+	private void whenGetBookLines() {
+		bookLines = victim.getBookLines();
+	}
+
+	private void thenBookLinesShouldBe(List<String> expectedLines) {
+		Assert.assertEquals(expectedLines, bookLines);
+	}
+
+	@Test
+	public void getBookLines_Once_ReturnsSplittedContent() {
+		givenABook();
+		whenGetBookLines();
+		thenBookLinesShouldBe(Arrays.asList(BOOK_LINE1, BOOK_LINE2));
+	}
+
+	@Test
+	public void getBookLines_Twice_ReturnsSameList() {
+		givenABook();
+		whenGetBookLines();
+		thenSecondCallShouldReturnSameList();
+	}
+
+	private void thenSecondCallShouldReturnSameList() {
+		List<String> firstCallList = bookLines;
+		whenGetBookLines();
+		Assert.assertTrue(firstCallList.equals(bookLines));
+	}
+
+	@Test
+	public void getBookLines_ReturnsUnmodifiableList() {
+		expectUnsupportedEx();
+		givenABook();
+		whenGetBookLines();
+		whenModifyingBookLinesResult();
+	}
+
+	private void expectUnsupportedEx() {
+		expectedException.expect(UnsupportedOperationException.class);
+	}
+
+	private void whenModifyingBookLinesResult() {
+		bookLines.add(StringUtils.EMPTY);
+	}
+
 }

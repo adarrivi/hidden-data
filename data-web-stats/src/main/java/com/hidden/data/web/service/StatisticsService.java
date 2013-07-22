@@ -7,4 +7,5 @@ public interface StatisticsService {
 	DatabaseInfoDto getDatabaseStats();
 
 	PatternsPerBookChart getPatternsPerBook();
+
 }

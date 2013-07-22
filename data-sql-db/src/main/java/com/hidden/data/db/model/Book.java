@@ -1,11 +1,19 @@
 package com.hidden.data.db.model;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Book implements NotNullEntity, PersistentEntity {
+
+	protected static final String LINE_BREAK = System
+			.getProperty("line.separator");
 
 	private Integer id;
 	private String title;
 	private String content;
 	private Author author;
+	private List<String> bookLines;
 
 	public static Book createEmptyBook() {
 		return new Book();
@@ -29,10 +37,6 @@ public class Book implements NotNullEntity, PersistentEntity {
 		return title;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
@@ -47,5 +51,16 @@ public class Book implements NotNullEntity, PersistentEntity {
 
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+
+	public List<String> getBookLines() {
+		if (isEmpty()) {
+			return Collections.<String> emptyList();
+		}
+		if (bookLines == null) {
+			bookLines = Collections.unmodifiableList(Arrays.asList(content
+					.split(LINE_BREAK)));
+		}
+		return bookLines;
 	}
 }
