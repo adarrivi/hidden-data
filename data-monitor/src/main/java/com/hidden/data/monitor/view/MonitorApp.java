@@ -6,6 +6,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.hidden.data.aggregator.BlockDataAggregator;
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.loader.LibraryLoader;
+import com.hidden.data.monitor.interceptor.PerformanceHub;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
 import com.hidden.data.nosql.model.FilteredBlock;
 import com.hidden.data.producer.BookProducer;
@@ -43,8 +47,12 @@ public class MonitorApp extends JFrame {
 	private BlockDataAggregator blockDataAggregator;
 	@Autowired
 	protected FilteredBlockDao filteredBlockDao;
+	@Autowired
+	private PerformanceHub performanceHub;
 
+	private JPanel mainPanel;
 	private JLabel infoLabel;
+	private JTextArea display;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -76,38 +84,50 @@ public class MonitorApp extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(null);
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		mainPanel.setLayout(null);
 
+		createInfoLabels();
+		createActionButtons();
+	}
+
+	private void createInfoLabels() {
 		infoLabel = new JLabel("A label", SwingConstants.CENTER);
-		infoLabel.setBounds(LABEL_X_OFFSET, 15, 273, 14);
-		panel.add(infoLabel);
+		infoLabel.setBounds(LABEL_X_OFFSET, 15, 250, 14);
+		mainPanel.add(infoLabel);
 
-		JLabel performanceLabel = new JLabel("Performance Info");
-		performanceLabel.setVerticalAlignment(SwingConstants.TOP);
-		performanceLabel.setBounds(LABEL_X_OFFSET, 49, 273, 121);
-		panel.add(performanceLabel);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(LABEL_X_OFFSET, 49, 250, 121);
+		mainPanel.add(scrollPane);
 
+		display = new JTextArea();
+		display.setLineWrap(true);
+		scrollPane.setViewportView(display);
+	}
+
+	private void createActionButtons() {
 		JButton loadButton = new JButton("LoadLibrary");
 		loadButton.setBounds(BUTTON_X_OFFSET, 11, BUTTON_WIDTH, BUTTON_HEIGTH);
 		loadButton
 				.addActionListener(new NewThreadActionListener(libraryLoader));
-		panel.add(loadButton);
+		mainPanel.add(loadButton);
 
 		JButton produceButton = new JButton("StartProducer");
 		produceButton.setBounds(BUTTON_X_OFFSET, 45, BUTTON_WIDTH,
 				BUTTON_HEIGTH);
 		produceButton.addActionListener(new NewThreadActionListener(
 				bookProducer));
-		panel.add(produceButton);
+		mainPanel.add(produceButton);
 
 		JButton consumerButton = new JButton("StartConsumer");
 		consumerButton.setBounds(BUTTON_X_OFFSET, 79, BUTTON_WIDTH,
 				BUTTON_HEIGTH);
 		consumerButton.addActionListener(new NewThreadActionListener(
 				rowComsumer));
-		panel.add(consumerButton);
+		mainPanel.add(consumerButton);
 
 		JButton showFilteredButton = new JButton("ShowFiltered");
 		showFilteredButton.setBounds(BUTTON_X_OFFSET, 113, BUTTON_WIDTH,
@@ -122,16 +142,29 @@ public class MonitorApp extends JFrame {
 						setInfoLabel("Filtered: " + allFiltered.size());
 					}
 				}));
-		panel.add(showFilteredButton);
+		mainPanel.add(showFilteredButton);
 
 		JButton aggregatorButton = new JButton("AggregateData");
 		aggregatorButton.setBounds(BUTTON_X_OFFSET, 147, BUTTON_WIDTH,
 				BUTTON_HEIGTH);
 		aggregatorButton.addActionListener(new NewThreadActionListener(
 				blockDataAggregator));
-		panel.add(aggregatorButton);
+		mainPanel.add(aggregatorButton);
 
-		getContentPane().add(panel);
+		JButton showPerformanceButton = new JButton("ShowPerformance");
+		showPerformanceButton.setBounds(BUTTON_X_OFFSET, 181, BUTTON_WIDTH,
+				BUTTON_HEIGTH);
+		showPerformanceButton.addActionListener(new NewThreadActionListener(
+				new Runnable() {
+
+					@Override
+					public void run() {
+						display.setText(performanceHub.prettyPrint());
+					}
+				}));
+		mainPanel.add(showPerformanceButton);
+
+		getContentPane().add(mainPanel);
 	}
 
 	public void setInfoLabel(String text) {
