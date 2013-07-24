@@ -74,9 +74,11 @@ public class AccessorVerifierTest {
 		victim.addGetterToVerify(EXISTING_GETTER, NOT_EXISTING_FIELD, null);
 	}
 
-	@Test
+	// @Rule ExpectedException doesn't capture AssertionError (is a bug in junit
+	// 4.11, but fix has not been released yet).
+	// Using expected in @Test instead
+	@Test(expected = AssertionError.class)
 	public void verifyDirectGetters_GetterDoesntReturnFieldValue_ThrowsAssertError() {
-		expectedException.expect(AssertionError.class);
 		givenGetterReturningUnexpectedValue();
 		whenVerifyDirectGetters();
 	}
@@ -150,9 +152,8 @@ public class AccessorVerifierTest {
 				EXISTING_FIELD_VALUE);
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verifyDirectSetters_SetterDoesntSetFieldValue_ThrowsAssertionError() {
-		expectedException.expect(AssertionError.class);
 		givenSetterDoesntSetFiledValue();
 		whenVerifyDirectSetters();
 	}

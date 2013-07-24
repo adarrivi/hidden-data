@@ -1,9 +1,7 @@
 package com.common.test;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class EqualsHashTestTest {
 
@@ -13,18 +11,13 @@ public class EqualsHashTestTest {
 	private Object equalsItem;
 	private Object[] differents;
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-
-	@Test
+	// @Rule ExpectedException doesn't capture AssertionError (is a bug in junit
+	// 4.11, but fix has not been released yet).
+	// Using expected in @Test instead
+	@Test(expected = AssertionError.class)
 	public void verify_BothNull_ThrowsAssertEx() {
-		expectAssertEx();
 		givenBothNull();
 		whenVerify();
-	}
-
-	private void expectAssertEx() {
-		expectedException.expect(AssertionError.class);
 	}
 
 	private void givenBothNull() {
@@ -41,9 +34,8 @@ public class EqualsHashTestTest {
 		victim.verify();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_FirstNull_ThrowsAssertEx() {
-		expectAssertEx();
 		givenFirstNull();
 		whenVerify();
 	}
@@ -54,9 +46,8 @@ public class EqualsHashTestTest {
 		createVictim();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_SecondNull_ThrowsAssertEx() {
-		expectAssertEx();
 		givenSecondNull();
 		whenVerify();
 	}
@@ -67,9 +58,8 @@ public class EqualsHashTestTest {
 		createVictim();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_NoEquals_ThrowsAssertEx() {
-		expectAssertEx();
 		givenNoEquals();
 		whenVerify();
 	}
@@ -80,9 +70,8 @@ public class EqualsHashTestTest {
 		createVictim();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_SymmetricNoEquals_ThrowsAssertEx() {
-		expectAssertEx();
 		givenSymmetricNoEquals();
 		whenVerify();
 	}
@@ -93,9 +82,8 @@ public class EqualsHashTestTest {
 		createVictim();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_EqualsButDifferentHashCode_ThrowsAssertEx() {
-		expectAssertEx();
 		givenEqualsButDifferentHashCode();
 		whenVerify();
 	}
@@ -118,9 +106,8 @@ public class EqualsHashTestTest {
 		createVictim();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_EqualsIsDifferentClass_ThrowAssertEx() {
-		expectAssertEx();
 		givenEqualsIsDifferentClass();
 		whenVerify();
 	}
@@ -142,9 +129,8 @@ public class EqualsHashTestTest {
 		givenEqualsAndSameHashCode();
 	}
 
-	@Test
+	@Test(expected = AssertionError.class)
 	public void verify_EqOkButDifferentsEq_ThrowsAssertEx() {
-		expectAssertEx();
 		givenEqOkButDiffIsEquals();
 		whenVerify();
 	}
