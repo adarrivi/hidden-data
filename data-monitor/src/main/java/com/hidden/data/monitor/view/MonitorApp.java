@@ -1,15 +1,11 @@
 package com.hidden.data.monitor.view;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
@@ -51,8 +47,7 @@ public class MonitorApp extends JFrame {
 	private PerformanceHub performanceHub;
 
 	private JPanel mainPanel;
-	private JLabel infoLabel;
-	private JTextArea display;
+	private InformationPanel informationPanel;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -80,7 +75,7 @@ public class MonitorApp extends JFrame {
 
 	private void createPanelsAndButtons() {
 		setTitle("Data Monitor");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 600, 300);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -93,19 +88,9 @@ public class MonitorApp extends JFrame {
 	}
 
 	private void createInfoLabels() {
-		infoLabel = new JLabel("A label", SwingConstants.CENTER);
-		infoLabel.setBounds(LABEL_X_OFFSET, 15, 250, 14);
-		mainPanel.add(infoLabel);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(LABEL_X_OFFSET, 49, 250, 121);
-		mainPanel.add(scrollPane);
-
-		display = new JTextArea();
-		display.setLineWrap(true);
-		scrollPane.setViewportView(display);
+		informationPanel = new InformationPanel(new Rectangle(LABEL_X_OFFSET,
+				15, 400, 170));
+		mainPanel.add(informationPanel);
 	}
 
 	private void createActionButtons() {
@@ -139,7 +124,8 @@ public class MonitorApp extends JFrame {
 					public void run() {
 						List<FilteredBlock> allFiltered = filteredBlockDao
 								.loadAll();
-						setInfoLabel("Filtered: " + allFiltered.size());
+						informationPanel.setShortInformationText("Filtered: "
+								+ allFiltered.size());
 					}
 				}));
 		mainPanel.add(showFilteredButton);
@@ -159,16 +145,12 @@ public class MonitorApp extends JFrame {
 
 					@Override
 					public void run() {
-						display.setText(performanceHub.prettyPrint());
+						informationPanel.setDisplayText(performanceHub
+								.prettyPrint());
 					}
 				}));
 		mainPanel.add(showPerformanceButton);
 
 		getContentPane().add(mainPanel);
 	}
-
-	public void setInfoLabel(String text) {
-		infoLabel.setText(text);
-	}
-
 }
