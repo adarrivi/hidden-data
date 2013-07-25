@@ -3,22 +3,25 @@ package com.hidden.data.monitor.interceptor;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class PerformanceHubTest {
 
 	private static final long EXECUTION_TIME = 1000;
-	private static final long EXECUTION_TIME2 = 1500;
 	private static final String EXECUTION_ID = "executionId";
-	private static final String EXECUTION_ID2 = "executionId2";
 	private static final String NOT_EXISTING_EXECUTION_ID = "notExistingId";
 	private PerformanceHub victim;
 	private List<Long> executionTimeList;
 	private String executionId;
-	private String prettyPrint;
+	private Map<String, List<Long>> executionsMap;
+
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
 
 	@Test
 	public void getExecutionTimeListById_Empty_ReturnsEmptyCollection() {
@@ -89,61 +92,47 @@ public class PerformanceHubTest {
 	}
 
 	@Test
-	public void prettyPrint_Empty_ReturnsEmptyString() {
+	public void getExecutionsMap_Empty_ReturnsEmptyMap() {
 		givenEmptyHub();
-		whenPrettyPrint();
-		thenPrettyPrintShouldBe(StringUtils.EMPTY);
+		whenGetExecutionsMap();
+		thenExecutionsMapShouldBeEmpty();
 	}
 
-	private void whenPrettyPrint() {
-		prettyPrint = victim.prettyPrint();
+	private void whenGetExecutionsMap() {
+		executionsMap = victim.getExecutionsMap();
 	}
 
-	private void thenPrettyPrintShouldBe(String expectedString) {
-		Assert.assertEquals(expectedString, prettyPrint);
-	}
-
-	@Test
-	public void prettyPrint_2ExecutionsSameId_Returns1Line() {
-		givenExistingIdOneExecution();
-		whenAddExecution_Standard();
-		whenAddExecution_Standard();
-		whenPrettyPrint();
-		thenPrettyPrintShouldBe(getPrintLine(EXECUTION_ID, 2, EXECUTION_TIME,
-				true));
-	}
-
-	private String getPrintLine(String executionId, int timesExecuted,
-			long executionTime, boolean endLine) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("Process ").append(executionId).append(", times executed: ")
-				.append(timesExecuted).append(", average time: ")
-				.append(executionTime).append("ms.");
-		if (!endLine) {
-			sb.append("\n");
-		}
-		return sb.toString();
+	private void thenExecutionsMapShouldBeEmpty() {
+		Assert.assertTrue(executionsMap.isEmpty());
 	}
 
 	@Test
-	public void prettyPrint_2ExecutionsSameIdDifferentTime_Returns1LineAverage() {
+	public void getExecutionsMap_Twice_ReturnsDifferentObject() {
 		givenExistingIdOneExecution();
-		whenAddExecution_Standard();
-		whenAddExecution(EXECUTION_ID, EXECUTION_TIME2);
-		whenPrettyPrint();
-		thenPrettyPrintShouldBe(getPrintLine(EXECUTION_ID, 2,
-				((EXECUTION_TIME + EXECUTION_TIME2) / 2), true));
+		whenAddExecution(EXECUTION_ID, EXECUTION_TIME);
+		whenGetExecutionsMap();
+		Map<String, List<Long>> previousExecution = executionsMap;
+		whenGetExecutionsMap();
+		thenExecutionMapObjectShouldBeDifferentTo(previousExecution);
+	}
+
+	private void thenExecutionMapObjectShouldBeDifferentTo(
+			Map<String, List<Long>> map) {
+		Assert.assertFalse(map == executionsMap);
 	}
 
 	@Test
-	public void prettyPrint_2ExecutionsDifferentId_Returns2Lines() {
+	public void getExecutionsMap_ReturnsUnmodifiableMap() {
+		expectedException.expect(UnsupportedOperationException.class);
 		givenExistingIdOneExecution();
-		whenAddExecution_Standard();
-		whenAddExecution(EXECUTION_ID2, EXECUTION_TIME);
-		whenPrettyPrint();
-		String line1 = getPrintLine(EXECUTION_ID, 1, EXECUTION_TIME, false);
-		String line2 = getPrintLine(EXECUTION_ID2, 1, EXECUTION_TIME, true);
-		thenPrettyPrintShouldBe(line1 + line2);
+		whenAddExecution(EXECUTION_ID, EXECUTION_TIME);
+		whenGetExecutionsMap();
+		whenModifyingResultMap();
+	}
+
+	private void whenModifyingResultMap() {
+		executionsMap.put(EXECUTION_ID,
+				Collections.singletonList(EXECUTION_TIME));
 	}
 
 	// TODO Test some concurrency

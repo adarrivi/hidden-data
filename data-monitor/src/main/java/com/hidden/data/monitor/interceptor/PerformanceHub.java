@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,7 +25,7 @@ public class PerformanceHub {
 	}
 
 	public List<Long> getExecutionTimeListById(String executionId) {
-		Map<String, List<Long>> currentExecutionsMapCopy = getCurrentExecutionsMapCopy();
+		Map<String, List<Long>> currentExecutionsMapCopy = getExecutionsMap();
 		List<Long> executionTimes = currentExecutionsMapCopy.get(executionId);
 		if (executionTimes == null) {
 			return Collections.<Long> emptyList();
@@ -35,30 +33,7 @@ public class PerformanceHub {
 		return executionTimes;
 	}
 
-	private Map<String, List<Long>> getCurrentExecutionsMapCopy() {
+	public Map<String, List<Long>> getExecutionsMap() {
 		return Collections.unmodifiableMap(executionsMap);
-	}
-
-	public String prettyPrint() {
-		StringBuffer sb = new StringBuffer();
-		for (Entry<String, List<Long>> executionEntry : executionsMap
-				.entrySet()) {
-			List<Long> executionTimes = executionEntry.getValue();
-			sb.append("Process ").append(executionEntry.getKey())
-					.append(", times executed: ").append(executionTimes.size())
-					.append(", average time: ")
-					.append(getAverageTime(executionTimes)).append("ms.")
-					.append("\n");
-		}
-		String prettyPrint = sb.toString();
-		return StringUtils.removeEnd(prettyPrint, "\n");
-	}
-
-	private long getAverageTime(List<Long> executionTimes) {
-		long total = 0;
-		for (Long executionTime : executionTimes) {
-			total += executionTime.longValue();
-		}
-		return total / executionTimes.size();
 	}
 }

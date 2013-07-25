@@ -2,6 +2,8 @@ package com.hidden.data.monitor.view;
 
 import java.awt.Rectangle;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -91,8 +93,19 @@ public class MonitorApp extends JFrame {
 		informationPanel = new InformationPanel(new Rectangle(LABEL_X_OFFSET,
 				15, 400, 170));
 		mainPanel.add(informationPanel);
+		createInfoUpdaterTimer();
 	}
 
+	private void createInfoUpdaterTimer() {
+		UpdatePerformanceInfoTask updatePerformanceInfoTask = new UpdatePerformanceInfoTask();
+		updatePerformanceInfoTask.setInformationPanel(informationPanel);
+		updatePerformanceInfoTask.setPerformanceHub(performanceHub);
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(updatePerformanceInfoTask, 0,
+				TimeUnit.SECONDS.toMillis(1));
+	}
+
+	// TODO move buttons to different panel
 	private void createActionButtons() {
 		JButton loadButton = new JButton("LoadLibrary");
 		loadButton.setBounds(BUTTON_X_OFFSET, 11, BUTTON_WIDTH, BUTTON_HEIGTH);
@@ -136,20 +149,6 @@ public class MonitorApp extends JFrame {
 		aggregatorButton.addActionListener(new NewThreadActionListener(
 				blockDataAggregator));
 		mainPanel.add(aggregatorButton);
-
-		JButton showPerformanceButton = new JButton("ShowPerformance");
-		showPerformanceButton.setBounds(BUTTON_X_OFFSET, 181, BUTTON_WIDTH,
-				BUTTON_HEIGTH);
-		showPerformanceButton.addActionListener(new NewThreadActionListener(
-				new Runnable() {
-
-					@Override
-					public void run() {
-						informationPanel.setDisplayText(performanceHub
-								.prettyPrint());
-					}
-				}));
-		mainPanel.add(showPerformanceButton);
 
 		getContentPane().add(mainPanel);
 	}

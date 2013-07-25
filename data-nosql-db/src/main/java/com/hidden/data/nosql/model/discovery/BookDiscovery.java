@@ -18,11 +18,11 @@ public class BookDiscovery {
 
 	public BookDiscovery(String bookTitle, String author, List<Line> lines,
 			PatternDiscovery pattern, int bookTotalLines) {
-		super();
 		this.bookTitle = bookTitle;
 		this.author = author;
 		this.lines = lines;
 		this.pattern = pattern;
+		this.bookTotalLines = bookTotalLines;
 	}
 
 	public String getId() {

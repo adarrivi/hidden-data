@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import org.apache.log4j.Logger;
 
+//TODO Disable/enable button depending on thread status
 public class NewThreadActionListener implements ActionListener {
 
 	protected Logger LOG = Logger.getLogger(NewThreadActionListener.class);
@@ -21,6 +22,7 @@ public class NewThreadActionListener implements ActionListener {
 		if (thread != null && thread.isAlive()) {
 			LOG.debug("Process is still running");
 		} else {
+			// TODO Use ThreadPool
 			thread = new Thread(runnable);
 			thread.start();
 		}
