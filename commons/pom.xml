@@ -1,61 +1,78 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>hidden.data</groupId>
-    <artifactId>parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../hidden-data-parent/pom.xml</relativePath>
-  </parent>
+	<parent>
+		<groupId>hidden.data</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../hidden-data-parent/pom.xml</relativePath>
+	</parent>
 
-  <artifactId>commons</artifactId>
-  <packaging>jar</packaging>
+	<artifactId>commons</artifactId>
+	<packaging>jar</packaging>
 
-  <name>commons</name>
+	<name>commons</name>
 
-  <properties>
-    <log4j.version>1.2.15</log4j.version>
-  </properties>
+	<properties>
+		<org.slf4j-version>1.6.1</org.slf4j-version>
+	</properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.1</version>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.io</artifactId>
+			<version>1.4.0</version>
+		</dependency>
 
-    <!-- Logging -->
-    <dependency>
-      <groupId>org.apache.log4j</groupId>
-      <artifactId>com.springsource.org.apache.log4j</artifactId>
-      <version>${log4j.version}</version>
-    </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>com.springsource.org.apache.commons.io</artifactId>
-      <version>1.4.0</version>
-    </dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
+			<scope>runtime</scope>
+		</dependency>
 
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>com.springsource.org.apache.commons.collections</artifactId>
-      <version>2.1.1</version>
-    </dependency>
+		<!-- Testing dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.version}</version>
+		</dependency>
 
-    <!-- Testing dependencies -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito.version}</version>
-    </dependency>
-
-  </dependencies>
+	</dependencies>
 
 </project>

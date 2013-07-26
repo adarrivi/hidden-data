@@ -14,7 +14,7 @@
 
   <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg name="mongo" ref="mongo" />
-    <constructor-arg name="databaseName" value="test" />
+    <constructor-arg name="databaseName" value="hiddenData" />
   </bean>
 
   <!-- Factory bean that creates the Mongo instance -->
