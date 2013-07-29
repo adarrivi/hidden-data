@@ -1,10 +1,8 @@
 package com.hidden.data.monitor.interceptor;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Component;
 
@@ -13,27 +11,27 @@ public class PerformanceHub {
 
 	// ConcurrentHashMap could be an option, but in addExecution we do two
 	// actions,find-if-exists and put, that should be done atomically.
-	private Map<String, List<Long>> executionsMap = new HashMap<String, List<Long>>();
+	private Map<String, PerformanceElement> executionsMap = new HashMap<String, PerformanceElement>();
 
 	public synchronized void addExecution(String executionId, long milliseconds) {
-		List<Long> timesList = executionsMap.get(executionId);
-		if (timesList == null) {
-			timesList = new ArrayList<Long>();
-			executionsMap.put(executionId, timesList);
+		PerformanceElement performanceElement = executionsMap.get(executionId);
+		if (performanceElement == null) {
+			performanceElement = new PerformanceElement();
+			executionsMap.put(executionId, performanceElement);
 		}
-		timesList.add(Long.valueOf(milliseconds));
+		performanceElement.addNewExecution(milliseconds);
 	}
 
-	public List<Long> getExecutionTimeListById(String executionId) {
-		Map<String, List<Long>> currentExecutionsMapCopy = getExecutionsMap();
-		List<Long> executionTimes = currentExecutionsMapCopy.get(executionId);
-		if (executionTimes == null) {
-			return Collections.<Long> emptyList();
-		}
-		return executionTimes;
+	public Map<String, PerformanceElement> getExecutionsMap() {
+		return getIndependentCopyOfExecutionsMap();
 	}
 
-	public Map<String, List<Long>> getExecutionsMap() {
-		return Collections.unmodifiableMap(executionsMap);
+	private Map<String, PerformanceElement> getIndependentCopyOfExecutionsMap() {
+		Map<String, PerformanceElement> copyExecMap = executionsMap;
+		Map<String, PerformanceElement> mapToReturn = new HashMap<String, PerformanceElement>();
+		for (Entry<String, PerformanceElement> entry : copyExecMap.entrySet()) {
+			mapToReturn.put(entry.getKey(), entry.getValue().getCopy());
+		}
+		return mapToReturn;
 	}
 }
