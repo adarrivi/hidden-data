@@ -14,7 +14,7 @@
   <artifactId>data-monitor</artifactId>
 
   <properties>
-    <aspectj.version>1.6.11</aspectj.version>
+    <aspectj.version>1.7.3</aspectj.version>
   </properties>
 
   <dependencies>

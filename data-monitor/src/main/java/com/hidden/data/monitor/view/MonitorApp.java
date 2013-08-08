@@ -12,13 +12,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.aggregator.BlockDataAggregator;
 import com.hidden.data.filter.RowComsumer;
-import com.hidden.data.loader.LibraryLoader;
 import com.hidden.data.monitor.interceptor.PerformanceHub;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
 import com.hidden.data.nosql.model.FilteredBlock;
@@ -35,8 +35,9 @@ public class MonitorApp extends JFrame {
 			+ 20;
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private LibraryLoader libraryLoader;
+	@Autowired()
+	@Qualifier("libraryLoader")
+	private Runnable libraryLoader;
 	@Autowired
 	private BookProducer bookProducer;
 	@Autowired
