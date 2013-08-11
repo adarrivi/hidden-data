@@ -43,7 +43,7 @@ public class BookServiceImpl implements BookService {
 	@PerformanceLogged(identifier = "saveBookIfDoesntExist")
 	public void saveBookIfDoesntExist(BookFile bookFile, Author author) {
 		Book book = bookDao.findByTitle(bookFile.getTitle());
-		if (!book.isEmpty()) {
+		if (book.isEmpty()) {
 			saveBook(bookFile, author);
 		}
 	}

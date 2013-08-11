@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.common.performance.PerformanceLogged;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Book;
@@ -22,7 +23,7 @@ public class BookProducer implements Runnable {
 	@Autowired
 	private BookDao bookDao;
 	@Autowired
-	PatternDao patternDao;
+	private PatternDao patternDao;
 
 	private ProducerConnection producerConnection;
 	private QueueConnectionFactory connectionFactory;
@@ -74,8 +75,13 @@ public class BookProducer implements Runnable {
 						bookLinesStartIdx, bookLinesEndIdx),
 						firstBookLineNumber, currentBook.getId(),
 						currentPattern.getId());
-				producerConnection.sendMessage(item);
+				sendItem(item);
 			}
 		}
+	}
+
+	@PerformanceLogged(identifier = "sendItem")
+	private void sendItem(FilterItem item) {
+		producerConnection.sendMessage(item);
 	}
 }

@@ -70,6 +70,7 @@ public class MonitorApp extends JFrame {
 	}
 
 	private void initQueueConnection() {
+		ConnectionActiveMqFactory.getInstance().setVmQueue();
 		rowComsumer.setConnectionFactory(ConnectionActiveMqFactory
 				.getInstance());
 		bookProducer.setConnectionFactory(ConnectionActiveMqFactory
