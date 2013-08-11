@@ -1,0 +1,14 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver>
+		<!-- only weave classes in our application-specific packages -->
+		<include within="com.hidden.data.*" />
+	</weaver>
+
+	<aspects>
+		<!-- weave in just this aspect -->
+		<aspect name="com.hidden.data.monitor.interceptor.PerformanceLogger" />
+	</aspects>
+
+</aspectj>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.common.performance.PerformanceLogged;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.db.model.Book;
@@ -39,6 +40,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@PerformanceLogged(identifier = "saveBookIfDoesntExist")
 	public void saveBookIfDoesntExist(BookFile bookFile, Author author) {
 		Book book = bookDao.findByTitle(bookFile.getTitle());
 		if (!book.isEmpty()) {

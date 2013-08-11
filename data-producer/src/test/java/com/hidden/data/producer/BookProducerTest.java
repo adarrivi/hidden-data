@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -22,6 +23,7 @@ import com.hidden.data.queue.connection.QueueConnection;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.model.FilterItem;
 
+@Ignore
 public class BookProducerTest {
 
 	private static final String PATTERN_NAME = "patternName";
