@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Book implements NotNullEntity, PersistentEntity {
 
-	protected static final String LINE_BREAK = System
+	public static final String LINE_BREAK = System
 			.getProperty("line.separator");
 
 	private Integer id;

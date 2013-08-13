@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,12 +22,12 @@ import com.hidden.data.queue.connection.QueueConnection;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.model.FilterItem;
 
-@Ignore
 public class BookProducerTest {
 
 	private static final String PATTERN_NAME = "patternName";
 	private static final Integer BOOK_ID = Integer.valueOf(1);
 	private static final Integer PATTERN_ID = Integer.valueOf(23);
+	private static final String BOOK_LINE = "Lorem ipsum dolor sit amet, consectetur adipisicing elit";
 
 	@Mock
 	private BookDao bookDao;
@@ -110,16 +109,15 @@ public class BookProducerTest {
 	}
 
 	private Book createBook(int numberOfLines) {
-		return null;
-		// Book book = Book.createEmptyBook();
-		// Reflection.getInstance().setField(book, "id", BOOK_ID);
-		// StringBuilder sb = new StringBuilder();
-		// for (int i = 0; i < numberOfLines; i++) {
-		// sb.append(BOOK_LINE_CONTENT).append(i)
-		// .append(BookProducer.LINE_BREAK);
-		// }
-		// book.setContent(sb.toString());
-		// return book;
+		Book book = Book.createEmptyBook();
+		book.setTitle("Lorem ipsum");
+		Reflection.getInstance().setField(book, "id", BOOK_ID);
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < numberOfLines; i++) {
+			sb.append(BOOK_LINE).append(i).append(Book.LINE_BREAK);
+		}
+		book.setContent(sb.toString());
+		return book;
 	}
 
 	private void givenPatternsWithLines(int... numberOfLinesList) {
