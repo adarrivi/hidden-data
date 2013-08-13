@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.db.dao.BookDao;
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Book;

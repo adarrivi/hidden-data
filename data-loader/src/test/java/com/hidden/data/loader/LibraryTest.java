@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import com.common.file.CommonsFileUtils;
+import com.hidden.data.common.file.CommonsFileUtils;
 
 public class LibraryTest {
 

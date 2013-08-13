@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.performance.PerformanceLogged;
 
 @Aspect
 @Component

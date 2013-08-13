@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.common.reflection.Reflection;
+import com.hidden.data.common.reflection.Reflection;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
 import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 

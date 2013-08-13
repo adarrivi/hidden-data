@@ -1,6 +1,6 @@
 package com.hidden.data.loader.service;
 
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.loader.BookFile;
 

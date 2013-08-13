@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.common.reflection.Reflection;
-import com.common.test.AccessorVerifier;
+import com.hidden.data.common.reflection.Reflection;
+import com.hidden.data.common.test.AccessorVerifier;
 
 public class FilteredBlockTest {
 

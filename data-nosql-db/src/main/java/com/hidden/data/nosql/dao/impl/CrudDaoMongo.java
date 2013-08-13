@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.nosql.dao.CrudDao;
 
 public class CrudDaoMongo<T> implements CrudDao<T> {

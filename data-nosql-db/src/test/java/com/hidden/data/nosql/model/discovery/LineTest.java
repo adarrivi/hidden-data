@@ -2,7 +2,7 @@ package com.hidden.data.nosql.model.discovery;
 
 import org.junit.Test;
 
-import com.common.test.AccessorVerifier;
+import com.hidden.data.common.test.AccessorVerifier;
 
 public class LineTest {
 

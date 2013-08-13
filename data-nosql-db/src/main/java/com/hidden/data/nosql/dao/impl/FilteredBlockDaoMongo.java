@@ -3,7 +3,7 @@ package com.hidden.data.nosql.dao.impl;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
 import com.hidden.data.nosql.model.FilteredBlock;
 

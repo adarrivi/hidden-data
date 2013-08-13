@@ -4,8 +4,8 @@ import javax.jms.ConnectionFactory;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-import com.common.property.FileProperties;
-import com.common.property.PropertiesFactory;
+import com.hidden.data.common.property.FileProperties;
+import com.hidden.data.common.property.PropertiesFactory;
 import com.hidden.data.queue.connection.ConsumerConnection;
 import com.hidden.data.queue.connection.ProducerConnection;
 import com.hidden.data.queue.connection.QueueConnection;

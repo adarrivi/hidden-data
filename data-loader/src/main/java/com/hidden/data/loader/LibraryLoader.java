@@ -5,8 +5,8 @@ import java.io.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.common.file.io.IOCommonsFileUtils;
-import com.common.performance.PerformanceLogged;
+import com.hidden.data.common.file.io.IOCommonsFileUtils;
+import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.db.dao.AuthorDao;
 import com.hidden.data.db.model.Author;
 import com.hidden.data.loader.service.BookService;

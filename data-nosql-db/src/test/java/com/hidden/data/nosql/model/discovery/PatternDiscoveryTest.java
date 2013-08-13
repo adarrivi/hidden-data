@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.common.test.AccessorVerifier;
+import com.hidden.data.common.test.AccessorVerifier;
 
 public class PatternDiscoveryTest {
 
