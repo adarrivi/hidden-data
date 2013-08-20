@@ -37,9 +37,9 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 
 	@Test
 	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
-	public void findBookDiscoveries_Existing_ReturnsSameBookTitle() {
+	public void findBookDiscoveriesByBookAndPattern_Existing_ReturnsSameBookTitle() {
 		givenBook();
-		whenFindBookDiscoveries();
+		whenFindBookDiscoveriesByBookAndPattern();
 		thenBookTitleShouldBeTheSame();
 	}
 
@@ -48,8 +48,9 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 		patternName = "3x3 Column in middle";
 	}
 
-	private void whenFindBookDiscoveries() {
-		bookDiscoveries = victim.findBookDiscoveries(bookTitle, patternName);
+	private void whenFindBookDiscoveriesByBookAndPattern() {
+		bookDiscoveries = victim.findBookDiscoveriesByBookAndPattern(bookTitle,
+				patternName);
 	}
 
 	private void thenBookTitleShouldBeTheSame() {
@@ -60,21 +61,21 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 
 	@Test
 	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
-	public void findBookDiscoveries_Existing_ReturnsNotEmpty() {
+	public void findBookDiscoveriesByBookAndPattern_Existing_ReturnsNotEmpty() {
 		givenBook();
-		whenFindBookDiscoveries();
-		thenBookDiscoveriesShouldNotBeEmpty();
+		whenFindBookDiscoveriesByBookAndPattern();
+		thenBookDiscoveriesShouldBeEmpty(false);
 	}
 
-	private void thenBookDiscoveriesShouldNotBeEmpty() {
-		Assert.assertFalse(bookDiscoveries.isEmpty());
+	private void thenBookDiscoveriesShouldBeEmpty(boolean expectedValue) {
+		Assert.assertEquals(expectedValue, bookDiscoveries.isEmpty());
 	}
 
 	@Test
 	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
-	public void findBookDiscoveries_Existing_ReturnsSamePatternName() {
+	public void findBookDiscoveriesByBookAndPattern_Existing_ReturnsSamePatternName() {
 		givenBook();
-		whenFindBookDiscoveries();
+		whenFindBookDiscoveriesByBookAndPattern();
 		thenPatternNameShouldBeTheSame();
 	}
 
@@ -83,6 +84,31 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 			Assert.assertEquals(patternName, bookDiscovery.getPattern()
 					.getName());
 		}
+	}
+
+	@Test
+	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
+	public void findPatternPerBook_Existing_ReturnsSameBookTitle() {
+		givenBook();
+		whenFindPatternsPerBook();
+		thenBookTitleShouldBeTheSame();
+	}
+
+	private void whenFindPatternsPerBook() {
+		bookDiscoveries = victim.findPatternsPerBook(bookTitle);
+	}
+
+	@Test
+	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
+	public void findPatternPerBook_NotExisting_ReturnsEmpty() {
+		givenNotExistingBook();
+		whenFindPatternsPerBook();
+		thenBookDiscoveriesShouldBeEmpty(true);
+	}
+
+	private void givenNotExistingBook() {
+		bookTitle = "I robot";
+		patternName = "3x3 Column in middle";
 	}
 
 }

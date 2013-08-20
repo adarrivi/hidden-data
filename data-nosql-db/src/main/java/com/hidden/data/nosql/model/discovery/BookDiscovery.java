@@ -48,4 +48,8 @@ public class BookDiscovery {
 	public int getBookTotalLines() {
 		return bookTotalLines;
 	}
+
+	public int getFirstPatternLineNumber() {
+		return lines.get(0).getLineNumber();
+	}
 }

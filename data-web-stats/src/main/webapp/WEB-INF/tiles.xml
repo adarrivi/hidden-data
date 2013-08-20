@@ -33,6 +33,7 @@
 			<add-attribute value="js/jqueryPlugins/jMenu.jquery.js" />
 			<add-attribute value="js/compositeView/footer.js" />
 			<add-attribute value="js/compositeView/menu.js" />
+			<add-attribute value="js/chart/Chart.js" />
 		</put-list-attribute>
 		<put-list-attribute name="specificScripts">
 		</put-list-attribute>

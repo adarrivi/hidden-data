@@ -3,6 +3,7 @@ package com.hidden.data.nosql.model.discovery;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.hidden.data.common.reflection.Reflection;
@@ -20,10 +21,11 @@ public class BookDiscoveryTest {
 			.getInstance().createVictim();
 
 	private BookDiscovery victim;
+	private int firstLineNumber;
 
 	@Test
 	public void verifyDirectGetters() {
-		createVictim();
+		givenBookDiscovery();
 		AccessorVerifier verifier = new AccessorVerifier(victim);
 		verifier.addGetterToVerify("getId", "id", BOOK_ID);
 		verifier.addGetterToVerify("getBookTitle", "bookTitle", BOOK_TITLE);
@@ -35,9 +37,24 @@ public class BookDiscoveryTest {
 		verifier.verifyDirectGetters();
 	}
 
-	private void createVictim() {
+	private void givenBookDiscovery() {
 		victim = new BookDiscovery(BOOK_TITLE, AUTHOR, LINES, PATTERN,
 				BOOK_TOTAL_LINES);
 		Reflection.getInstance().setField(victim, "id", BOOK_ID);
+	}
+
+	@Test
+	public void getFirstPatternLineNumber_ReturnsFirstLineNumber() {
+		givenBookDiscovery();
+		whenGetFirstPatternLineNumber();
+		thenFirstPatternLineNumberShouldBe(LINES.get(0).getLineNumber());
+	}
+
+	private void whenGetFirstPatternLineNumber() {
+		firstLineNumber = victim.getFirstPatternLineNumber();
+	}
+
+	private void thenFirstPatternLineNumberShouldBe(int expectedValue) {
+		Assert.assertEquals(expectedValue, firstLineNumber);
 	}
 }

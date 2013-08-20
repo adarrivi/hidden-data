@@ -1,20 +1,14 @@
 $(document).ready(function() {
-	loadCharHor();
+	loadChart();
 });
 
-function loadCharHor() {
+function loadChart() {
 	$('#patPerBookChartId').empty();
 	$.get("getPatternsChart", {}, function(data) {
-		var chartValues = getChartValues(data);
-		var series = getSeries(data);
 
-		$.jqplot('patPerBookChartId', chartValues, {
-			series : series,
-			legend : {
-				show : true,
-				location : 'e',
-				placement : 'outside'
-			},
+		var chart = new Chart({
+			chartId : 'patPerBookChartId',
+			chartValues : getChartValues(data),
 			seriesDefaults : {
 				renderer : $.jqplot.BarRenderer,
 				pointLabels : {
@@ -33,6 +27,9 @@ function loadCharHor() {
 				}
 			}
 		});
+
+		chart.setSerieNames(data.patternNames);
+		chart.draw();
 	});
 };
 
@@ -49,14 +46,3 @@ function getChartValues(data) {
 	}
 	return chartValues;
 };
-
-function getSeries(data) {
-	var series = [];
-	for ( var i = 0; i < data.patternNames.length; i++) {
-		series[i] = {
-			label : data.patternNames[i]
-		};
-	}
-	return series;
-};
-
