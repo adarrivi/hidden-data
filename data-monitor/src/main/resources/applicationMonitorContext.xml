@@ -13,6 +13,13 @@
 	<context:component-scan base-package="com.hidden.data.monitor" />
 	<context:load-time-weaver />
 
+	<bean id="threadPoolExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+
 	<import resource="classpath:applicationLoaderContext.xml" />
 	<import resource="classpath:applicationProducerContext.xml" />
 	<import resource="classpath:applicationFilterContext.xml" />

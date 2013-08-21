@@ -12,14 +12,17 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.aggregator.BlockDataAggregator;
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.monitor.interceptor.PerformanceHub;
+import com.hidden.data.monitor.view.component.Position;
+import com.hidden.data.monitor.view.component.ViewComponent;
+import com.hidden.data.monitor.view.component.swing.TaskButton;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
 import com.hidden.data.nosql.model.FilteredBlock;
 import com.hidden.data.producer.BookProducer;
@@ -36,7 +39,6 @@ public class MonitorApp extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired()
-	@Qualifier("libraryLoader")
 	private Runnable libraryLoader;
 	@Autowired
 	private BookProducer bookProducer;
@@ -48,6 +50,8 @@ public class MonitorApp extends JFrame {
 	protected FilteredBlockDao filteredBlockDao;
 	@Autowired
 	private PerformanceHub performanceHub;
+	@Autowired
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
 	private JPanel mainPanel;
 	private InformationPanel informationPanel;
@@ -109,31 +113,28 @@ public class MonitorApp extends JFrame {
 
 	// TODO move buttons to different panel
 	private void createActionButtons() {
-		JButton loadButton = new JButton("LoadLibrary");
-		loadButton.setBounds(BUTTON_X_OFFSET, 11, BUTTON_WIDTH, BUTTON_HEIGTH);
-		loadButton
-				.addActionListener(new NewThreadActionListener(libraryLoader));
-		mainPanel.add(loadButton);
+		ViewComponent<JButton> loadButton = new TaskButton("Load Library",
+				new Position(BUTTON_X_OFFSET, 11, BUTTON_WIDTH, BUTTON_HEIGTH),
+				libraryLoader, threadPoolTaskExecutor);
+		loadButton.draw();
+		mainPanel.add((JButton) loadButton);
 
-		JButton produceButton = new JButton("StartProducer");
-		produceButton.setBounds(BUTTON_X_OFFSET, 45, BUTTON_WIDTH,
-				BUTTON_HEIGTH);
-		produceButton.addActionListener(new NewThreadActionListener(
-				bookProducer));
-		mainPanel.add(produceButton);
+		ViewComponent<JButton> produceButton = new TaskButton("Start Producer",
+				new Position(BUTTON_X_OFFSET, 45, BUTTON_WIDTH, BUTTON_HEIGTH),
+				bookProducer, threadPoolTaskExecutor);
+		produceButton.draw();
+		mainPanel.add((JButton) produceButton);
 
-		JButton consumerButton = new JButton("StartConsumer");
-		consumerButton.setBounds(BUTTON_X_OFFSET, 79, BUTTON_WIDTH,
-				BUTTON_HEIGTH);
-		consumerButton.addActionListener(new NewThreadActionListener(
-				rowComsumer));
-		mainPanel.add(consumerButton);
+		ViewComponent<JButton> consumerButton = new TaskButton(
+				"Start Consumer", new Position(BUTTON_X_OFFSET, 79,
+						BUTTON_WIDTH, BUTTON_HEIGTH), rowComsumer,
+				threadPoolTaskExecutor);
+		consumerButton.draw();
+		mainPanel.add((JButton) consumerButton);
 
-		JButton showFilteredButton = new JButton("ShowFiltered");
-		showFilteredButton.setBounds(BUTTON_X_OFFSET, 113, BUTTON_WIDTH,
-				BUTTON_HEIGTH);
-		showFilteredButton.addActionListener(new NewThreadActionListener(
-				new Runnable() {
+		ViewComponent<JButton> showFilteredButton = new TaskButton(
+				"ShowFiltered", new Position(BUTTON_X_OFFSET, 113,
+						BUTTON_WIDTH, BUTTON_HEIGTH), new Runnable() {
 
 					@Override
 					public void run() {
@@ -142,15 +143,16 @@ public class MonitorApp extends JFrame {
 						informationPanel.setShortInformationText("Filtered: "
 								+ allFiltered.size());
 					}
-				}));
-		mainPanel.add(showFilteredButton);
+				}, threadPoolTaskExecutor);
+		showFilteredButton.draw();
+		mainPanel.add((JButton) showFilteredButton);
 
-		JButton aggregatorButton = new JButton("AggregateData");
-		aggregatorButton.setBounds(BUTTON_X_OFFSET, 147, BUTTON_WIDTH,
-				BUTTON_HEIGTH);
-		aggregatorButton.addActionListener(new NewThreadActionListener(
-				blockDataAggregator));
-		mainPanel.add(aggregatorButton);
+		ViewComponent<JButton> aggregatorButton = new TaskButton(
+				"AggregateData", new Position(BUTTON_X_OFFSET, 147,
+						BUTTON_WIDTH, BUTTON_HEIGTH), blockDataAggregator,
+				threadPoolTaskExecutor);
+		aggregatorButton.draw();
+		mainPanel.add((JButton) aggregatorButton);
 
 		getContentPane().add(mainPanel);
 	}
