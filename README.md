@@ -10,3 +10,5 @@ hidden-data
  - Improve Performance UI
  - Project documentation in github
  - Set locations chart relative
+ - Use Spring Data JPA (with @Query)
+ - Move to @Configuration application context
