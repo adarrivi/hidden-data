@@ -12,3 +12,4 @@ hidden-data
  - Set locations chart relative
  - Use Spring Data JPA (with @Query)
  - Move to @Configuration application context
+ - Use camel to interact between components? http://java.dzone.com/articles/open-source-integration-apache
