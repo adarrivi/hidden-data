@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.hidden.data.monitor.interceptor.PerformanceElement;
 import com.hidden.data.monitor.interceptor.PerformanceHub;
+import com.hidden.data.monitor.view.information.InformationPanel;
 
 public class UpdatePerformanceInfoTask extends TimerTask {
 

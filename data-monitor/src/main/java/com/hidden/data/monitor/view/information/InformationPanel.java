@@ -1,7 +1,9 @@
-package com.hidden.data.monitor.view;
+package com.hidden.data.monitor.view.information;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,10 +14,11 @@ import javax.swing.SwingConstants;
 public class InformationPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
+	private static final int EMPTY_BORDER_OFFSET = 5;
 	private static final int ELEMENTS_X_OFFSET = 15;
 	private static final int ELEMENTS_Y_OFFSET = 15;
 	private static final int SHORT_INFORMATION_HEIGTH = 14;
+	private static final int SHORT_INFORMATION_WIDTH = 100;
 	private static final int ELEMENTS_SEPARATION = 34;
 
 	private JLabel shortInformation;
@@ -23,26 +26,29 @@ public class InformationPanel extends JPanel {
 	private Rectangle position;
 	private Rectangle cursorPosition;
 
-	public InformationPanel(Rectangle position) {
+	public InformationPanel() {
+		setBorder(BorderFactory.createLineBorder(Color.black));
+	}
+
+	public void draw(Rectangle position) {
 		this.setBounds(position);
 		this.position = position;
-		this.cursorPosition = new Rectangle(ELEMENTS_X_OFFSET,
-				ELEMENTS_Y_OFFSET);
+		setLayout(null);
 		createElements();
 	}
 
 	private void createElements() {
-		setLayout(null);
 		createShortInformation();
 		createDisplay();
 	}
 
 	private void createShortInformation() {
 		shortInformation = new JLabel("Short Info Label", SwingConstants.LEFT);
-		shortInformation.setBounds(cursorPosition.x, cursorPosition.y,
-				getMaximunElementWidth(), SHORT_INFORMATION_HEIGTH);
+		shortInformation.setBounds(EMPTY_BORDER_OFFSET, EMPTY_BORDER_OFFSET,
+				SHORT_INFORMATION_WIDTH, SHORT_INFORMATION_HEIGTH);
 		add(shortInformation);
-		cursorPosition.y += ELEMENTS_SEPARATION;
+		cursorPosition = shortInformation.getBounds();
+		cursorPosition.y = cursorPosition.height + ELEMENTS_SEPARATION;
 	}
 
 	private void createDisplay() {

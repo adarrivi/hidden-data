@@ -1,4 +1,4 @@
-package com.hidden.data.monitor.view.component.swing;
+package com.hidden.data.monitor.view.command;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
