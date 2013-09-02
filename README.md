@@ -6,6 +6,7 @@ hidden-data
  - Show random samples in Web
  - Project documentation in github
  - Set locations chart relative
+ - Set versions parent module for maven
  - 100% test coverage
 
 Nice to have?
