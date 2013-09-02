@@ -6,7 +6,7 @@ hidden-data
  - Show random samples in Web
  - Project documentation in github
  - Set locations chart relative
-  - 100% test coverage
+ - 100% test coverage
 
 Nice to have?
  - Progress bars in Monitor
