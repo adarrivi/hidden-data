@@ -4,8 +4,9 @@ $(document).ready(function() {
 
 function loadChart() {
 	$('#patPerBookChartId').empty();
+	$('#patPerBookChartId').mask("Loading...");
 	$.get("getPatternsChart", {}, function(data) {
-
+		$('#patPerBookChartId').unmask();
 		var chart = new Chart({
 			chartId : 'patPerBookChartId',
 			chartValues : getChartValues(data),

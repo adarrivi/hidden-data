@@ -4,7 +4,9 @@ $(document).ready(function() {
 
 function loadChart() {
 	$('#patLocationChartId').empty();
+	$('#patLocationChartId').mask("Loading...");
 	$.get("getPatternLocationChart", {}, function(data) {
+		$('#patLocationChartId').unmask();
 		var chart = new Chart({
 			chartId : 'patLocationChartId',
 			chartValues : data.patternsLocationList,

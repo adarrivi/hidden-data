@@ -19,6 +19,7 @@
 				value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 			<add-attribute value="css/jqueryPlugins/jquery.jqplot.css" />
 			<add-attribute value="css/jqueryPlugins/jMenu.jquery.css" />
+			<add-attribute value="css/jqueryPlugins/jquery.loadmask.css" />
 			<add-attribute value="css/webStats.css" />
 		</put-list-attribute>
 		<put-list-attribute name="specificStylesheets">
@@ -33,6 +34,7 @@
 			<add-attribute value="js/jqueryPlugins/jqplot.canvasAxisLabelRenderer.js" />
 			<add-attribute value="js/jqueryPlugins/jqplot.pointLabels.js" />
 			<add-attribute value="js/jqueryPlugins/jMenu.jquery.js" />
+			<add-attribute value="js/jqueryPlugins/jquery.loadmask.js" />
 			<add-attribute value="js/compositeView/footer.js" />
 			<add-attribute value="js/compositeView/menu.js" />
 			<add-attribute value="js/chart/Chart.js" />
