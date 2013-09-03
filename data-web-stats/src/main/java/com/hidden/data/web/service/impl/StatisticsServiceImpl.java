@@ -72,6 +72,12 @@ public class StatisticsServiceImpl implements StatisticsService {
 		PatternLocationsPerBook patternLocationsPerBook = new PatternLocationsPerBook(
 				patternsPerBook.get(0).getBookTotalLines());
 		patternLocationsPerBook.setPatternThreshold(patternsPerBook);
-		return patternLocationsPerBook.getPatternsPerPercentageThreshold();
+		return getAsPercentageList(patternLocationsPerBook
+				.getPatternsPerPercentageThreshold());
+	}
+
+	private List<Integer> getAsPercentageList(List<Integer> valueList) {
+		PercentageList list = new PercentageList(valueList);
+		return list.getPercentaceList();
 	}
 }

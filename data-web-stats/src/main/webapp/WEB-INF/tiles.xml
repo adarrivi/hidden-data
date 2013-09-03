@@ -29,6 +29,8 @@
 			<add-attribute value="js/jqueryPlugins/jquery.jqplot.js" />
 			<add-attribute value="js/jqueryPlugins/jqplot.barRenderer.js" />
 			<add-attribute value="js/jqueryPlugins/jqplot.categoryAxisRenderer.js" />
+			<add-attribute value="js/jqueryPlugins/jqplot.canvasTextRenderer.js" />
+			<add-attribute value="js/jqueryPlugins/jqplot.canvasAxisLabelRenderer.js" />
 			<add-attribute value="js/jqueryPlugins/jqplot.pointLabels.js" />
 			<add-attribute value="js/jqueryPlugins/jMenu.jquery.js" />
 			<add-attribute value="js/compositeView/footer.js" />
