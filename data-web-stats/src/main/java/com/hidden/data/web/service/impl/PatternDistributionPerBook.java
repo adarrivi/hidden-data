@@ -33,10 +33,15 @@ class PatternDistributionPerBook {
 		for (double i = bookLinesThreshold; i <= bookTotalLines; i += bookLinesThreshold) {
 			thresholdList.add(i);
 		}
+		for (int i = 0; i < THRESHOLD_NUMBER; i++) {
+			patternsPerThresholdList.add(0);
+		}
 	}
 
-	private void setSortedPatternsDistribution(List<BookDiscovery> patternsPerBook) {
-		sortedPatternsDistribution = new ArrayList<BookDiscovery>(patternsPerBook);
+	private void setSortedPatternsDistribution(
+			List<BookDiscovery> patternsPerBook) {
+		sortedPatternsDistribution = new ArrayList<BookDiscovery>(
+				patternsPerBook);
 		Collections.sort(sortedPatternsDistribution,
 				new PatternDistributionComparator());
 	}
@@ -47,14 +52,16 @@ class PatternDistributionPerBook {
 		for (BookDiscovery bookDiscovery : sortedPatternsDistribution) {
 			while (bookDiscovery.getFirstPatternLineNumber() > thresholdList
 					.get(currentThresholdIndex)) {
-				patternsPerThresholdList.add(currentThresholdCount);
+				patternsPerThresholdList.set(currentThresholdIndex,
+						currentThresholdCount);
 				currentThresholdIndex++;
 				currentThresholdCount = 0;
 			}
 			currentThresholdCount++;
 		}
-		if (patternsPerThresholdList.size() < currentThresholdIndex + 1) {
-			patternsPerThresholdList.add(currentThresholdCount);
+		if (currentThresholdCount != 0) {
+			patternsPerThresholdList.set(currentThresholdIndex,
+					currentThresholdCount);
 		}
 	}
 }

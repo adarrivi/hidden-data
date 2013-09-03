@@ -10,14 +10,21 @@ function loadChart() {
 		var chart = new Chart({
 			chartId : 'patDistributionChartId',
 			chartValues : data.patternsDistributionList,
+			title : "Pattern Distribution",
+			axesDefaults  :{
+				pad : 0
+			},		
 			axes : {
 				xaxis : {
-					label : 'Location',
-					pad : 0
+					label : 'Distribution in Book',
+					tickOptions : {
+						formatter : function(format, value) {							
+							return (value*10) + "%";
+						}
+					}
 				},
 				yaxis : {
 					label : 'Amount of patterns',
-					pad : 0,
 					labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
 					tickOptions : {
 						formatter : function(format, value) {

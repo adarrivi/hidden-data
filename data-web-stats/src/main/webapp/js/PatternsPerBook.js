@@ -10,6 +10,7 @@ function loadChart() {
 		var chart = new Chart({
 			chartId : 'patPerBookChartId',
 			chartValues : getChartValues(data),
+			title : "Patterns per Book",
 			seriesDefaults : {
 				renderer : $.jqplot.BarRenderer,
 				pointLabels : {

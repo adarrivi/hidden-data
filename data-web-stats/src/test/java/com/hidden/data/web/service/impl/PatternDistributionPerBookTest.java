@@ -104,4 +104,14 @@ public class PatternDistributionPerBookTest {
 		thenShouldPatternsPerPercentageShouldBe(5);
 	}
 
+	@Test
+	public void getPatternsPerPercentageThreshold_1From10to90_Returns9with1andLastWith10() {
+		givenEmptyPatternDistributionsPerBook();
+		for (int i = 10; i <= 90; i += 10) {
+			givenNumberOfPatternsInDistribution(1, i);
+		}
+		whenSetPatternThreshold();
+		whenGetPatternsPerPercentageThreshold();
+		thenShouldPatternsPerPercentageShouldBe(1, 1, 1, 1, 1, 1, 1, 1, 1, 0);
+	}
 }
