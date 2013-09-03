@@ -1,71 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
  
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-  <changeSet id="tableCreation" author="adarrivi">
-    <comment>Initial table creation</comment>
-    <createTable tableName="author">
-      <column name="id" autoIncrement="true" type="int">
-        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_author" />
-      </column>
-      <column name="name" type="varchar(250)">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    <createTable tableName="book">
-      <column name="id" autoIncrement="true" type="int">
-        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_book" />
-      </column>
-      <column name="title" type="varchar(250)">
-        <constraints nullable="false" />
-      </column>
-      <column name="content" type="text">
-        <constraints nullable="false" />
-      </column>
-      <column name="authorId" type="int">
-        <constraints foreignKeyName="author_fk" references="author(id)" nullable="false" />
-      </column>
-    </createTable>
-    <createTable tableName="pattern">
-      <column name="id" autoIncrement="true" type="int">
-        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_pattern" />
-      </column>
-      <column name="name" type="varchar(250)">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    <createTable tableName="patternRow">
-      <column name="id" autoIncrement="true" type="int">
-        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_patternRow" />
-      </column>
-      <column name="patternId" type="int">
-        <constraints foreignKeyName="pattern_fk" references="pattern(id)" nullable="false" />
-      </column>
-      <column name="listIndex" type="int">
-        <constraints nullable="false" />
-      </column>
-    </createTable>
-    <createTable tableName="patternItem">
-      <column name="id" autoIncrement="true" type="int">
-        <constraints primaryKey="true" nullable="false" primaryKeyName="pk_row" />
-      </column>
-      <column name="patternRowId" type="int">
-        <constraints foreignKeyName="patternRow_fk" references="patternRow(id)" nullable="false" />
-      </column>
-      <column name="listIndex" type="int">
-        <constraints nullable="false" />
-      </column>
-      <column name="itemValue" type="varchar(1)"/>
-    </createTable>
-  </changeSet>
+	<changeSet id="tableCreation" author="adarrivi">
+		<comment>Initial table creation</comment>
+		<createTable tableName="author">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="pk_author" />
+			</column>
+			<column name="name" type="varchar(250)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="book">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="pk_book" />
+			</column>
+			<column name="title" type="varchar(250)">
+				<constraints nullable="false" />
+			</column>
+			<column name="content" type="text">
+				<constraints nullable="false" />
+			</column>
+			<column name="authorId" type="int">
+				<constraints foreignKeyName="author_fk" references="author(id)"
+					nullable="false" />
+			</column>
+			<column name="processed" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="pattern">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="pk_pattern" />
+			</column>
+			<column name="name" type="varchar(250)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="patternRow">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="pk_patternRow" />
+			</column>
+			<column name="patternId" type="int">
+				<constraints foreignKeyName="pattern_fk" references="pattern(id)"
+					nullable="false" />
+			</column>
+			<column name="listIndex" type="int">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<createTable tableName="patternItem">
+			<column name="id" autoIncrement="true" type="int">
+				<constraints primaryKey="true" nullable="false"
+					primaryKeyName="pk_row" />
+			</column>
+			<column name="patternRowId" type="int">
+				<constraints foreignKeyName="patternRow_fk" references="patternRow(id)"
+					nullable="false" />
+			</column>
+			<column name="listIndex" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="itemValue" type="varchar(1)" />
+		</createTable>
+	</changeSet>
 
-  <changeSet id="patternLoad" author="adarrivi">
-    <comment>Adding predefined patterns</comment>
-    <loadData tableName="pattern" file="src/main/resources/database/dataset/Pattern.csv" encoding="UTF-8" />
-    <loadData tableName="patternRow" file="src/main/resources/database/dataset/PatternRow.csv" encoding="UTF-8" />
-    <loadData tableName="patternItem" file="src/main/resources/database/dataset/PatternItem.csv"  encoding="UTF-8" />
-  </changeSet>
+	<changeSet id="patternLoad" author="adarrivi">
+		<comment>Adding predefined patterns</comment>
+		<loadData tableName="pattern"
+			file="src/main/resources/database/dataset/Pattern.csv" encoding="UTF-8" />
+		<loadData tableName="patternRow"
+			file="src/main/resources/database/dataset/PatternRow.csv" encoding="UTF-8" />
+		<loadData tableName="patternItem"
+			file="src/main/resources/database/dataset/PatternItem.csv" encoding="UTF-8" />
+	</changeSet>
 </databaseChangeLog>

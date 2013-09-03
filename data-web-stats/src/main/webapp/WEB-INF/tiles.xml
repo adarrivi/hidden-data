@@ -57,10 +57,10 @@
 		</put-list-attribute>
 	</definition>
 
-	<definition name="PatternLocation" extends="baseTile">
-		<put-attribute name="body" value="/WEB-INF/jsp/PatternLocation.jsp" />
+	<definition name="PatternDistribution" extends="baseTile">
+		<put-attribute name="body" value="/WEB-INF/jsp/PatternDistribution.jsp" />
 		<put-list-attribute name="specificScripts">
-			<add-attribute value="js/PatternLocation.js" />
+			<add-attribute value="js/PatternDistribution.js" />
 		</put-list-attribute>
 	</definition>
 	

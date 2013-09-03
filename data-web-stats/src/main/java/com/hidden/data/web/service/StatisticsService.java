@@ -1,7 +1,7 @@
 package com.hidden.data.web.service;
 
 import com.hidden.data.web.dto.DatabaseInfoDto;
-import com.hidden.data.web.dto.PatternsLocationChart;
+import com.hidden.data.web.dto.PatternDistributionChart;
 import com.hidden.data.web.dto.PatternsPerBookChart;
 
 public interface StatisticsService {
@@ -9,6 +9,6 @@ public interface StatisticsService {
 
 	PatternsPerBookChart getPatternsPerBook();
 
-	PatternsLocationChart getPatternLocationsPerAllBooks();
+	PatternDistributionChart getPatternDistributionPerAllBooks();
 
 }

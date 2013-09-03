@@ -16,24 +16,28 @@
 
 	<properties>
 		<org.slf4j-version>1.6.1</org.slf4j-version>
+		<apache.commons.lang3.version>3.1</apache.commons.lang3.version>
+		<apache.commons.io.version>1.4.0</apache.commons.io.version>
+		<apache.commons.collections.version>2.1.1</apache.commons.collections.version>
+		<log4j.version>1.2.16</log4j.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
+			<version>${apache.commons.lang3.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>com.springsource.org.apache.commons.io</artifactId>
-			<version>1.4.0</version>
+			<version>${apache.commons.io.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>com.springsource.org.apache.commons.collections</artifactId>
-			<version>2.1.1</version>
+			<version>${apache.commons.collections.version}</version>
 		</dependency>
 
 		<!-- Logging -->
@@ -57,7 +61,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>${log4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 

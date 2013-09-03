@@ -15,6 +15,7 @@ import liquibase.resource.ResourceAccessor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.csv.CsvDataSet;
@@ -32,7 +33,8 @@ import com.hidden.data.common.file.io.IOCommonsFileUtils;
 @ContextConfiguration(locations = { "/applicationDbContext-test.xml" })
 public abstract class InMemoryDaoIntegrationTest {
 
-	private Logger LOG = Logger.getLogger(InMemoryDaoIntegrationTest.class);
+	private static final Logger LOG = Logger
+			.getLogger(InMemoryDaoIntegrationTest.class);
 
 	@Value("${driver}")
 	private String driver;
@@ -94,9 +96,17 @@ public abstract class InMemoryDaoIntegrationTest {
 
 	private void loadDBUnit() throws SQLException, DatabaseUnitException {
 		IDatabaseConnection connection = getDBUnitConnection();
+		setHsqlExtraDataTypes(connection);
 		IDataSet dataSet = new CsvDataSet(IOCommonsFileUtils.getInstance()
 				.getFileFromRelativePath("/database/dataset"));
 		DatabaseOperation.CLEAN_INSERT.execute(connection, dataSet);
+	}
+
+	private void setHsqlExtraDataTypes(IDatabaseConnection connection) {
+		DatabaseConfig configuration = connection.getConfig();
+		configuration.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY,
+				new HsqlDataTypeFactory());
+
 	}
 
 	private IDatabaseConnection getDBUnitConnection() throws SQLException {

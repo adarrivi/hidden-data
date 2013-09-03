@@ -11,28 +11,28 @@ import org.junit.Test;
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 import com.hidden.data.nosql.model.discovery.Line;
 
-public class PatternLocationsPerBookTest {
+public class PatternDistributionPerBookTest {
 
 	private static final String BOOK_TITLE = "I, robot";
 	private static final int BOOK_LINES = 100;
-	private PatternLocationsPerBook victim;
+	private PatternDistributionPerBook victim;
 	private List<Integer> patternsPerPercentageThreshold;
 	private List<BookDiscovery> bookDiscoveries = new ArrayList<BookDiscovery>();
 
 	@Test
 	public void getPatternsPerPercentageThreshold_1In9_Returns1Within10() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(1, 9);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(1, 9);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(1);
 	}
 
-	private void givenEmptyPatternLocationsPerBook() {
-		victim = new PatternLocationsPerBook(BOOK_LINES);
+	private void givenEmptyPatternDistributionsPerBook() {
+		victim = new PatternDistributionPerBook(BOOK_LINES);
 	}
 
-	private void givenNumberOfPatternsInLocation(int patterns, int location) {
+	private void givenNumberOfPatternsInDistribution(int patterns, int location) {
 		Line line = new Line(location, "");
 		BookDiscovery bookDiscovery = new BookDiscovery(BOOK_TITLE,
 				StringUtils.EMPTY, Collections.singletonList(line), null,
@@ -59,8 +59,8 @@ public class PatternLocationsPerBookTest {
 
 	@Test
 	public void getPatternsPerPercentageThreshold_1In10_Returns1Within10() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(1, 10);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(1, 10);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(1);
@@ -68,8 +68,8 @@ public class PatternLocationsPerBookTest {
 
 	@Test
 	public void getPatternsPerPercentageThreshold_10In9_Returns10Within10() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(10, 9);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(10, 9);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(10);
@@ -77,8 +77,8 @@ public class PatternLocationsPerBookTest {
 
 	@Test
 	public void getPatternsPerPercentageThreshold_1In20_Returns0Within10And1Within20() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(1, 20);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(1, 20);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(0, 1);
@@ -86,9 +86,9 @@ public class PatternLocationsPerBookTest {
 
 	@Test
 	public void getPatternsPerPercentageThreshold_3In6And2In14_Returns3Within10And2Within20() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(3, 6);
-		givenNumberOfPatternsInLocation(2, 14);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(3, 6);
+		givenNumberOfPatternsInDistribution(2, 14);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(3, 2);
@@ -96,9 +96,9 @@ public class PatternLocationsPerBookTest {
 
 	@Test
 	public void getPatternsPerPercentageThreshold_3In6And2In7_Returns5Within10() {
-		givenEmptyPatternLocationsPerBook();
-		givenNumberOfPatternsInLocation(3, 6);
-		givenNumberOfPatternsInLocation(2, 7);
+		givenEmptyPatternDistributionsPerBook();
+		givenNumberOfPatternsInDistribution(3, 6);
+		givenNumberOfPatternsInDistribution(2, 7);
 		whenSetPatternThreshold();
 		whenGetPatternsPerPercentageThreshold();
 		thenShouldPatternsPerPercentageShouldBe(5);

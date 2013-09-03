@@ -5,7 +5,7 @@
 		<ul>
 			<li class="arrow"></li>
 			<li><a id="patPerBookNavLink">Patterns per Book</a></li>
-			<li><a id="patLocationNavLink">Pattern location</a></li>
+			<li><a id="patDistributionNavLink">Pattern Distributions</a></li>
 		</ul></li>
 </ul>
 

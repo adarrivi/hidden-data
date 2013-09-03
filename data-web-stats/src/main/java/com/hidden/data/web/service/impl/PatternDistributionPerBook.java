@@ -6,15 +6,15 @@ import java.util.List;
 
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 
-class PatternLocationsPerBook {
+class PatternDistributionPerBook {
 
 	private static final int THRESHOLD_NUMBER = 10;
 	private List<Double> thresholdList = new ArrayList<Double>();
 	private List<Integer> patternsPerThresholdList = new ArrayList<Integer>();
 	private int bookTotalLines;
-	private List<BookDiscovery> sortedPatternsByLocation;
+	private List<BookDiscovery> sortedPatternsDistribution;
 
-	PatternLocationsPerBook(int bookTotalLines) {
+	PatternDistributionPerBook(int bookTotalLines) {
 		this.bookTotalLines = bookTotalLines;
 	}
 
@@ -24,8 +24,8 @@ class PatternLocationsPerBook {
 
 	public void setPatternThreshold(List<BookDiscovery> patternsPerBook) {
 		initiateThresholdList();
-		setSortedPatternsByLocation(patternsPerBook);
-		setPatternLocationsIntoThresholdList();
+		setSortedPatternsDistribution(patternsPerBook);
+		setPatternDistributionIntoThresholdList();
 	}
 
 	private void initiateThresholdList() {
@@ -35,16 +35,16 @@ class PatternLocationsPerBook {
 		}
 	}
 
-	private void setSortedPatternsByLocation(List<BookDiscovery> patternsPerBook) {
-		sortedPatternsByLocation = new ArrayList<BookDiscovery>(patternsPerBook);
-		Collections.sort(sortedPatternsByLocation,
-				new PatternLocationComparator());
+	private void setSortedPatternsDistribution(List<BookDiscovery> patternsPerBook) {
+		sortedPatternsDistribution = new ArrayList<BookDiscovery>(patternsPerBook);
+		Collections.sort(sortedPatternsDistribution,
+				new PatternDistributionComparator());
 	}
 
-	private void setPatternLocationsIntoThresholdList() {
+	private void setPatternDistributionIntoThresholdList() {
 		int currentThresholdIndex = 0;
 		int currentThresholdCount = 0;
-		for (BookDiscovery bookDiscovery : sortedPatternsByLocation) {
+		for (BookDiscovery bookDiscovery : sortedPatternsDistribution) {
 			while (bookDiscovery.getFirstPatternLineNumber() > thresholdList
 					.get(currentThresholdIndex)) {
 				patternsPerThresholdList.add(currentThresholdCount);

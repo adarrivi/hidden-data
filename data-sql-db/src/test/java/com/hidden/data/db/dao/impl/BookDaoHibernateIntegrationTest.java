@@ -1,5 +1,8 @@
 package com.hidden.data.db.dao.impl;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ public class BookDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest 
 
 	private String title;
 	private Book book;
+	private Collection<String> bookTitles;
 
 	@Autowired
 	private BookDao victim;
@@ -57,6 +61,22 @@ public class BookDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest 
 
 	private void thenShouldNotBeEmpty() {
 		Assert.assertFalse(book.isEmpty());
+	}
+
+	@Test
+	public void getNotProcessedBookTitles_ReturnsNotProcessed() {
+		whenGetNotProcessedBookTitles();
+		thenBookTitlesShouldBe("Youth");
+	}
+
+	private void whenGetNotProcessedBookTitles() {
+		bookTitles = victim.getNotProcessedBookTitles();
+	}
+
+	private void thenBookTitlesShouldBe(String... expectedBookTitles) {
+		Assert.assertTrue(bookTitles.containsAll(Arrays
+				.asList(expectedBookTitles)));
+		Assert.assertEquals(expectedBookTitles.length, bookTitles.size());
 	}
 
 }

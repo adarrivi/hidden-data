@@ -6,23 +6,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hidden.data.web.dto.PatternsLocationChart;
+import com.hidden.data.web.dto.PatternDistributionChart;
 import com.hidden.data.web.service.StatisticsService;
 
 @Controller
-public class PatternLocationController {
+public class PatternDistributionController {
 
 	@Autowired
 	private StatisticsService statisticsService;
 
-	@RequestMapping("/PatternLocation")
+	@RequestMapping("/PatternDistribution")
 	public String welcomePage() {
-		return "PatternLocation";
+		return "PatternDistribution";
 	}
 
-	@RequestMapping(value = "getPatternLocationChart", method = RequestMethod.GET)
+	@RequestMapping(value = "getPatternDistributionChart", method = RequestMethod.GET)
 	public @ResponseBody
-	PatternsLocationChart getPatternsChart() {
-		return statisticsService.getPatternLocationsPerAllBooks();
+	PatternDistributionChart getPatternsChart() {
+		return statisticsService.getPatternDistributionPerAllBooks();
 	}
 }

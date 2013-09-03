@@ -91,6 +91,7 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 		verifier.addGetterToVerify("getId", "id", BOOK_ID);
 		verifier.addGetterToVerify("getTitle", "title", BOOK_TITLE);
 		verifier.addGetterToVerify("getAuthor", "author", BOOK_AUTHOR);
+		verifier.addGetterToVerify("isProcessed", "processed", false);
 		verifier.verifyDirectGetters();
 	}
 
@@ -99,6 +100,7 @@ public class BookTest implements NotNulEntityTestable, PersistentEntityTestable 
 		verifier.addSetterToVerify("setContent", "content", BOOK_CONTENT);
 		verifier.addSetterToVerify("setTitle", "title", BOOK_TITLE);
 		verifier.addSetterToVerify("setAuthor", "author", BOOK_AUTHOR);
+		verifier.addSetterToVerify("setProcessed", "processed", false);
 		verifier.verifyDirectSetters();
 	}
 

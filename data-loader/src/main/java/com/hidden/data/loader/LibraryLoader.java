@@ -2,6 +2,7 @@ package com.hidden.data.loader;
 
 import java.io.File;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ import com.hidden.data.loader.service.BookService;
 @Component
 public class LibraryLoader implements Runnable {
 
+	private static final Logger LOG = Logger.getLogger(LibraryLoader.class);
+
 	@Autowired
 	private BookService bookService;
 	@Autowired
@@ -25,15 +28,14 @@ public class LibraryLoader implements Runnable {
 		File libraryFolder = new File("D:/eclipse/dataMng/books/");
 		Library library = new Library(libraryFolder,
 				IOCommonsFileUtils.getInstance());
-		for (AuthorFolder authorFolder : library.getAuthors()) {
-			Author author = authorDao.findByName(authorFolder.getAuthorName());
+		for (BookFile book : library.getBooks()) {
+			Author author = authorDao.findByName(book.getAuthor());
 			if (author.isEmpty()) {
-				author.setName(authorFolder.getAuthorName());
+				author.setName(book.getAuthor());
 				author = authorDao.save(author);
 			}
-			for (BookFile bookFile : authorFolder.getBookFiles()) {
-				bookService.saveBookIfDoesntExist(bookFile, author);
-			}
+			bookService.saveBookIfDoesntExist(book, author);
 		}
+		LOG.debug("Books loaded to the library");
 	}
 }

@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 
-class PatternLocationComparator implements Comparator<BookDiscovery> {
+class PatternDistributionComparator implements Comparator<BookDiscovery> {
 
-	protected PatternLocationComparator() {
+	protected PatternDistributionComparator() {
 		super();
 	}
 

@@ -2,7 +2,6 @@ package com.hidden.data.loader;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.hidden.data.common.file.CommonsFileUtils;
@@ -17,13 +16,12 @@ public class Library {
 		this.commonsFileUtils = commonsFileUtils;
 	}
 
-	public Collection<AuthorFolder> getAuthors() {
-		List<AuthorFolder> authors = new ArrayList<AuthorFolder>();
-		for (File authorFolder : commonsFileUtils.getSubFolders(folder)) {
-			authors.add(new AuthorFolder(authorFolder, commonsFileUtils));
+	public List<BookFile> getBooks() {
+		List<BookFile> books = new ArrayList<BookFile>();
+		for (File file : commonsFileUtils.getFilesFromFolder(folder)) {
+			books.add(new BookFile(file));
 		}
-		return authors;
-
+		return books;
 	}
 
 }

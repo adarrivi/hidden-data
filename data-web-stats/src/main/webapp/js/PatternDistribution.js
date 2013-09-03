@@ -3,13 +3,13 @@ $(document).ready(function() {
 });
 
 function loadChart() {
-	$('#patLocationChartId').empty();
-	$('#patLocationChartId').mask("Loading...");
-	$.get("getPatternLocationChart", {}, function(data) {
-		$('#patLocationChartId').unmask();
+	$('#patDistributionChartId').empty();
+	$('#patDistributionChartId').mask("Loading...");
+	$.get("getPatternDistributionChart", {}, function(data) {
+		$('#patDistributionChartId').unmask();
 		var chart = new Chart({
-			chartId : 'patLocationChartId',
-			chartValues : data.patternsLocationList,
+			chartId : 'patDistributionChartId',
+			chartValues : data.patternsDistributionList,
 			axes : {
 				xaxis : {
 					label : 'Location',

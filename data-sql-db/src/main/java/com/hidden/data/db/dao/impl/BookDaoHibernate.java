@@ -1,5 +1,7 @@
 package com.hidden.data.db.dao.impl;
 
+import java.util.Collection;
+
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,14 @@ public class BookDaoHibernate extends CrudDaoHibernate<Book> implements BookDao 
 			return Book.createEmptyBook();
 		}
 		return book;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<String> getNotProcessedBookTitles() {
+		Query query = getSession().createQuery(
+				"select title from Book where processed = :processed");
+		query.setParameter("processed", false);
+		return query.list();
 	}
 }

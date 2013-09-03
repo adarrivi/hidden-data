@@ -2,32 +2,41 @@ package com.hidden.data.loader;
 
 import java.io.File;
 
+import org.apache.commons.io.FilenameUtils;
+
 public class BookFile {
 
-	private static final String FILE_NAME_SUFFIX_START = ".";
+	private static final String TITLE_AUTHOR_SEPARATOR = ".by.";
 	private String title;
+	private String author;
 	private File file;
 
 	public BookFile(File file) {
 		this.file = file;
-		title = removeLastSuffixFromFileName();
 	}
 
-	private String removeLastSuffixFromFileName() {
-		String modifiedFileName = file.getName();
-		if (modifiedFileName.contains(FILE_NAME_SUFFIX_START)) {
-			modifiedFileName = modifiedFileName.substring(0,
-					modifiedFileName.lastIndexOf(FILE_NAME_SUFFIX_START));
+	private void setBookPropertiesIfNecesary() {
+		if (author == null) {
+			String fileName = FilenameUtils.removeExtension(file.getName());
+			String[] fileNameComponents = fileName
+					.split(TITLE_AUTHOR_SEPARATOR);
+			title = fileNameComponents[0];
+			author = fileNameComponents[1];
 		}
-		return modifiedFileName;
 	}
 
 	public String getTitle() {
+		setBookPropertiesIfNecesary();
 		return title;
 	}
 
 	public File getFile() {
 		return file;
+	}
+
+	public String getAuthor() {
+		setBookPropertiesIfNecesary();
+		return author;
 	}
 
 }

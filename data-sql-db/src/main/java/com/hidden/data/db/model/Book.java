@@ -14,6 +14,7 @@ public class Book implements NotNullEntity, PersistentEntity {
 	private String content;
 	private Author author;
 	private List<String> bookLines;
+	private boolean processed;
 
 	public static Book createEmptyBook() {
 		return new Book();
@@ -62,5 +63,13 @@ public class Book implements NotNullEntity, PersistentEntity {
 					.split(LINE_BREAK)));
 		}
 		return bookLines;
+	}
+
+	public boolean isProcessed() {
+		return processed;
+	}
+
+	public void setProcessed(boolean processed) {
+		this.processed = processed;
 	}
 }

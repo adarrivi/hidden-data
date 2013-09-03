@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.hidden.data.nosql.dao.BookDiscoveryDao;
 import com.hidden.data.nosql.model.discovery.BookDiscovery;
 import com.hidden.data.web.dto.DatabaseInfoDto;
-import com.hidden.data.web.dto.PatternsLocationChart;
+import com.hidden.data.web.dto.PatternDistributionChart;
 import com.hidden.data.web.dto.PatternsPerBookChart;
 import com.hidden.data.web.service.StatisticsService;
 
@@ -56,23 +56,23 @@ public class StatisticsServiceImpl implements StatisticsService {
 	}
 
 	@Override
-	public PatternsLocationChart getPatternLocationsPerAllBooks() {
-		PatternsLocationChart chart = new PatternsLocationChart();
+	public PatternDistributionChart getPatternDistributionPerAllBooks() {
+		PatternDistributionChart chart = new PatternDistributionChart();
 		List<String> allBookTitles = bookDiscoveryDao.getDifferentBooks();
 		for (String bookTitle : allBookTitles) {
-			chart.addPatternsLocation(bookTitle,
-					getPatternLocationsPerBook(bookTitle));
+			chart.addPatternsDistribution(bookTitle,
+					getPatternDistributionPerBook(bookTitle));
 		}
 		return chart;
 	}
 
-	private List<Integer> getPatternLocationsPerBook(String bookTitle) {
+	private List<Integer> getPatternDistributionPerBook(String bookTitle) {
 		List<BookDiscovery> patternsPerBook = bookDiscoveryDao
 				.findPatternsPerBook(bookTitle);
-		PatternLocationsPerBook patternLocationsPerBook = new PatternLocationsPerBook(
+		PatternDistributionPerBook patternDistributionPerBook = new PatternDistributionPerBook(
 				patternsPerBook.get(0).getBookTotalLines());
-		patternLocationsPerBook.setPatternThreshold(patternsPerBook);
-		return getAsPercentageList(patternLocationsPerBook
+		patternDistributionPerBook.setPatternThreshold(patternsPerBook);
+		return getAsPercentageList(patternDistributionPerBook
 				.getPatternsPerPercentageThreshold());
 	}
 

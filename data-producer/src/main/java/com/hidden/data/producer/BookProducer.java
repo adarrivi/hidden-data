@@ -1,5 +1,6 @@
 package com.hidden.data.producer;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -45,13 +46,13 @@ public class BookProducer implements Runnable {
 	}
 
 	private void loadBooksAndSendLines() {
-		// TODO Don't load all the books at the same time! Go one by one
-		List<Book> allBooks = bookDao.loadAll();
+		Collection<String> notProcessedBookTitles = bookDao
+				.getNotProcessedBookTitles();
 		allPatterns = patternDao.loadAll();
-		for (Book book : allBooks) {
-			currentBook = book;
+		for (String bookTitle : notProcessedBookTitles) {
+			currentBook = bookDao.findByTitle(bookTitle);
 			sendLinesByPattern();
-			LOG.debug("Book done: " + book.getTitle());
+			setCurrentBookProcessed();
 		}
 	}
 
@@ -83,5 +84,11 @@ public class BookProducer implements Runnable {
 	@PerformanceLogged(identifier = "sendItem")
 	private void sendItem(FilterItem item) {
 		producerConnection.sendMessage(item);
+	}
+
+	private void setCurrentBookProcessed() {
+		currentBook.setProcessed(true);
+		bookDao.save(currentBook);
+		LOG.debug("Book processed: " + currentBook.getTitle());
 	}
 }

@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$('#patPerBookNavLink').click(function(event) {
 		document.location.href = 'PatternsPerBook';
 	});
-	$('#patLocationNavLink').click(function(event) {
-		document.location.href = 'PatternLocation';
+	$('#patDistributionNavLink').click(function(event) {
+		document.location.href = 'PatternDistribution';
 	});
 });
