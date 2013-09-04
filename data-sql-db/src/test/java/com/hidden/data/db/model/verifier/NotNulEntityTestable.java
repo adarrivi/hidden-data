@@ -1,4 +1,4 @@
-package com.hidden.data.common.test;
+package com.hidden.data.db.model.verifier;
 
 import com.hidden.data.common.model.NotNullEntity;
 

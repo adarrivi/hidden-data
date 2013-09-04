@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -23,7 +22,6 @@ import com.hidden.data.queue.connection.QueueConnection;
 import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.model.FilterItem;
 
-@Ignore
 public class BookProducerTest {
 
 	private static final String BOOK_TITLE = "I, robot";
@@ -44,6 +42,7 @@ public class BookProducerTest {
 	private PatternRow patternRow;
 
 	private ProducerConnectionStub producerConnection;
+	private List<String> bookTitles = new ArrayList<String>();
 
 	@InjectMocks
 	private BookProducer victim = new BookProducer();
@@ -104,16 +103,19 @@ public class BookProducerTest {
 	}
 
 	private void givenBooksWithLines(int... numberOfLinesList) {
-		List<Book> books = new ArrayList<Book>();
+		int index = 0;
 		for (int numberOfLines : numberOfLinesList) {
-			books.add(createBook(numberOfLines));
+			Book book = createBook(numberOfLines, index++);
+			bookTitles.add(book.getTitle());
+			Mockito.when(bookDao.findByTitle(book.getTitle())).thenReturn(book);
 		}
-		Mockito.when(bookDao.loadAll()).thenReturn(books);
+		Mockito.when(bookDao.getNotProcessedBookTitles())
+				.thenReturn(bookTitles);
 	}
 
-	private Book createBook(int numberOfLines) {
+	private Book createBook(int numberOfLines, int index) {
 		Book book = Book.createEmptyBook();
-		book.setTitle(BOOK_TITLE);
+		book.setTitle(BOOK_TITLE + index);
 		Reflection.getInstance().setField(book, "id", BOOK_ID);
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < numberOfLines; i++) {
