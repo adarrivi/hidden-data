@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hidden.data.db.dao.PatternDao;
 import com.hidden.data.db.model.Pattern;
 
-public class PatternDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTest {
+public class PatternDaoHibernateIntegrationTest extends
+		InMemoryDaoIntegrationTest {
 
 	@Autowired
 	private PatternDao victim;
@@ -28,6 +29,9 @@ public class PatternDaoHibernateIntegrationTest extends InMemoryDaoIntegrationTe
 
 	private void thenPatternsShouldNotBeEmpty() {
 		Assert.assertFalse(patterns.isEmpty());
+		for (Pattern pattern : patterns) {
+			Assert.assertFalse(pattern.getContent().get(0).isEmpty());
+		}
 	}
 
 }

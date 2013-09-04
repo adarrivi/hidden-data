@@ -9,5 +9,6 @@
       <generator class="identity" />
     </id>
     <property name="value" column="itemValue" />
+    <property name="doNotMatchValue" column="doNotMatchValue" />
   </class>
 </hibernate-mapping>

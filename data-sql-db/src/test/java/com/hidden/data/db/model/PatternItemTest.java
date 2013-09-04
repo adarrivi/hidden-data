@@ -17,7 +17,7 @@ public class PatternItemTest implements PersistentEntityTestable,
 	private static final char SPACE = ' ';
 	private static final char CHAR = 'c';
 	private static final Integer ITEM_ID = Integer.valueOf(1);
-	private static final String ITEM_VALUE = " ";
+	private static final String VALUE = " ";
 
 	private PatternItem victim;
 	private boolean matches;
@@ -36,41 +36,41 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	@Override
 	public NotNullEntity givenEmptyEntity() {
-		givenEmptyItem();
+		givenEmptyPatternItem();
 		return victim;
 	}
 
 	@Override
 	public NotNullEntity givenNotEmptyEntity() {
-		createVictim();
+		givenPatternItem();
 		return victim;
 	}
 
 	@Override
 	public PersistentEntity givenNewEntity() {
-		givenEmptyItem();
+		givenEmptyPatternItem();
 		return victim;
 	}
 
-	private void givenEmptyItem() {
+	private void givenEmptyPatternItem() {
 		victim = PatternItem.createEmptyItem();
 	}
 
 	@Override
 	public PersistentEntity givenExistingEntity() {
-		createVictim();
+		givenPatternItem();
 		return victim;
 	}
 
-	private void createVictim() {
-		givenEmptyItem();
+	private void givenPatternItem() {
+		givenEmptyPatternItem();
 		Reflection.getInstance().setField(victim, "id", ITEM_ID);
-		Reflection.getInstance().setField(victim, "value", ITEM_VALUE);
+		Reflection.getInstance().setField(victim, "value", VALUE);
 	}
 
 	@Test
 	public void matches_CharAndEmptyPItem_ReturnsTrue() {
-		givenEmptyItem();
+		givenEmptyPatternItem();
 		whenMatches(CHAR);
 		thenExpectMatches(true);
 	}
@@ -85,32 +85,47 @@ public class PatternItemTest implements PersistentEntityTestable,
 
 	@Test
 	public void matches_SpaceAndEmptyPItem_ReturnsTrue() {
-		givenEmptyItem();
+		givenEmptyPatternItem();
 		whenMatches(SPACE);
 		thenExpectMatches(true);
 	}
 
 	@Test
 	public void matches_SpaceAndSpacePItem_ReturnsTrue() {
-		createVictim();
+		givenPatternItem();
 		whenMatches(SPACE);
 		thenExpectMatches(true);
 	}
 
 	@Test
 	public void matches_CharAndSpacePItem_ReturnsFalse() {
-		createVictim();
+		givenPatternItem();
 		whenMatches(CHAR);
 		thenExpectMatches(false);
 	}
 
 	@Test
 	public void verifyDirectGetters() {
-		createVictim();
+		givenPatternItem();
 		AccessorVerifier verifier = new AccessorVerifier(victim);
 		verifier.addGetterToVerify("getId", "id", ITEM_ID);
-		verifier.addGetterToVerify("getValue", "value", ITEM_VALUE);
+		verifier.addGetterToVerify("getValue", "value", VALUE);
+		verifier.addGetterToVerify("getDoNotMatchValue", "doNotMatchValue",
+				VALUE);
 		verifier.verifyDirectGetters();
 	}
 
+	@Test
+	public void matches_MatchItemTrueDoNotMatchTrue_ReturnFalse() {
+		givenMatchAndDoNotMatchPItem();
+		whenMatches(SPACE);
+		thenExpectMatches(false);
+	}
+
+	private void givenMatchAndDoNotMatchPItem() {
+		givenEmptyPatternItem();
+		Reflection.getInstance().setField(victim, "id", ITEM_ID);
+		Reflection.getInstance().setField(victim, "value", VALUE);
+		Reflection.getInstance().setField(victim, "doNotMatchValue", VALUE);
+	}
 }

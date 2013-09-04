@@ -2,7 +2,8 @@ package com.hidden.data.loader;
 
 import java.io.File;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +16,8 @@ import com.hidden.data.loader.service.BookService;
 @Component
 public class LibraryLoader implements Runnable {
 
-	private static final Logger LOG = Logger.getLogger(LibraryLoader.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(LibraryLoader.class);
 
 	@Autowired
 	private BookService bookService;

@@ -23,7 +23,7 @@ function getNewRandomExample() {
 			lines += data.lines[i] + "<br>";
 		}
 		var replaced = lines.replace(/ /g,
-				"<span class='highlightedSpace'> </span>");
+				"<span class='highlightedSpace'>&nbsp</span>");
 		$("#showExampleContent").html(replaced);
 	});
 }

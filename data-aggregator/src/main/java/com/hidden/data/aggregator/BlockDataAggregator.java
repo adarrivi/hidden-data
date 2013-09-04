@@ -3,7 +3,8 @@ package com.hidden.data.aggregator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ import com.hidden.data.nosql.model.discovery.PatternDiscovery;
 @Component
 public class BlockDataAggregator implements Runnable {
 
-	private static final Logger LOG = Logger
+	private static final Logger LOG = LoggerFactory
 			.getLogger(BlockDataAggregator.class);
 
 	@Autowired
@@ -73,7 +74,7 @@ public class BlockDataAggregator implements Runnable {
 			List<Character> charactersPerLine = new ArrayList<Character>();
 			for (PatternItem item : itemsPerLine) {
 				Character character = null;
-				if (!item.isEmpty()) {
+				if (item.getValue() != null) {
 					character = item.getValue().toCharArray()[0];
 				}
 				charactersPerLine.add(character);

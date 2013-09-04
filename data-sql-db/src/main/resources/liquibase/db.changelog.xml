@@ -71,6 +71,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 				<constraints nullable="false" />
 			</column>
 			<column name="itemValue" type="varchar(1)" />
+			<column name="doNotMatchValue" type="varchar(1)" />
 		</createTable>
 	</changeSet>
 

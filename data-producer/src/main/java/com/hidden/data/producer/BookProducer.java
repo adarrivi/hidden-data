@@ -42,6 +42,7 @@ public class BookProducer implements Runnable {
 	public void run() {
 		producerConnection = connectionFactory.createFilterProducerConnection();
 		loadBooksAndSendLines();
+		LOG.debug("All books produced");
 		producerConnection.close();
 	}
 

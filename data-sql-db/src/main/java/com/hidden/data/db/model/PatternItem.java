@@ -6,6 +6,8 @@ public class PatternItem implements NotNullEntity, PersistentEntity {
 
 	private Integer id;
 	private String value;
+	private String doNotMatchValue;
+	private char valueToMatch;
 
 	public static PatternItem createEmptyItem() {
 		return new PatternItem();
@@ -24,16 +26,32 @@ public class PatternItem implements NotNullEntity, PersistentEntity {
 		return id;
 	}
 
+	public String getDoNotMatchValue() {
+		return doNotMatchValue;
+	}
+
 	@Override
 	public boolean isEmpty() {
-		return value == null;
+		return value == null && doNotMatchValue == null;
 	}
 
 	public boolean matches(char valueToMatch) {
-		if (isEmpty()) {
+		this.valueToMatch = valueToMatch;
+		return matchesValue() && !matchesDoNotMatchValue();
+	}
+
+	private boolean matchesValue() {
+		if (value == null) {
 			return true;
 		}
-		return getValue().equals(String.valueOf(valueToMatch));
+		return value.equals(String.valueOf(valueToMatch));
+	}
+
+	private boolean matchesDoNotMatchValue() {
+		if (doNotMatchValue == null) {
+			return false;
+		}
+		return doNotMatchValue.equals(String.valueOf(valueToMatch));
 	}
 
 }
