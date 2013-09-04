@@ -10,7 +10,7 @@ import com.hidden.data.web.dto.DatabaseInfoDto;
 import com.hidden.data.web.service.StatisticsService;
 
 @Controller
-public class DatabaseInfoController {
+public class DbInfoController {
 
 	@Autowired
 	private StatisticsService statisticsService;
