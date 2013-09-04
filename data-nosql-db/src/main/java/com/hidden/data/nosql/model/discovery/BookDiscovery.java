@@ -1,5 +1,6 @@
 package com.hidden.data.nosql.model.discovery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,7 @@ public class BookDiscovery {
 	private List<Line> lines;
 	private PatternDiscovery pattern;
 	private int bookTotalLines;
+	private double randomizer;
 
 	public BookDiscovery(String bookTitle, String author, List<Line> lines,
 			PatternDiscovery pattern, int bookTotalLines) {
@@ -23,6 +25,7 @@ public class BookDiscovery {
 		this.lines = lines;
 		this.pattern = pattern;
 		this.bookTotalLines = bookTotalLines;
+		randomizer = Math.random();
 	}
 
 	public String getId() {
@@ -52,4 +55,18 @@ public class BookDiscovery {
 	public int getFirstPatternLineNumber() {
 		return lines.get(0).getLineNumber();
 	}
+
+	public double getRandomizer() {
+		return randomizer;
+	}
+
+	public List<String> getLinesContent() {
+		List<String> linesContent = new ArrayList<String>();
+		for (Line line : lines) {
+			linesContent.add(line.getContent());
+		}
+		return linesContent;
+
+	}
+
 }

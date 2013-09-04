@@ -3,6 +3,7 @@
 		{
 		  	"_id" : 1,
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+  			"randomizer" : 0.1,
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
   			"bookTotalLines" : 100,
@@ -24,6 +25,7 @@
 		{
 		  	"_id" : 2,
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+  			"randomizer" : 0.2,
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
   			"bookTotalLines" : 100,
@@ -45,6 +47,7 @@
 		{
 		  	"_id" : 3,
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+  			"randomizer" : 0.3,
 			"bookTitle" : "A Treatise of Human Nature",
   			"author" : "David Hume",
   			"bookTotalLines" : 100,
@@ -66,6 +69,7 @@
 		{
 		  	"_id" : 4,
   			"_class" : "com.hidden.data.nosql.model.discovery.BookDiscovery",
+  			"randomizer" : 0.4,
 			"bookTitle" : "Youth",
   			"author" : "Isaac Asimov",
   			"bookTotalLines" : 100,

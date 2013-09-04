@@ -1,4 +1,4 @@
-package com.hidden.data.nosql.dao.impl;
+package com.hidden.data.nosql.dao.mongo;
 
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;

@@ -12,9 +12,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.hidden.data.common.model.NotNullEntity;
 import com.hidden.data.common.reflection.Reflection;
-import com.hidden.data.db.model.verifier.NotNulEntityTestable;
-import com.hidden.data.db.model.verifier.NotNullEntityVerifier;
+import com.hidden.data.common.test.NotNulEntityTestable;
+import com.hidden.data.common.test.NotNullEntityVerifier;
 import com.hidden.data.db.model.verifier.PersistentEntityTestable;
 import com.hidden.data.db.model.verifier.PersistentEntityVerifier;
 

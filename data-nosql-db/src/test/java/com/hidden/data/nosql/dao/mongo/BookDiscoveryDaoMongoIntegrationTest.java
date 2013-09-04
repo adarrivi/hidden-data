@@ -1,4 +1,4 @@
-package com.hidden.data.nosql.dao.impl;
+package com.hidden.data.nosql.dao.mongo;
 
 import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.newMongoDbRule;
 
@@ -32,6 +32,7 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	private BookDiscoveryDao victim;
 
 	private List<BookDiscovery> bookDiscoveries;
+	private BookDiscovery bookDiscovery;
 	private String bookTitle;
 	private String patternName;
 
@@ -109,6 +110,21 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	private void givenNotExistingBook() {
 		bookTitle = "I robot";
 		patternName = "3x3 Column in middle";
+	}
+
+	@Test
+	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
+	public void findOneRandom_ReturnsNotEmpty() {
+		whenFindOneRandom();
+		thenBookDiscoveryShouldNotBeEmpty();
+	}
+
+	private void whenFindOneRandom() {
+		bookDiscovery = victim.findOneRandom();
+	}
+
+	private void thenBookDiscoveryShouldNotBeEmpty() {
+		Assert.assertNotNull(bookDiscovery);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.hidden.data.nosql.dao.impl;
+package com.hidden.data.nosql.dao.mongo;
 
 import java.util.List;
 

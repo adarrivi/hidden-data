@@ -22,7 +22,7 @@
 	margin: 5px;
 	background: #dfe7e7;
 	text-align: right;
-	font-style:italic;
+	font-style: italic;
 }
 
 html {
@@ -36,4 +36,17 @@ html {
 	width: 800px;
 	height: 300px;
 	position: relative;
+}
+
+.showExampleContent {
+	font-family: Courier New;
+	color: #000000
+}
+
+.showExampleNextButton {
+	height:100px;
+}
+
+.highlightedSpace{
+	background-color: #FF1919
 }

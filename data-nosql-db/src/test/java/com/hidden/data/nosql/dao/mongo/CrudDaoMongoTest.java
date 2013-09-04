@@ -1,4 +1,4 @@
-package com.hidden.data.nosql.dao.impl;
+package com.hidden.data.nosql.dao.mongo;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoOperations;
-
-import com.hidden.data.nosql.dao.impl.CrudDaoMongo;
 
 public class CrudDaoMongoTest {
 
@@ -84,5 +82,4 @@ public class CrudDaoMongoTest {
 	private void thenShouldReturnsFindAllRetult() {
 		Assert.assertEquals(MULTIPLE_ENTITIES, loadAllResult);
 	}
-
 }

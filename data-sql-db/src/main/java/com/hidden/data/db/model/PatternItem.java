@@ -1,5 +1,7 @@
 package com.hidden.data.db.model;
 
+import com.hidden.data.common.model.NotNullEntity;
+
 public class PatternItem implements NotNullEntity, PersistentEntity {
 
 	private Integer id;

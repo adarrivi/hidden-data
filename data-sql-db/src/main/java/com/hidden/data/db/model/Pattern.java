@@ -3,6 +3,8 @@ package com.hidden.data.db.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hidden.data.common.model.NotNullEntity;
+
 public class Pattern implements NotNullEntity, PersistentEntity {
 
 	private Integer id;

@@ -1,4 +1,4 @@
-package com.hidden.data.db.model;
+package com.hidden.data.common.model;
 
 public interface NotNullEntity {
 

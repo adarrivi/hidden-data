@@ -1,4 +1,4 @@
-package com.hidden.data.nosql.dao.impl;
+package com.hidden.data.nosql.dao.mongo;
 
 import java.util.Collections;
 
@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 
 import com.hidden.data.nosql.dao.FilteredBlockDao;
-import com.hidden.data.nosql.dao.impl.FilteredBlockDaoMongo;
+import com.hidden.data.nosql.dao.mongo.FilteredBlockDaoMongo;
 import com.hidden.data.nosql.model.FilteredBlock;
 
 public class FilteredBlockDaoMongoTest {

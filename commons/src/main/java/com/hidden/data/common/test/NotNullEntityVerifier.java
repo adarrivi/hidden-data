@@ -1,8 +1,8 @@
-package com.hidden.data.db.model.verifier;
+package com.hidden.data.common.test;
 
 import org.junit.Assert;
 
-import com.hidden.data.db.model.NotNullEntity;
+import com.hidden.data.common.model.NotNullEntity;
 
 public class NotNullEntityVerifier {
 

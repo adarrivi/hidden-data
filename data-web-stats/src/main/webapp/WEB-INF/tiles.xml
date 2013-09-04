@@ -13,7 +13,7 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer"
 			value="/WEB-INF/jsp/compositeView/footer.jsp" />
- 
+
 		<put-list-attribute name="mainStylesheets">
 			<add-attribute
 				value="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
@@ -58,12 +58,19 @@
 	</definition>
 
 	<definition name="PatternDistribution" extends="baseTile">
-		<put-attribute name="body" value="/WEB-INF/jsp/PatternDistribution.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/PatternDistribution.jsp" />
 		<put-list-attribute name="specificScripts">
 			<add-attribute value="js/PatternDistribution.js" />
 		</put-list-attribute>
 	</definition>
-	
-	
+
+	<definition name="ShowExample" extends="baseTile">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/ShowExample.jsp" />
+		<put-list-attribute name="specificScripts">
+			<add-attribute value="js/ShowExample.js" />
+		</put-list-attribute>
+	</definition>
 
 </tiles-definitions>

@@ -12,7 +12,11 @@ public interface BookDiscoveryDao extends CrudDao<BookDiscovery> {
 
 	List<String> getDifferentPatterns();
 
-	List<BookDiscovery> findBookDiscoveriesByBookAndPattern(String bookTitle, String pattern);
+	List<BookDiscovery> findBookDiscoveriesByBookAndPattern(String bookTitle,
+			String pattern);
 
 	List<BookDiscovery> findPatternsPerBook(String bookTitle);
+
+	BookDiscovery findOneRandom();
+
 }

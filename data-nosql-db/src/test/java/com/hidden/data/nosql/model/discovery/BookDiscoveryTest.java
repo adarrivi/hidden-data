@@ -22,6 +22,7 @@ public class BookDiscoveryTest {
 
 	private BookDiscovery victim;
 	private int firstLineNumber;
+	private List<String> linesContent;
 
 	@Test
 	public void verifyDirectGetters() {
@@ -34,6 +35,7 @@ public class BookDiscoveryTest {
 		verifier.addGetterToVerify("getPattern", "pattern", PATTERN);
 		verifier.addGetterToVerify("getBookTotalLines", "bookTotalLines",
 				BOOK_TOTAL_LINES);
+		verifier.addGetterToVerify("getRandomizer", "randomizer", 0d);
 		verifier.verifyDirectGetters();
 	}
 
@@ -56,5 +58,21 @@ public class BookDiscoveryTest {
 
 	private void thenFirstPatternLineNumberShouldBe(int expectedValue) {
 		Assert.assertEquals(expectedValue, firstLineNumber);
+	}
+
+	@Test
+	public void getLinesContent_ReturnsLinesContent() {
+		givenBookDiscovery();
+		whenGetLinesContent();
+		thenLinesContentShouldBe((Collections.nCopies(5, LINES.get(0)
+				.getContent())));
+	}
+
+	private void whenGetLinesContent() {
+		linesContent = victim.getLinesContent();
+	}
+
+	private void thenLinesContentShouldBe(List<String> expectedLines) {
+		Assert.assertEquals(expectedLines, linesContent);
 	}
 }

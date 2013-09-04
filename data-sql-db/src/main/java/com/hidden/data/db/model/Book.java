@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.hidden.data.common.model.NotNullEntity;
+
 public class Book implements NotNullEntity, PersistentEntity {
 
 	public static final String LINE_BREAK = System
