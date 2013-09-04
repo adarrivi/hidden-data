@@ -17,11 +17,10 @@ public class InformationPanel extends JPanel {
 	private static final int EMPTY_BORDER_OFFSET = 5;
 	private static final int ELEMENTS_X_OFFSET = 15;
 	private static final int ELEMENTS_Y_OFFSET = 15;
-	private static final int SHORT_INFORMATION_HEIGTH = 14;
-	private static final int SHORT_INFORMATION_WIDTH = 100;
+	private static final int PERF_LABEL_HEIGTH = 14;
+	private static final int PERF_LABEL_WIDTH = 150;
 	private static final int ELEMENTS_SEPARATION = 34;
 
-	private JLabel shortInformation;
 	private JTextArea display;
 	private Rectangle position;
 	private Rectangle cursorPosition;
@@ -38,16 +37,17 @@ public class InformationPanel extends JPanel {
 	}
 
 	private void createElements() {
-		createShortInformation();
+		createPerformanceLabel();
 		createDisplay();
 	}
 
-	private void createShortInformation() {
-		shortInformation = new JLabel("Short Info Label", SwingConstants.LEFT);
-		shortInformation.setBounds(EMPTY_BORDER_OFFSET, EMPTY_BORDER_OFFSET,
-				SHORT_INFORMATION_WIDTH, SHORT_INFORMATION_HEIGTH);
-		add(shortInformation);
-		cursorPosition = shortInformation.getBounds();
+	private void createPerformanceLabel() {
+		JLabel performanceLabel = new JLabel("Performance console",
+				SwingConstants.LEFT);
+		performanceLabel.setBounds(EMPTY_BORDER_OFFSET, EMPTY_BORDER_OFFSET,
+				PERF_LABEL_WIDTH, PERF_LABEL_HEIGTH);
+		add(performanceLabel);
+		cursorPosition = performanceLabel.getBounds();
 		cursorPosition.y = cursorPosition.height + ELEMENTS_SEPARATION;
 	}
 
@@ -71,10 +71,6 @@ public class InformationPanel extends JPanel {
 
 	private int getRemainingHeightLeft() {
 		return position.height - cursorPosition.y - ELEMENTS_Y_OFFSET;
-	}
-
-	public void setShortInformationText(String text) {
-		shortInformation.setText(text);
 	}
 
 	public void setDisplayText(String text) {
