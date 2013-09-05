@@ -1,5 +1,5 @@
 hidden-data
 ===========
 
-Please, visit the [Wiki](wiki/Hidden-Data-Wiki)
+Please, visit the [Wiki](https://github.com/adarrivi/hidden-data/wiki)
 
