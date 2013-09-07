@@ -3,7 +3,8 @@ package com.hidden.data.loader.service.impl;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,8 @@ import com.hidden.data.loader.service.BookService;
 @Transactional(readOnly = true)
 public class BookServiceImpl implements BookService {
 
-	private static final Logger LOG = Logger.getLogger(BookServiceImpl.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(BookServiceImpl.class);
 
 	@Autowired
 	private BookDao bookDao;
