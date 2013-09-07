@@ -6,12 +6,7 @@ import com.hidden.data.loader.BookFile;
 
 public interface BookService {
 
-	@PerformanceLogged(identifier = "SaveBook")
-	void saveBook(BookFile bookFile, Author author);
-
 	@PerformanceLogged(identifier = "SaveBookIfDoesntExist")
-	// This is not working because BookServiceImpl is not getting proxied. Add
-	// transaction manager or other alternative?
 	void saveBookIfDoesntExist(BookFile bookFile, Author author);
 
 }

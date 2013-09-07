@@ -12,8 +12,8 @@ import com.hidden.data.common.file.io.IOCommonsFileUtils;
 import com.hidden.data.common.performance.PerformanceLogged;
 import com.hidden.data.common.property.FileProperties;
 import com.hidden.data.common.property.PropertiesFactory;
-import com.hidden.data.db.dao.AuthorDao;
 import com.hidden.data.db.model.Author;
+import com.hidden.data.loader.service.AuthorService;
 import com.hidden.data.loader.service.BookService;
 
 @Component
@@ -28,7 +28,7 @@ public class LibraryLoader implements Runnable {
 	@Autowired
 	private BookService bookService;
 	@Autowired
-	private AuthorDao authorDao;
+	private AuthorService authorService;
 
 	private CommonsFileUtils fileUtils = IOCommonsFileUtils.getInstance();
 
@@ -39,11 +39,8 @@ public class LibraryLoader implements Runnable {
 				.getProperty("libraryLocation"));
 		Library library = new Library(libraryFolder, fileUtils);
 		for (BookFile book : library.getBooks()) {
-			Author author = authorDao.findByName(book.getAuthor());
-			if (author.isEmpty()) {
-				author.setName(book.getAuthor());
-				author = authorDao.save(author);
-			}
+			Author author = authorService.createAuthorIfDoesntExist(book
+					.getAuthor());
 			bookService.saveBookIfDoesntExist(book, author);
 		}
 		LOG.debug("Books loaded to the library");
