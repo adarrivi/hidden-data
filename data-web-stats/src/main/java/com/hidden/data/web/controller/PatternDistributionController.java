@@ -25,4 +25,5 @@ public class PatternDistributionController {
 	PatternDistributionChart getPatternsChart() {
 		return statisticsService.getPatternDistributionPerAllBooks();
 	}
+
 }

@@ -2,7 +2,9 @@ package com.hidden.data.nosql.dao.mongo;
 
 import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.newMongoDbRule;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -21,6 +23,7 @@ import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "/applicationNoSqlDbContext-test.xml" })
+@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 public class BookDiscoveryDaoMongoIntegrationTest {
 
 	@Autowired
@@ -35,9 +38,9 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	private BookDiscovery bookDiscovery;
 	private String bookTitle;
 	private String patternName;
+	private List<String> stringResultList;
 
 	@Test
-	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 	public void findBookDiscoveriesByBookAndPattern_Existing_ReturnsSameBookTitle() {
 		givenBook();
 		whenFindBookDiscoveriesByBookAndPattern();
@@ -73,7 +76,6 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	}
 
 	@Test
-	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 	public void findBookDiscoveriesByBookAndPattern_Existing_ReturnsSamePatternName() {
 		givenBook();
 		whenFindBookDiscoveriesByBookAndPattern();
@@ -88,7 +90,6 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	}
 
 	@Test
-	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 	public void findPatternPerBook_Existing_ReturnsSameBookTitle() {
 		givenBook();
 		whenFindPatternsPerBook();
@@ -100,7 +101,6 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	}
 
 	@Test
-	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 	public void findPatternPerBook_NotExisting_ReturnsEmpty() {
 		givenNotExistingBook();
 		whenFindPatternsPerBook();
@@ -113,7 +113,6 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 	}
 
 	@Test
-	@UsingDataSet(locations = "bookDiscoveryInit.json", loadStrategy = LoadStrategyEnum.CLEAN_INSERT)
 	public void findOneRandom_ReturnsNotEmpty() {
 		whenFindOneRandom();
 		thenBookDiscoveryShouldNotBeEmpty();
@@ -125,6 +124,63 @@ public class BookDiscoveryDaoMongoIntegrationTest {
 
 	private void thenBookDiscoveryShouldNotBeEmpty() {
 		Assert.assertNotNull(bookDiscovery);
+	}
+
+	@Test
+	public void getDifferentBooks_DoesntReturnEmpty() {
+		whenGetDifferentBooks();
+		thenStringResultListShouldNotBeEmpty();
+	}
+
+	private void whenGetDifferentBooks() {
+		stringResultList = victim.getDifferentBooks();
+	}
+
+	private void thenStringResultListShouldNotBeEmpty() {
+		Assert.assertFalse(stringResultList.isEmpty());
+	}
+
+	@Test
+	public void getDifferentBooks_AllTitlesShouldBeDifferent() {
+		whenGetDifferentBooks();
+		thenStringResultListShouldBeAllDifferent();
+	}
+
+	private void thenStringResultListShouldBeAllDifferent() {
+		Set<String> differentTitles = new HashSet<String>(stringResultList);
+		Assert.assertEquals(differentTitles.size(), stringResultList.size());
+	}
+
+	@Test
+	public void getDifferentAuthors_ShoulNotBeEmpty() {
+		whenGetDifferentAuthors();
+		thenStringResultListShouldNotBeEmpty();
+	}
+
+	private void whenGetDifferentAuthors() {
+		stringResultList = victim.getDifferentAuthors();
+	}
+
+	@Test
+	public void getDifferentAuthors_AllTitlesShouldBeDifferent() {
+		whenGetDifferentAuthors();
+		thenStringResultListShouldBeAllDifferent();
+	}
+
+	@Test
+	public void getDifferentPatterns_ShoulNotBeEmpty() {
+		whenGetDifferentPatterns();
+		thenStringResultListShouldNotBeEmpty();
+	}
+
+	private void whenGetDifferentPatterns() {
+		stringResultList = victim.getDifferentPatterns();
+	}
+
+	@Test
+	public void getDifferentPatterns_AllTitlesShouldBeDifferent() {
+		whenGetDifferentPatterns();
+		thenStringResultListShouldBeAllDifferent();
 	}
 
 }

@@ -88,4 +88,14 @@ public class PercentageListTest {
 		thenPListShouldBe(33, 33, 33, 0);
 	}
 
+	@Test
+	public void getPercentageList_Twice_ReturnsSameValue() {
+		int expectedValue = 100;
+		givenPListWithValues(1);
+		whenGetPercentagetList();
+		thenPListShouldBe(expectedValue);
+		whenGetPercentagetList();
+		thenPListShouldBe(expectedValue);
+	}
+
 }

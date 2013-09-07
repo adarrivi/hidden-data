@@ -45,7 +45,7 @@ public class Reflection {
 		Field field = fieldAccessor
 				.getField(victim.getClass(), fieldName, true);
 		if (field == null) {
-			throw new ReflectionException("Field not found");
+			throw new ReflectionException("Field not found: " + fieldName);
 		}
 		field.setAccessible(true);
 		field.set(victim, value);

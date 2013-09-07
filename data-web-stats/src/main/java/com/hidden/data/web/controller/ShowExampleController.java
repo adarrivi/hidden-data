@@ -22,7 +22,7 @@ public class ShowExampleController {
 
 	@RequestMapping(value = "getRandomExample", method = RequestMethod.GET)
 	public @ResponseBody
-	PatternExampleDto getDatabaseInfo() {
+	PatternExampleDto getRandomExample() {
 		return showExampleService.getRandomExmaple();
 	}
 }
