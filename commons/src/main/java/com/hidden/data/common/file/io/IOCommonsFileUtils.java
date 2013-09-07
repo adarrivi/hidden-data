@@ -25,6 +25,11 @@ public class IOCommonsFileUtils implements CommonsFileUtils {
 	}
 
 	@Override
+	public File getFileFromAbsolutePath(String absolutePath) {
+		return new File(absolutePath);
+	}
+
+	@Override
 	public File getFileFromRelativePath(String relativePath) {
 		URL resource = getResourceFromRelativePath(relativePath);
 		return new File(resource.getPath());

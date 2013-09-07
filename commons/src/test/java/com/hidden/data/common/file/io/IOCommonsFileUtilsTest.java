@@ -11,7 +11,6 @@ import org.junit.rules.ExpectedException;
 
 import com.hidden.data.common.file.CommonsFileUtils;
 import com.hidden.data.common.file.exception.FileException;
-import com.hidden.data.common.file.io.IOCommonsFileUtils;
 
 public class IOCommonsFileUtilsTest {
 
@@ -23,7 +22,7 @@ public class IOCommonsFileUtilsTest {
 
 	private CommonsFileUtils victim = IOCommonsFileUtils.getInstance();
 	private File file;
-	private String relativePath;
+	private String filePath;
 	private Collection<File> files;
 
 	@Rule
@@ -41,11 +40,11 @@ public class IOCommonsFileUtilsTest {
 	}
 
 	private void givenNotExistingFile() {
-		relativePath = NOT_EXISTING_FILE_NAME;
+		filePath = NOT_EXISTING_FILE_NAME;
 	}
 
 	private void whenGetFileFromRelativePath() {
-		file = victim.getFileFromRelativePath(relativePath);
+		file = victim.getFileFromRelativePath(filePath);
 	}
 
 	@Test
@@ -56,7 +55,7 @@ public class IOCommonsFileUtilsTest {
 	}
 
 	private void givenExistingFilePath() {
-		relativePath = EXISTING_FILE;
+		filePath = EXISTING_FILE;
 	}
 
 	private void thenShouldReturnExistingFile() {
@@ -148,6 +147,17 @@ public class IOCommonsFileUtilsTest {
 
 	private void givenFolderWithSubfolder() {
 		file = getFile(ROOT_RESOURCES_FOLDER);
+	}
+
+	@Test
+	public void getFileFromAbsolutePath_ReturnsNewFile() {
+		whenGetFileFromAbsolutePath();
+		thenShouldReturnExistingFile();
+	}
+
+	private void whenGetFileFromAbsolutePath() {
+		File existingFile = victim.getFileFromRelativePath(EXISTING_FILE);
+		file = victim.getFileFromAbsolutePath(existingFile.getAbsolutePath());
 	}
 
 }

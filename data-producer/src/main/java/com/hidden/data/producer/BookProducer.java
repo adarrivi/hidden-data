@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.common.performance.PerformanceLogged;
@@ -17,6 +18,7 @@ import com.hidden.data.queue.connection.QueueConnectionFactory;
 import com.hidden.data.queue.model.FilterItem;
 
 @Component
+@Scope(value = "prototype")
 public class BookProducer implements Runnable {
 
 	private static final Logger LOG = Logger.getLogger(BookProducer.class);

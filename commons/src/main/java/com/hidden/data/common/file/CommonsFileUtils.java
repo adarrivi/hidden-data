@@ -7,6 +7,8 @@ public interface CommonsFileUtils {
 
 	File getFileFromRelativePath(String relativePath);
 
+	File getFileFromAbsolutePath(String absolutePath);
+
 	Collection<File> getFilesFromFolder(File folder);
 
 	Collection<File> getSubFolders(File folder);

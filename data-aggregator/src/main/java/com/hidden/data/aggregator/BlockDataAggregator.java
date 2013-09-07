@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.db.dao.BookDao;
@@ -21,6 +22,7 @@ import com.hidden.data.nosql.model.discovery.Line;
 import com.hidden.data.nosql.model.discovery.PatternDiscovery;
 
 @Component
+@Scope(value = "prototype")
 public class BlockDataAggregator implements Runnable {
 
 	private static final Logger LOG = LoggerFactory
@@ -61,6 +63,17 @@ public class BlockDataAggregator implements Runnable {
 		bookDiscoveryDao.save(bookDiscovery);
 	}
 
+	private List<Line> getBooLinesFromCurrentFilteredBlock() {
+		List<Line> lines = new ArrayList<Line>();
+		for (int i = 0; i < currentFilteredBlock.getLines().size(); i++) {
+			String lineContent = currentFilteredBlock.getLines().get(i);
+			Line line = new Line(currentFilteredBlock.getStartLineNumber() + i,
+					lineContent);
+			lines.add(line);
+		}
+		return lines;
+	}
+
 	private PatternDiscovery createDiscoveryPatternFromCurrentFilteredBlock() {
 		PatternDiscovery discoveryPattern = new PatternDiscovery(
 				currentPattern.getName(),
@@ -82,17 +95,6 @@ public class BlockDataAggregator implements Runnable {
 			patternContent.add(charactersPerLine);
 		}
 		return patternContent;
-	}
-
-	private List<Line> getBooLinesFromCurrentFilteredBlock() {
-		List<Line> lines = new ArrayList<Line>();
-		for (int i = 0; i < currentFilteredBlock.getLines().size(); i++) {
-			String lineContent = currentFilteredBlock.getLines().get(i);
-			Line line = new Line(currentFilteredBlock.getStartLineNumber() + i,
-					lineContent);
-			lines.add(line);
-		}
-		return lines;
 	}
 
 }

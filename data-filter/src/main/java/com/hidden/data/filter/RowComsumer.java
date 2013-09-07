@@ -3,6 +3,7 @@ package com.hidden.data.filter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.hidden.data.db.dao.PatternDao;
@@ -13,6 +14,7 @@ import com.hidden.data.queue.consumer.RowConsumerTemplate;
 import com.hidden.data.queue.model.FilterItem;
 
 @Component
+@Scope(value = "prototype")
 public class RowComsumer extends RowConsumerTemplate implements Runnable {
 
 	@Autowired

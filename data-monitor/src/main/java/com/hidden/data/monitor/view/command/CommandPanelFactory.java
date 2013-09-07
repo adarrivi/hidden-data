@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.hidden.data.aggregator.BlockDataAggregator;
 import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.producer.BookProducer;
+import com.hidden.data.queue.connection.QueueConnectionFactory;
 
 @Component
 public class CommandPanelFactory {
@@ -54,5 +55,11 @@ public class CommandPanelFactory {
 	private TaskButton createAggregateDataButton() {
 		return new TaskButton("Aggregate Data", blockDataAggregator,
 				threadPoolTaskExecutor);
+	}
+
+	public void setQueueConnectionFactory(
+			QueueConnectionFactory connectionFactory) {
+		rowComsumer.setConnectionFactory(connectionFactory);
+		bookProducer.setConnectionFactory(connectionFactory);
 	}
 }

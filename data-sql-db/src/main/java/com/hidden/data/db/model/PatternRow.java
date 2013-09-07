@@ -9,7 +9,7 @@ public class PatternRow implements PersistentEntity {
 	private String matchingLine;
 	private int startIndex;
 
-	PatternRow() {
+	public PatternRow() {
 		// Used by Hibernate
 	}
 

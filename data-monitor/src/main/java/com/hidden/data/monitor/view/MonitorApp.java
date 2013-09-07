@@ -14,12 +14,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.hidden.data.filter.RowComsumer;
 import com.hidden.data.monitor.interceptor.PerformanceHub;
 import com.hidden.data.monitor.view.command.CommandPanelFactory;
 import com.hidden.data.monitor.view.information.InformationPanel;
 import com.hidden.data.nosql.dao.FilteredBlockDao;
-import com.hidden.data.producer.BookProducer;
 import com.hidden.data.queue.connection.activemq.ConnectionActiveMqFactory;
 
 @Component("monitorApp")
@@ -42,10 +40,6 @@ public class MonitorApp extends JFrame {
 	@Autowired
 	private PerformanceHub performanceHub;
 	@Autowired
-	private BookProducer bookProducer;
-	@Autowired
-	private RowComsumer rowComsumer;
-	@Autowired
 	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 	@Autowired
 	private CommandPanelFactory commandPanelFactory;
@@ -61,7 +55,7 @@ public class MonitorApp extends JFrame {
 		ctx.registerShutdownHook();
 		final MonitorApp monitorApp = (MonitorApp) ctx.getBean("monitorApp");
 
-		monitorApp.initQueueConnection();
+		monitorApp.setVirtualQueueConnection();
 		monitorApp.createPanelsAndButtons();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -71,11 +65,9 @@ public class MonitorApp extends JFrame {
 		});
 	}
 
-	private void initQueueConnection() {
+	private void setVirtualQueueConnection() {
 		ConnectionActiveMqFactory.getInstance().setVmQueue();
-		rowComsumer.setConnectionFactory(ConnectionActiveMqFactory
-				.getInstance());
-		bookProducer.setConnectionFactory(ConnectionActiveMqFactory
+		commandPanelFactory.setQueueConnectionFactory(ConnectionActiveMqFactory
 				.getInstance());
 	}
 
