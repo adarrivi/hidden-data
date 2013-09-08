@@ -13,4 +13,6 @@ public interface CommonsFileUtils {
 
 	Collection<File> getSubFolders(File folder);
 
+	String getFileContentAsString(File file);
+
 }

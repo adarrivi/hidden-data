@@ -15,12 +15,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import com.hidden.data.common.file.exception.FileException;
-import com.hidden.data.common.property.FileProperties;
 
 public class FilePropertiesTest {
 
 	private static final String NOT_EXISTING_RELATIVE_FILE_PATH = "notExistingFile";
-	private static final String EXISTING_RELATIVE_FILE_PATH = "/file/Lorem_ipsum_dolor.txt";
+	private static final String EXISTING_RELATIVE_FILE_PATH = "/file/largeFile.txt";
 	private static final String PROPERTY_KEY = "aProperty";
 	private FileProperties victim;
 	private String relativePath;

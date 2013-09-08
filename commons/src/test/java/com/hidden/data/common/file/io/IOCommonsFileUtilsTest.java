@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Collection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,8 +16,11 @@ import com.hidden.data.common.file.exception.FileException;
 public class IOCommonsFileUtilsTest {
 
 	private static final String FILES_FOLDER = "/file/";
-	private static final String EXISTING_FILE = FILES_FOLDER
-			+ "Lorem_ipsum_dolor.txt";
+	private static final String EXISTING_LARGE_FILE = FILES_FOLDER
+			+ "largeFile.txt";
+	private static final String EXISTING_SHORT_FILE = FILES_FOLDER
+			+ "shortFile.txt";
+	private static final String EMPTY_FILE = FILES_FOLDER + "emptyFile.txt";
 	private static final String NOT_EXISTING_FILE_NAME = "doesNotExist.txt";
 	private static final String ROOT_RESOURCES_FOLDER = "/";
 
@@ -24,6 +28,7 @@ public class IOCommonsFileUtilsTest {
 	private File file;
 	private String filePath;
 	private Collection<File> files;
+	private String fileContent;
 
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
@@ -55,7 +60,7 @@ public class IOCommonsFileUtilsTest {
 	}
 
 	private void givenExistingFilePath() {
-		filePath = EXISTING_FILE;
+		filePath = EXISTING_LARGE_FILE;
 	}
 
 	private void thenShouldReturnExistingFile() {
@@ -71,7 +76,7 @@ public class IOCommonsFileUtilsTest {
 	}
 
 	private void givenExistingFile() {
-		file = getFile(EXISTING_FILE);
+		file = getFile(EXISTING_LARGE_FILE);
 		givenExistingFilePath();
 	}
 
@@ -156,8 +161,49 @@ public class IOCommonsFileUtilsTest {
 	}
 
 	private void whenGetFileFromAbsolutePath() {
-		File existingFile = victim.getFileFromRelativePath(EXISTING_FILE);
+		File existingFile = victim.getFileFromRelativePath(EXISTING_LARGE_FILE);
 		file = victim.getFileFromAbsolutePath(existingFile.getAbsolutePath());
 	}
 
+	@Test
+	public void getFileContentAsString_Folder_ThrowsFileEx() {
+		expectFileException();
+		givenEmptyFolder();
+		whenGetFileContentAsString();
+	}
+
+	private void whenGetFileContentAsString() {
+		fileContent = victim.getFileContentAsString(file);
+	}
+
+	@Test
+	public void getFileContentAsString_EmptyFile_ReturnsEmptyString() {
+		givenEmptyFile();
+		whenGetFileContentAsString();
+		thenFileContentShouldBe(StringUtils.EMPTY);
+	}
+
+	private void givenEmptyFile() {
+		file = getFile(EMPTY_FILE);
+	}
+
+	private void thenFileContentShouldBe(String expectedContent) {
+		Assert.assertEquals(expectedContent, fileContent);
+	}
+
+	@Test
+	public void getFileContentAsString_ReturnsFileContent() {
+		givenShortFile();
+		whenGetFileContentAsString();
+		StringBuffer expectedContent = new StringBuffer();
+		expectedContent
+				.append("Lorem ipsum dolor sit amet, consectetur adipisicing elit,")
+				.append(System.getProperty("line.separator"))
+				.append("sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.");
+		thenFileContentShouldBe(expectedContent.toString());
+	}
+
+	private void givenShortFile() {
+		file = getFile(EXISTING_SHORT_FILE);
+	}
 }

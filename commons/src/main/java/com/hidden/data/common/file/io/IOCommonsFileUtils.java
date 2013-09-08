@@ -2,6 +2,7 @@ package com.hidden.data.common.file.io;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
@@ -67,5 +68,14 @@ public class IOCommonsFileUtils implements CommonsFileUtils {
 			}
 		});
 		return Arrays.asList(directories);
+	}
+
+	@Override
+	public String getFileContentAsString(File file) {
+		try {
+			return FileUtils.readFileToString(file);
+		} catch (IOException e) {
+			throw new FileException(e);
+		}
 	}
 }

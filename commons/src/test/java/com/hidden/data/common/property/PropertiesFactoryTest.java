@@ -3,9 +3,6 @@ package com.hidden.data.common.property;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.hidden.data.common.property.FileProperties;
-import com.hidden.data.common.property.PropertiesFactory;
-
 public class PropertiesFactoryTest {
 
 	private PropertiesFactory victim = PropertiesFactory.getInstance();
@@ -20,7 +17,7 @@ public class PropertiesFactoryTest {
 	}
 
 	private void givenExistingPath() {
-		relativePath = "/file/Lorem_ipsum_dolor.txt";
+		relativePath = "/file/largeFile.txt";
 	}
 
 	private void whenGetPropertiesFromRelativePath() {
