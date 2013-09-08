@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-class CommandsPanel extends JPanel {
+import com.hidden.data.monitor.view.Panel;
+
+class CommandsPanel extends JPanel implements Panel {
 
 	private static final long serialVersionUID = -2682355053925283442L;
 	private static final int BUTTON_X_OFFSET = 10;
@@ -18,7 +20,8 @@ class CommandsPanel extends JPanel {
 	private List<TaskButton> buttonsList = new ArrayList<TaskButton>();
 	private int yPosition = BUTTON_Y_OFFSET;
 
-	void draw(Rectangle position) {
+	@Override
+	public void draw(Rectangle position) {
 		setBounds(position);
 		drawButtons();
 	}

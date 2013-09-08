@@ -9,7 +9,9 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
-public class InformationPanel extends JPanel {
+import com.hidden.data.monitor.view.Panel;
+
+public class InformationPanel extends JPanel implements Panel {
 
 	private static final long serialVersionUID = 1L;
 	private static final int EMPTY_BORDER_OFFSET = 5;
@@ -23,6 +25,7 @@ public class InformationPanel extends JPanel {
 	private Rectangle position;
 	private Rectangle cursorPosition;
 
+	@Override
 	public void draw(Rectangle position) {
 		this.setBounds(position);
 		this.position = position;

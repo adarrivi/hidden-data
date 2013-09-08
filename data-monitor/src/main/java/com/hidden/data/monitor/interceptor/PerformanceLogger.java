@@ -16,12 +16,12 @@ public class PerformanceLogger {
 	private PerformanceHub performanceHub;
 
 	@Around("@annotation(performanceAnnotation)")
-	public Object logBefore(ProceedingJoinPoint jointPoint,
+	public Object logExecutionTime(ProceedingJoinPoint joinPoint,
 			PerformanceLogged performanceAnnotation) throws Throwable {
 		String identifier = performanceAnnotation.identifier();
 		long currentTimeMillis = System.currentTimeMillis();
 		try {
-			return jointPoint.proceed();
+			return joinPoint.proceed();
 		} catch (Throwable e) {
 			throw e;
 		} finally {
