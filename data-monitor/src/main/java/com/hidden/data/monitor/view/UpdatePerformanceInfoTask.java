@@ -42,7 +42,8 @@ public class UpdatePerformanceInfoTask extends TimerTask {
 	}
 
 	private void addExecutionStringBuffer() {
-		stringBuffer.append(currentExecutionId).append(", Exec. Number: ")
+		stringBuffer.append("Method id: ").append(currentExecutionId)
+				.append("\n- Executions: ")
 				.append(currentPerformanceElement.getExecutions())
 				.append(", Avrg: ")
 				.append(currentPerformanceElement.getAverageExecutionTime())

@@ -1,11 +1,9 @@
 package com.hidden.data.monitor.view.command;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 class CommandsPanel extends JPanel {
@@ -22,7 +20,6 @@ class CommandsPanel extends JPanel {
 
 	void draw(Rectangle position) {
 		setBounds(position);
-		setBorder(BorderFactory.createLineBorder(Color.black));
 		drawButtons();
 	}
 

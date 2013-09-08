@@ -25,7 +25,7 @@ public class MonitorApp extends JFrame {
 
 	private static final int MAIN_PANEL_EMPTY_BORDER_WIDTH = 5;
 	private static final Rectangle DIALOG_POS = new Rectangle(100, 100, 600,
-			400);
+			250);
 	private static final Rectangle COMMAND_PANEL_POS = new Rectangle(
 			MAIN_PANEL_EMPTY_BORDER_WIDTH, MAIN_PANEL_EMPTY_BORDER_WIDTH, 150,
 			200);
